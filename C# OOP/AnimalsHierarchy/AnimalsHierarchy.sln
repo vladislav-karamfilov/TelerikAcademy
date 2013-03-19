@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsHierarchy.Common", "AnimalsHierarchy.Common\AnimalsHierarchy.Common.csproj", "{F60CFB47-DA4A-474B-B329-45C9EE93108B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsHierarchy.UI", "AnimalsHierarchy.UI\AnimalsHierarchy.UI.csproj", "{ADE8C3C8-49E9-48D5-BBDB-4F94958FE2EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F60CFB47-DA4A-474B-B329-45C9EE93108B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F60CFB47-DA4A-474B-B329-45C9EE93108B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F60CFB47-DA4A-474B-B329-45C9EE93108B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F60CFB47-DA4A-474B-B329-45C9EE93108B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE8C3C8-49E9-48D5-BBDB-4F94958FE2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE8C3C8-49E9-48D5-BBDB-4F94958FE2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE8C3C8-49E9-48D5-BBDB-4F94958FE2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE8C3C8-49E9-48D5-BBDB-4F94958FE2EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

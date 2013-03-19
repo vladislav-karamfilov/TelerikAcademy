@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolHierarchy.UI", "SchoolHierarchy.UI\SchoolHierarchy.UI.csproj", "{9EF80AC6-45D9-427D-BCB5-60A5FB554F40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolHierarchy.Common", "SchoolHierarchy.Common\SchoolHierarchy.Common.csproj", "{50CE9460-14E2-4090-908D-B260D782C3F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EF80AC6-45D9-427D-BCB5-60A5FB554F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF80AC6-45D9-427D-BCB5-60A5FB554F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF80AC6-45D9-427D-BCB5-60A5FB554F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF80AC6-45D9-427D-BCB5-60A5FB554F40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CE9460-14E2-4090-908D-B260D782C3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CE9460-14E2-4090-908D-B260D782C3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CE9460-14E2-4090-908D-B260D782C3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CE9460-14E2-4090-908D-B260D782C3F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
