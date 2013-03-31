@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Letter case change with tags</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Changing the letter case of text with specific tags</h1>
+    <label for="tb-text">Enter the text: </label>
+    <input type="text" id="tb-text" />
+    <br />
+	<a href="#" onclick="onChangeCaseButtonClick()">Change case</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onChangeCaseButtonClick() {
+            var text = jsConsole.read("#tb-text");
+            var newText = changeCase(text);
+            jsConsole.writeLine("The new text is: " + newText);
+        }
+
+        function changeCase(text) {
+            var newText = buildStringBuilder();
+            var inTag = false;
+            var inClosingTag = false;
+            var currentTag = buildStringBuilder();
+            for (var index = 0; index < text.length; index++) {
+                if (text[index] === "<") {
+                    currentTag.clear();
+                    if (index < text.length - 1 && text[index + 1] === "/") {
+                        index++;
+                        inClosingTag = true;
+                        continue;
+                    }
+                    inTag = true;
+                    continue;
+                }
+                else if (text[index] === ">") {
+                    inTag = false;
+                    inClosingTag = false;
+                    continue;
+                }
+                if (inClosingTag) {
+                    continue;
+                }
+                if (inTag) {
+                    currentTag.append(text[index]);
+                }
+                else {
+                    if (currentTag.length != 0) {
+                        if (currentTag.toString() === "lowcase") {
+                            newText.append(text[index].toLowerCase());
+                        }
+                        else if (currentTag.toString() === "upcase") {
+                            newText.append(text[index].toUpperCase());
+                        }
+                        else if (currentTag.toString() === "mixcase") {
+                            if (Math.random() < 0.5) {
+                                newText.append(text[index].toLowerCase());
+                            }
+                            else {
+                                newText.append(text[index].toUpperCase());
+                            }
+                        }
+                    }
+                    else {
+                        newText.append(text[index]);
+                    }
+                }
+            }
+            return newText;
+        }
+
+        function buildStringBuilder() {
+            return {
+                result: [],
+                length: 0,
+                append: function (value) {
+                    this.result[this.length] = value;
+                    this.length++;
+                    return this;
+                },
+                clear: function () {
+                    this.result = [];
+                    this.length = 0;
+                },
+                toString: function () {
+                    return this.result.join("");
+                }
+            };
+        }
+    </script>
+</body>
+</html>
