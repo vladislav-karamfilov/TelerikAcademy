@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Comparison with neighbours in an array</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Checking if the element at some index in an array of integers is bigger than its neighbours</h1>
+    <label for="tb-inputArray">Enter the elements of the array separated by ",": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <label for="tb-index">Enter the index of the element you want to check: </label>
+    <input type="text" id="tb-index" />
+    <br />
+    <a href="#" onclick="onCompareButtonClick()">Compare with neighbours</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onCompareButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var numbersArray = getNumbersArray(inputArrayAsString);
+            var index = jsConsole.readInteger("#tb-index");
+            if (index > numbersArray.length) {
+                jsConsole.writeLine("The index " + index + " is out of the boundaries of the array!");
+                return;
+            }
+            var isBiggerThanNeighbours = compareWithNeighbours(numbersArray, index);
+            if (isBiggerThanNeighbours) {
+                jsConsole.writeLine("The element at index " + index + " is bigger than its neighbours.");
+            }
+            else {
+                jsConsole.writeLine("The element at index " + index + " is not bigger than its neighbours.");
+            }
+        }
+
+        function getNumbersArray(arrayAsString) {
+            var inputArrayElementsAsStrings = arrayAsString.split(",");
+            var length = inputArrayElementsAsStrings.length;
+            var numbersArray = new Array(length);
+            for (var index = 0; index < length; index++) {
+                numbersArray[index] = parseInt(inputArrayElementsAsStrings[index]);
+            }
+            return numbersArray;
+        }
+
+        function compareWithNeighbours(numbersArray, index) {
+            length = numbersArray.length;
+            if (index == 0) { // The first element to be compared to the second one
+                if (length == 1) { // Special case: the array is with one element
+                    return true;
+                }
+                if (numbersArray[index] > numbersArray[index + 1]) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (index == length - 1) { // The last element to be compared to the previous one
+                if (numbersArray[index] > numbersArray[index - 1]) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                if (numbersArray[index] > numbersArray[index - 1] && numbersArray[index] > numbersArray[index + 1]) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

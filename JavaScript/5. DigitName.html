@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Digit name provider</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Printing the name of an entered digit</h1>
+    <label for="tb-digit">Enter a digit: </label>
+	<input type="text" id="tb-digit" />
+	<br />
+    <a href="#" onclick="onGetDigitNameButtonClick()">Get digit name</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onGetDigitNameButtonClick() {
+            var digit = parseInt(jsConsole.readInteger("#tb-digit"));
+            if (digit < 0 || digit > 9) {
+                jsConsole.writeLine("The input value is not a digit!");
+            }
+            else {
+                switch (digit) {
+                    case 1:
+                        jsConsole.writeLine("One");
+                        break;
+                    case 2:
+                        jsConsole.writeLine("Two");
+                        break;
+                    case 3:
+                        jsConsole.writeLine("Three");
+                        break;
+                    case 4:
+                        jsConsole.writeLine("Four");
+                        break;
+                    case 5:
+                        jsConsole.writeLine("Five");
+                        break;
+                    case 6:
+                        jsConsole.writeLine("Six");
+                        break;
+                    case 7:
+                        jsConsole.writeLine("Seven");
+                        break;
+                    case 8:
+                        jsConsole.writeLine("Eight");
+                        break;
+                    case 9:
+                        jsConsole.writeLine("Nine");
+                        break;
+                    default:
+                        jsConsole.writeLine("Zero");
+                        break;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

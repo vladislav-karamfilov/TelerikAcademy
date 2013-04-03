@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hyperlink tags replacer</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Replacing all the tags &lt;a href=\"...\"&gt;...&lt;/a&gt; with [URL=...]...[/URL]</h1>
+    <label for="tb-htmlText">Enter the HTML text: </label>
+    <input type="text" id="tb-htmlText" />
+    <br />
+	<a href="#" onclick="onReplaceHyperlinksButtonClick()">Replace all hyperlink tags</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onReplaceHyperlinksButtonClick() {
+            var htmlText = jsConsole.read("#tb-htmlText");
+            var newHtmlText = replaceHyperlinkTags(htmlText);
+            jsConsole.writeLine("After the replacement the HTML is: " + newHtmlText);
+        }
+
+        function replaceHyperlinkTags(htmlText) {
+            var newHtmlText = new String(htmlText);
+            var startIndex = newHtmlText.indexOf('<a href="');
+            while (startIndex != -1) {
+                newHtmlText = newHtmlText.replace('<a href="', '[URL=');
+                newHtmlText = newHtmlText.replace('">', ']');
+                newHtmlText = newHtmlText.replace('</a>', '[/URL]');
+                startIndex = newHtmlText.indexOf('<a href="');
+            }
+            return newHtmlText;
+        }
+    </script>
+</body>
+</html>

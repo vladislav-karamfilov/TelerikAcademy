@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Comparing 2 char arrays lexicographically</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Reading two char arrays and comparing them lexicographically</h1>
+    <label for="tb-firstArray">Enter the elements of the first char array separated by ",": </label>
+	<input type="text" id="tb-firstArray" />
+	<br />
+    <label for="tb-secondArray">Enter the elements of the second char array separated by ",": </label>
+	<input type="text" id="tb-secondArray" />
+	<br />
+    <a href="#" onclick="onCompareArraysButtonClick()">Compare arrays</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCompareArraysButtonClick() {
+            var firstArrayAsString = jsConsole.read("#tb-firstArray");
+            var secondArrayAsString = jsConsole.read("#tb-secondArray");
+
+            // Filling the arrays with chars from the input values
+            var firstArray = firstArrayAsString.split(",");
+            var secondArray = secondArrayAsString.split(",");
+
+            // Checking the lengths of the arrays
+            if (firstArray.length != secondArray.length) {
+                jsConsole.writeLine("The arrays cannot be equal because they have different number of elements!");
+                return;
+            }
+
+            var arraysLength = firstArray.length;
+            for (var index = 0; index < arraysLength; index++) {
+                var firstArrayElement = ((String)(firstArray[index])).trim();
+                var secondArrayElement = ((String)(secondArray[index])).trim();
+                // Checking for invalid input
+                if (firstArrayElement.length != 1 || secondArrayElement.length != 1) {
+                    jsConsole.writeLine("Invalid input! Each element must be a single character!");
+                    return;
+                }
+                // Comapring the elements at 'index' from both arrays
+                if (firstArrayElement != secondArrayElement) {
+                    jsConsole.writeLine("The arrays are not equal!");
+                    return;
+                }
+            }
+            jsConsole.writeLine("The arrays are equal!");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Conditional exchange of integers</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Exchanging the values of two integers if the first one is greater than the second one</h1>
+    <label for="tb-number1">Enter an integer a: </label>
+	<input type="text" id="tb-number1" />
+	<br />
+    <label for="tb-number2">Enter an integer b: </label>
+	<input type="text" id="tb-number2" />
+	<br />
+    <a href="#" onclick="onExchangeButtonClick()">Exchange</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onExchangeButtonClick() {
+            var firstInteger = parseInt(jsConsole.readInteger("#tb-number1"));
+            var secondInteger = parseInt(jsConsole.readInteger("#tb-number2"));
+            if (firstInteger > secondInteger) {
+                var temp = firstInteger;
+                firstInteger = secondInteger;
+                secondInteger = temp;
+                jsConsole.writeLine("After the exchange a = " + firstInteger + " and b = " + secondInteger +".");
+            }
+            else {
+                jsConsole.writeLine("There is no need to exchange the values because a <= b.");
+            }
+        }
+    </script>
+</body>
+</html>

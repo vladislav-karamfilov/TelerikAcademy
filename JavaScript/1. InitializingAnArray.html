@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Initializing an array</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Allocating an array of 20 integers and initializing each element by its index multiplied by 5</h1>
+	<br />
+    <a href="#" onclick="onPrintElementsButtonClick()">Print elements of the array</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onPrintElementsButtonClick() {
+            var array = new Array(20);
+            for (var index = 0; index < 20; index++)
+            {
+                array[index] = index * 5;
+                jsConsole.writeLine(array[index]);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Selection sort</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Implementation of the Selection Sort Algorithm for array of numbers</h1>
+    <label for="tb-inputArray">Enter numbers separated by ",": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <a href="#" onclick="onSortButtonClick()">Sort the array</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onSortButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var inputArrayElementsAsStrings = inputArrayAsString.split(",");
+
+            var length = inputArrayElementsAsStrings.length;
+            // Check for empty array
+            if (length == 0) {
+                jsConsole.writeLine("No numbers are entered!");
+                return;
+            }
+
+            var numbers = new Array(length);
+            for (var index = 0; index < length; index++) {
+                numbers[index] = parseFloat(inputArrayElementsAsStrings[index]);
+            }
+
+            // Getting the smallest element from the subarray and moving it to the first position and repeating
+            for (var index1 = 0; index1 < length - 1; index1++) {
+                var minElementIndex = index1;
+                for (var index2 = index1 + 1; index2 < length; index2++) {
+                    if (numbers[index2] < numbers[minElementIndex]) {
+                        minElementIndex = index2;
+                    }
+                }
+                // A change of the indexes exist => exchange them
+                if (minElementIndex != index1) {
+                    numbers[index1] = numbers[index1] + numbers[minElementIndex];
+                    numbers[minElementIndex] = numbers[index1] - numbers[minElementIndex];
+                    numbers[index1] = numbers[index1] - numbers[minElementIndex];
+                }
+            }
+            // Printing the result
+            jsConsole.write("The sorted array is: ");
+            for (var index in numbers) {
+                jsConsole.write(numbers[index] + " ");
+            }
+            jsConsole.writeLine();
+        }
+    </script>
+</body>
+</html>

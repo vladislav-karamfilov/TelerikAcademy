@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Substring occurrences</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Counting how many times a substring is contained in a text (case insensitive search)</h1>
+    <label for="tb-text">Enter the text: </label>
+    <input type="text" id="tb-text" />
+    <br />
+	<label for="tb-substring">Enter the substring: </label>
+    <input type="text" id="tb-substring" />
+    <br />
+    <a href="#" onclick="onCountOccursButtonClick()">Count occurrences</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCountOccursButtonClick() {
+            var text = jsConsole.read("#tb-text");
+            var substring = jsConsole.read("#tb-substring");
+            var substringOccurrences = countOccurrences(text, substring);
+			jsConsole.writeLine("The substring '" + substring + "' is contained " + substringOccurrences + " times in the text!");
+        }
+
+        function countOccurrences(text, substring) {
+            text = text.toLowerCase();
+			var occurrences = 0;
+			var startIndex = -1;
+			while (true)
+			{
+				startIndex = text.indexOf(substring, startIndex + 1);
+				if (startIndex === -1)
+				{
+					break;
+				}
+				occurrences++;
+			}
+			return occurrences;
+		}
+    </script>
+</body>
+</html>

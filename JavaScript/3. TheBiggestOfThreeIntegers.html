@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The biggest of three integers</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the biggest of three integers</h1>
+    <label for="tb-number1">Enter an integer: </label>
+	<input type="text" id="tb-number1" />
+	<br />
+    <label for="tb-number2">Enter an integer: </label>
+	<input type="text" id="tb-number2" />
+	<br />
+    <label for="tb-number3">Enter an integer: </label>
+	<input type="text" id="tb-number3" />
+	<br />
+    <a href="#" onclick="onFindBiggestButtonClick()">Find the biggest</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onFindBiggestButtonClick() {
+            var firstInteger = parseInt(jsConsole.readInteger("#tb-number1"));
+            var secondInteger = parseInt(jsConsole.readInteger("#tb-number2"));
+            var thirdInteger = parseInt(jsConsole.readInteger("#tb-number3"));
+            if (firstInteger >= secondInteger) {
+                if (firstInteger >= thirdInteger) {
+                    jsConsole.writeLine("The biggest of the numbers is " + firstInteger);
+                }
+                else if (firstInteger <= thirdInteger) {
+                    jsConsole.writeLine("The biggest of the numbers is " + thirdInteger);
+                }
+            }
+            else {
+                if (secondInteger >= thirdInteger) {
+                    jsConsole.writeLine("The biggest of the numbers is " +  secondInteger);
+                }
+                else if (secondInteger <= thirdInteger) {
+                    jsConsole.writeLine("The biggest of the numbers is " + thirdInteger);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

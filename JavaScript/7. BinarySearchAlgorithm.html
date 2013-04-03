@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Binary search</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Implementation of the Binary Search Algorithm for array of integers</h1>
+    <label for="tb-inputArray">Enter integers separated by ",": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <label for="tb-searchElement">Enter the integer which index after the sort you want to be found: </label>
+    <input type="text" id="tb-searchElement" />
+    <br />
+    <a href="#" onclick="onSearchButtonClick()">Search</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        // Function needed to sort the input array correctly
+        function orderBy(firstNumber, secondNumber) {
+            if (firstNumber == secondNumber) {
+                return 0;
+            }
+            else if (firstNumber > secondNumber) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        }
+
+        function onSearchButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var inputArrayElementsAsStrings = inputArrayAsString.split(",");
+
+            var length = inputArrayElementsAsStrings.length;
+            // Check for empty array
+            if (length == 0) {
+                jsConsole.writeLine("No numbers are entered!");
+                return;
+            }
+
+            var array = new Array(length);
+            for (var index = 0; index < length; index++) {
+                array[index] = parseInt(inputArrayElementsAsStrings[index]);
+            }
+
+            var element = parseInt(jsConsole.read("#tb-searchElement"));
+
+            array.sort(orderBy); // The binary search algorithm must be applied to a sorted array
+            var startIndex = 0;
+            var endIndex = length - 1;
+            var searchedIndex = -1; // So we can use it like a flag for element not found
+            while (startIndex <= endIndex) {
+                var middleIndex = Math.floor((startIndex + endIndex) / 2);
+                if (element < array[middleIndex]) {
+                    endIndex = middleIndex - 1;
+                }
+                else if (element > array[middleIndex]) {
+                    startIndex = middleIndex + 1;
+                }
+                else {
+                    searchedIndex = middleIndex;
+                    break;
+                }
+            }
+            if (searchedIndex >= 0) {
+                jsConsole.writeLine("The element " + element + " is at index " + searchedIndex + " in the sorted array.");
+            }
+            else {
+                jsConsole.writeLine("There isn't such element in the array!");
+            }
+        }
+    </script>
+</body>
+</html>

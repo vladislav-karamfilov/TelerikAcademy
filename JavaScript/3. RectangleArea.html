@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Rectangle's area calculator</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Calculating the area of a rectangle with provided width and height</h1>
+    <label for="tb-width">Enter the width of the rectangle: </label>
+	<input type="text" id="tb-width" />
+	<br />
+    <label for="tb-height">Enter the height of the rectangle: </label>
+	<input type="text" id="tb-height" />
+	<br />
+    <a href="#" onclick="onCalculateAreaClick()">Calculate area</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCalculateAreaClick() {
+            var width = parseFloat(jsConsole.readFloat("#tb-width"));
+            var height = parseFloat(jsConsole.readFloat("#tb-height"));
+            var rectangleArea = width * height;
+            jsConsole.writeLine("Rectangle's area is: " + rectangleArea);
+        }
+    </script>
+</body>
+</html>

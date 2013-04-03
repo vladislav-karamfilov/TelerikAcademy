@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Reverse digits of a decimal number</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Reversing the digits of a decimal number</h1>
+    <label for="tb-number">Enter a decimal number: </label>
+    <input type="text" id="tb-number" />
+    <br />
+    <a href="#" onclick="onReverseDigitsButtonClick()">Reverse digits</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onReverseDigitsButtonClick() {
+            var number = jsConsole.readInteger("#tb-number");
+            var reversedDigitsNumber = reverseDigits(number);
+            jsConsole.writeLine("The reversed number is: " + reversedDigitsNumber);
+        }
+        function reverseDigits(number) {
+            var isNegative = false;
+            if (number < 0) {
+                isNegative = true;
+                number = Math.abs(number);
+            }
+            var reversedNumberString = "";
+            do {
+                reversedNumberString += number % 10;
+                number = Math.floor(number / 10);
+            } while (number > 0);
+            if (isNegative) {
+                return (-1) * parseInt(reversedNumberString);
+            }
+            else {
+                return parseInt(reversedNumberString);
+            }
+        }
+    </script>
+</body>
+</html>

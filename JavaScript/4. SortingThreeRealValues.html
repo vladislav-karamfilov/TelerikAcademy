@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Descending sort of three real numbers</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Sorting three real values in descending order</h1>
+    <label for="tb-number1">Enter a real number: </label>
+	<input type="text" id="tb-number1" />
+	<br />
+    <label for="tb-number2">Enter a real number: </label>
+	<input type="text" id="tb-number2" />
+	<br />
+    <label for="tb-number3">Enter a real number: </label>
+	<input type="text" id="tb-number3" />
+	<br />
+    <a href="#" onclick="onSortButtonClick()">Sort</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onSortButtonClick() {
+            var firstNumber = parseFloat(jsConsole.readFloat("#tb-number1"));
+            var secondNumber = parseFloat(jsConsole.readFloat("#tb-number2"));
+            var thirdNumber = parseFloat(jsConsole.readFloat("#tb-number3"));
+            if ((firstNumber >= secondNumber) && (secondNumber >= thirdNumber) && (firstNumber >= thirdNumber)) {
+                jsConsole.writeLine("The numbers in descending order are " + firstNumber + " -> " + secondNumber + " -> " + thirdNumber + ".");
+            }
+            else if ((firstNumber <= secondNumber) && (secondNumber >= thirdNumber) && (firstNumber >= thirdNumber)) {
+                jsConsole.writeLine("The numbers in descending order are " + secondNumber + " -> " + firstNumber + " -> " + thirdNumber + ".");
+            }
+            else if ((firstNumber >= secondNumber) && (secondNumber <= thirdNumber) && (firstNumber >= thirdNumber)) {
+                jsConsole.writeLine("The numbers in descending order are " + firstNumber + " -> " + thirdNumber + " -> " + secondNumber + ".");
+            }
+            else if ((firstNumber <= secondNumber) && (secondNumber >= thirdNumber) && (firstNumber <= thirdNumber)) {
+                jsConsole.writeLine("The numbers in descending order are " + secondNumber + " -> " + thirdNumber + " -> " + firstNumber + ".");
+            }
+            else if ((firstNumber >= secondNumber) && (secondNumber <= thirdNumber) && (firstNumber <= thirdNumber)) {
+                jsConsole.writeLine("The numbers in descending order are " + thirdNumber + " -> " + firstNumber + " -> " + secondNumber + ".");
+            }
+            else {
+                jsConsole.writeLine("The numbers in descending order are " + thirdNumber + " -> " + secondNumber + " -> " + firstNumber + ".");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Deep copy of an object</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Demonstrating deep copy of an object</h1>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var number = 54210; // Primitive type
+        var cloneNumber = deepClone(number);
+        jsConsole.writeLine("The original number is " + number + " and the cloned is " + cloneNumber);
+        cloneNumber = 9990;
+        jsConsole.writeLine("After changing the value of the cloned number the original number is " +
+            number + " and the cloned is " + cloneNumber);
+        jsConsole.writeLine();
+
+        var array = [1, 6, 2, "111", 61, "Pesho"];
+        var cloneArray = deepClone(array);
+        jsConsole.writeLine("The original array is " + array + " and the cloned is " + cloneArray);
+        array[2] = "Gosho";
+        jsConsole.writeLine("After changing a value from the original array the original array is " + array +
+            " and the cloned is " + cloneArray);
+        jsConsole.writeLine();
+
+        var student = {
+            firstName: "Ivan",
+            lastName: "Ivanov",
+            grades: [6, 4.6, 5, 5.5],
+            age: 22,
+            toString: function () { return this.firstName + " " + this.lastName + " " + this.age + " years old with grades: " + this.grades; }
+        };
+        var cloneStudent = deepClone(student);
+        jsConsole.writeLine("The original student is: " + student.toString() + " and the cloned is: " + cloneStudent.toString());
+        cloneStudent.grades[3] = 6;
+        jsConsole.writeLine("After changing the last grade of the cloned student the original student is: " + student.toString() +
+            " and the cloned is: " + cloneStudent.toString());
+
+        function deepClone(original) {
+            var clone;
+            if (typeof original === "object") {
+                if (original instanceof Array) {
+                    clone = [];
+                    clone = getCloneOfArray(original);
+                }
+                else {
+                    clone = {};
+                    for (var property in original) {
+                        if (typeof original[property] === "object" && original[property] instanceof Array) {
+                            clone[property] = getCloneOfArray(original[property]);
+                        }
+                        else if (typeof original[property] === "object") {
+                            clone[property] = deepClone(original[property]);
+                        }
+                        else {
+                            clone[property] = original[property];
+                        }
+                    }
+                }
+                function getCloneOfArray(original) {
+                    var tempClone = [];
+                    for (var index = 0; index < original.length; index++) {
+                        if (typeof original[index] === "object") {
+                            tempClone.push(deepClone(original[index]));
+                        }
+                        else {
+                            tempClone.push(original[index]);
+                        }
+                    }
+                    return tempClone;
+                }
+                return clone;
+            }
+            else {
+                return original;
+            }
+        }
+    </script>
+</body>
+</html>

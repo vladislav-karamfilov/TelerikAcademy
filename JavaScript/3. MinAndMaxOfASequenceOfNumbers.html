@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Minimal and maximal numbers from a sequence</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the minimal and maximal numbers from a sequence of numbers</h1>
+    <a href="#" onclick="onGetMinMaxButtonClick()">Get min and max</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onGetMinMaxButtonClick() {
+            var numbers = new Array(38.93266828562, 66.336832035521, -80.067759795632, 66.416550934772, -84.597268959923, -66.38418952085,
+                -63.839744262059, -16.374917914457, 16.253884732659, 33.416580728859, -96.752172496638, -94.936235116924, 88.796746127338,
+                49.531263587993, -8.8812577623604, 29.431659177013, -100.65808523449, -51.457083581572, -94.130943401579, -99.470255095732);
+            var min = 9007199254740992;
+            var max = -9007199254740992;
+            jsConsole.writeLine("The numbers in the sequence are: ");
+            for (var index = 0; index < numbers.length; index++) {
+                if (numbers[index] > max) {
+                    max = numbers[index];
+                }
+                if (numbers[index] < min) {
+                    min = numbers[index];
+                }
+                jsConsole.writeLine(numbers[index]);
+            }
+            jsConsole.writeLine();
+            jsConsole.writeLine("The minimal number is " + min);
+            jsConsole.writeLine("The maximal number is " + max);
+        }
+    </script>
+</body>
+</html>

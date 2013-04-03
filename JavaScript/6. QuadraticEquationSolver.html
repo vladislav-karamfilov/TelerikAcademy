@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Quadratic equation solver</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the real roots of a quadratic equation a*x^2 + b*x + c = 0</h1>
+    <label for="tb-number1">Enter coefficient a: </label>
+	<input type="text" id="tb-number1" />
+	<br />
+    <label for="tb-number2">Enter coefficient b: </label>
+	<input type="text" id="tb-number2" />
+	<br />
+    <label for="tb-number3">Enter coefficient c: </label>
+	<input type="text" id="tb-number3" />
+	<br />
+    <a href="#" onclick="onSolveEquationButtonClick()">Solve equation</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onSolveEquationButtonClick() {
+            var aCoefficient = parseFloat(jsConsole.readFloat("#tb-number1"));
+            var bCoefficient = parseFloat(jsConsole.readFloat("#tb-number2"));
+            var cCoefficient = parseFloat(jsConsole.readFloat("#tb-number3"));
+            if (aCoefficient == 0) {
+                var root = -cCoefficient / bCoefficient;
+                jsConsole.writeLine("The quadratic equation with these coefficients is actually linear equation and its only root is " + root);
+            }
+            else {
+                var discriminant = bCoefficient * bCoefficient - 4 * aCoefficient * cCoefficient;
+                if (discriminant < 0.0) {
+                    jsConsole.writeLine("The quadratic equation with these coefficients has no real roots. It has complex roots.");
+                }
+                else if (discriminant == 0.0) {
+                    var root = -bCoefficient / (2 * aCoefficient);
+                    jsConsole.writeLine("The quadratic equation with these coefficients has one root equal to "+ root);
+                }
+                else {
+                    var root1 = (-bCoefficient - Math.sqrt(discriminant)) / (2 * aCoefficient);
+                    var root2 = (-bCoefficient + Math.sqrt(discriminant)) / (2 * aCoefficient);
+                    jsConsole.writeLine("The quadratic equation with these coefficients has roots " + root1 + " and " + root2);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

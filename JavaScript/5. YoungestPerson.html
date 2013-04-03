@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Youngest person in an array of people</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the youngest person in an array of people</h1>
+    <label for="tb-inputArray">Enter people in format "FirstName LastName Age" separated by "|": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <a href="#" onclick="onGetYoungestButtonClick()">Get youngest person</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function buildPerson(firstName, lastName, age) {
+            return {
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                toString: function () { return this.firstName + " " + this.lastName + " " + this.age + " years old"; }
+            }
+        }
+
+        function onGetYoungestButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var peopleArray = getPeopleArray(inputArrayAsString);
+            peopleArray.sort(orderBy);
+            jsConsole.writeLine("The youngest person in the array of people is: " + peopleArray[0].toString());
+        }
+
+        function getPeopleArray(inputArrayAsString) {
+            var peopleArray = new Array();
+            var peopleAsStrings = inputArrayAsString.split("|");
+            var peopleCount = peopleAsStrings.length;
+            for (var person = 0; person < peopleCount; person++) {
+                var personNamesAndAge = peopleAsStrings[person].trim().split(" ");
+                peopleArray.push(buildPerson(personNamesAndAge[0], personNamesAndAge[1], personNamesAndAge[2]));
+            }
+            return peopleArray;
+        }
+
+        function orderBy(firstPerson, secondPerson) {
+            var firstPersonAge = parseInt(firstPerson.age);
+            var secondPersonAge = parseInt(secondPerson.age);
+            if (firstPersonAge > secondPersonAge) {
+                return 1;
+            }
+            else if (firstPersonAge < secondPersonAge) {
+                return -1;
+            }
+            else {
+                return 0;
+            }
+        }
+    </script>
+</body>
+</html>

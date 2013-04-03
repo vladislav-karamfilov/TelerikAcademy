@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Most frequent number in an array</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the most frequent number in an array</h1>
+    <label for="tb-inputArray">Enter numbers separated by ",": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <a href="#" onclick="onFindNumberButtonClick()">Find most frequent number</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        // Function needed to sort the input array correctly
+        function orderBy(firstNumber, secondNumber) {
+            if (firstNumber == secondNumber) {
+                return 0;
+            }
+            else if (firstNumber > secondNumber) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        }
+
+        function onFindNumberButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var inputArrayElementsAsStrings = inputArrayAsString.split(",");
+
+            var length = inputArrayElementsAsStrings.length;
+            // Check for empty array
+            if (length == 0) {
+                jsConsole.writeLine("No numbers are entered!");
+                return;
+            }
+
+            var numbers = new Array(length);
+            for (var index = 0; index < length; index++) {
+                numbers[index] = parseFloat(inputArrayElementsAsStrings[index]);
+            }
+
+            numbers.sort(orderBy); // Sorting the array so we can scan with only one loop
+            var frequency = 1;
+            var maxFrequency = 1;
+            var mostFrequent = numbers[0];
+            for (var index = 1; index < length; index++) {
+                if (numbers[index] == numbers[index - 1]) {
+                    frequency++;
+                    if (frequency > maxFrequency) {
+                        maxFrequency = frequency;
+                        mostFrequent = numbers[index];
+                    }
+                }
+                else {
+                    frequency = 1;
+                }
+            }
+            jsConsole.writeLine("The most frequent number is: " + mostFrequent + " -> " + maxFrequency + " times.");
+        }
+    </script>
+</body>
+</html>

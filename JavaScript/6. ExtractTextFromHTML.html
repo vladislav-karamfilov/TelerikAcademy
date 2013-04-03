@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>HTML page text content</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Extracting all the text between the tags from given HTML text</h1>
+    <label for="tb-text">Enter the HTML text: </label>
+    <input type="text" id="tb-text" />
+    <br />
+	<a href="#" onclick="onGetTextButtonClick()">Get the text</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onGetTextButtonClick() {
+            var htmlText = jsConsole.read("#tb-text");
+            var textContent = getTextContent(htmlText);
+            jsConsole.writeLine("The extracted text is: " + textContent);
+        }
+
+        function getTextContent(htmlText) {
+            var textContent = buildStringBuilder();
+            var inTag = false;
+            for (var i = 0; i < htmlText.length; i++) {
+                if (htmlText[i] === "<") {
+                    inTag = true;
+                    continue;
+                }
+                else if (htmlText[i] === ">") {
+                    inTag = false;
+                    continue;
+                }
+                if (!inTag) {
+                    textContent.append(htmlText[i]);
+                }
+            }
+            return textContent;
+        }
+
+        function buildStringBuilder() {
+            return {
+                result: [],
+                length: 0,
+                append: function (value) {
+                    this.result[this.length] = value;
+                    this.length += value.length;
+                    return this;
+                },
+                toString: function () {
+                    return this.result.join("");
+                }
+            };
+        }
+    </script>
+</body>
+</html>

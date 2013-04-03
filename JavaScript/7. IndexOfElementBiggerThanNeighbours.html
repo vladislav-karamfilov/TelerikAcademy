@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Position of first element bigger than its neighbours</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the position of the first element in an array of numbers which is bigger than its neighbours</h1>
+    <label for="tb-inputArray">Enter the elements of the array separated by ",": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <a href="#" onclick="onFindIndexButtonClick()">Find index</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onFindIndexButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var numbersArray = getNumbersArray(inputArrayAsString);
+            var index = compareNeighbours(numbersArray);
+            if (index == -1) {
+                jsConsole.writeLine("There is no element which is bigger than its neighbours.");
+            }
+            else {
+                jsConsole.writeLine("Element " + numbersArray[index] + " at index " + index + " is the first that is bigger than its neighbours.");
+            }
+        }
+
+        function getNumbersArray(arrayAsString) {
+            var inputArrayElementsAsStrings = arrayAsString.split(",");
+            var length = inputArrayElementsAsStrings.length;
+            var numbersArray = new Array(length);
+            for (var index = 0; index < length; index++) {
+                numbersArray[index] = parseFloat(inputArrayElementsAsStrings[index]);
+            }
+            return numbersArray;
+        }
+
+        function compareNeighbours(numbersArray) {
+            var length = numbersArray.length;
+            if (length == 1 || numbersArray[0] > numbersArray[1]) { // Array from one element or the first element is bigger than the second one
+                return 0;
+            }
+            for (var index = 1; index < length - 1; index++) {
+                if (numbersArray[index] > numbersArray[index - 1] && numbersArray[index] > numbersArray[index + 1]) {
+                    return index;
+                }
+            }
+            if (numbersArray[length - 1] > numbersArray[length - 2]) { // The last element is bigger than the previous one
+                return length - 1;
+            }
+            return -1;
+        }
+    </script>
+</body>
+</html>

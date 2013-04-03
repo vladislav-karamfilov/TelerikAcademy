@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Numbers to N not divisible by three and seven</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Printing all the numbers from 1 to N that are not divisible by 3 and 7 at the same time</h1>
+    <label for="tb-number">Enter an integer N: </label>
+	<input type="text" id="tb-number" />
+	<br />
+    <a href="#" onclick="onPrintNumbersClick()">Print the numbers</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onPrintNumbersClick() {
+            var n = parseInt(jsConsole.readInteger("#tb-number"));
+            if (n <= 0) {
+                jsConsole.writeLine("Invalid input! Value must be >= 1!");
+                return;
+            }
+            var number = 1;
+            do {
+                if (number % 21 !== 0) {
+                    jsConsole.write(number + " ");
+                }
+                number++;
+             } while (number <= n);
+            jsConsole.writeLine();
+        }
+    </script>
+</body>
+</html>

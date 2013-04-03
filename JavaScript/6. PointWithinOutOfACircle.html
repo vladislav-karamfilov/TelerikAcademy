@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Point within/out of a circle</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Checking if a point (x, y) is within a circle K(O, 5)</h1>
+    <label for="tb-pointX">Enter the point's X-coordinate: </label>
+	<input type="text" id="tb-pointX" />
+	<br />
+    <label for="tb-pointY">Enter the point's Y-coordinate: </label>
+	<input type="text" id="tb-pointY" />
+	<br />
+    <a href="#" onclick="onCheckPointButtonClick()">Check point</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCheckPointButtonClick() {
+            var xCoordinate = parseFloat(jsConsole.readFloat("#tb-pointX"));
+            var yCoordinate = parseFloat(jsConsole.readFloat("#tb-pointY"));
+            var pointInCircle = ((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate)) <= 25.0;
+            if (pointInCircle == true)
+            {
+                jsConsole.writeLine("The point (" + xCoordinate + ", " + yCoordinate + ") is within the circle K(O, 5).");
+            }
+            else
+            {
+                jsConsole.writeLine("The point (" + xCoordinate + ", " + yCoordinate + ") is out of the circle K(O, 5).");
+            }
+        }
+    </script>
+</body>
+</html>

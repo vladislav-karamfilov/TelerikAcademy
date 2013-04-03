@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The greatest of five numbers</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the greatest of five numbers</h1>
+    <label for="tb-number1">Enter a real number: </label>
+	<input type="text" id="tb-number1" />
+	<br />
+    <label for="tb-number2">Enter a real number: </label>
+	<input type="text" id="tb-number2" />
+	<br />
+    <label for="tb-number3">Enter a real number: </label>
+	<input type="text" id="tb-number3" />
+	<br />
+    <label for="tb-number4">Enter a real number: </label>
+	<input type="text" id="tb-number4" />
+	<br />
+    <label for="tb-number5">Enter a real number: </label>
+	<input type="text" id="tb-number5" />
+	<br />
+    <a href="#" onclick="onFindGreatestButtonClick()">Find the greatest</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onFindGreatestButtonClick() {
+            var number;
+            var counter;
+            var maxNumber = -9223372036854775808;
+            for (counter = 0; counter < 5; counter++)
+            {
+                var number = parseFloat(jsConsole.readFloat("#tb-number" + (counter + 1)));
+                if (number > maxNumber)
+                {
+                    maxNumber = number;
+                }
+            }
+            jsConsole.writeLine("The greatest of the five numbers is " + maxNumber);
+        }
+    </script>
+</body>
+</html>

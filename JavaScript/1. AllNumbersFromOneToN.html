@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>All numbers from 1 to N</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Printing all the numbers from 1 to N</h1>
+    <label for="tb-number">Enter an integer N: </label>
+	<input type="text" id="tb-number" />
+	<br />
+    <a href="#" onclick="onPrintNumbersButtonClick()">Print the numbers</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onPrintNumbersButtonClick() {
+            var n = parseInt(jsConsole.readInteger("#tb-number"));
+            if (n <= 0) {
+                jsConsole.writeLine("Invalid input! Value must be >= 1!");
+                return;
+            }
+            var number = 1;
+            while (number <= n) {
+                jsConsole.write(number + " ");
+                number++;
+            }
+            jsConsole.writeLine();
+        }
+    </script>
+</body>
+</html>

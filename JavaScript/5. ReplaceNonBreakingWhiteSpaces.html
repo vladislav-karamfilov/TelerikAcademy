@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Replace non breaking white space</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Raplacing all non breaking white spaces in a text with &nbsp;</h1>
+    <label for="tb-text">Enter the text: </label>
+    <input type="text" id="tb-text" />
+    <br />
+	<a href="#" onclick="onReplaceButtonClick()">Replace all non breaking white spaces</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onReplaceButtonClick() {
+            var text = jsConsole.read("#tb-text");
+            var newText = replaceNonBreakingWhiteSpaces(text);
+            jsConsole.writeLine("After the replacement the new text is: " + newText);
+        }
+
+        function replaceNonBreakingWhiteSpaces(text) {
+            var newText = "";
+            for (var index = 0; index < text.length; index++) {
+                if (text[index] === " ") {
+                    newText += "&amp;nbsp;";
+                }
+                else {
+                    newText += text[index];
+                }
+            }
+            return newText;
+        }
+    </script>
+</body>
+</html>

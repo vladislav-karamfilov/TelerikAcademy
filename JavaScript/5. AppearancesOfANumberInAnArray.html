@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Number appearances in an array</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Counting how many times a number appears in an array</h1>
+    <label for="tb-inputArray">Enter the elements of the array separated by ",": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <label for="tb-number">Enter the number which appearances you want to check: </label>
+    <input type="text" id="tb-number" />
+    <br />
+    <a href="#" onclick="onGetAppearancesButtonClick()">Get number appearances</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onGetAppearancesButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var numbersArray = getNumbersArray(inputArrayAsString);
+            var number = jsConsole.readFloat("#tb-number");
+            var appearances = countNumberAppearances(numbersArray, number);
+            jsConsole.writeLine("The number '" + number + "' appears " + appearances + " times in the array!");
+        }
+
+        function getNumbersArray(arrayAsString) {
+            var inputArrayElementsAsStrings = arrayAsString.split(",");
+            var length = inputArrayElementsAsStrings.length;
+            var numbersArray = new Array(length);
+            for (var index = 0; index < length; index++) {
+                numbersArray[index] = parseFloat(inputArrayElementsAsStrings[index]);
+            }
+            return numbersArray;
+        }
+
+        function countNumberAppearances(numbersArray, number) {
+            var appearances = 0;
+            for (var index = 0; index < numbersArray.length; index++) {
+                if (numbersArray[index] === number) {
+                    appearances++;
+                }
+            }
+            return appearances;
+        }
+    </script>
+</body>
+</html>

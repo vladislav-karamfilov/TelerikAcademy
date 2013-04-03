@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Maximal sequence of equal elements in array</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the maximal sequence of equal numbers in an array</h1>
+    <label for="tb-inputArray">Enter numbers separated by ",": </label>
+	<input type="text" id="tb-inputArray" />
+	<br />
+    <a href="#" onclick="onFindSequenceButtonClick()">Find maximal sequence of equal numbers</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onFindSequenceButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var inputArrayElementsAsStrings = inputArrayAsString.split(",");
+
+            var length = inputArrayElementsAsStrings.length;
+            // Check for empty array
+            if (length == 0) {
+                jsConsole.writeLine("No numbers are entered!");
+                return;
+            }
+
+            var inputArray = new Array(length);
+            for (var index = 0; index < length; index++) {
+                inputArray[index] = parseFloat(inputArrayElementsAsStrings[index]);
+            }
+
+            // Scanning through the array and printing the result
+            var currentElement = inputArray[0];
+            var bestLength = 1;
+            var currentLength = 1;
+            var startIndex = 0; // The index from which the maximal sequence begins
+            for (var index = 1; index < length; index++) {
+                if (inputArray[index] == currentElement) {
+                    currentLength++;
+                    if (currentLength > bestLength) {
+                        bestLength = currentLength;
+                        startIndex = index - bestLength + 1;
+                    }
+                }
+                else {
+                    currentElement = inputArray[index];
+                    currentLength = 1;
+                }
+            }
+
+            // Printing the result
+            jsConsole.write("The maximal sequence of equal elements consist of " + bestLength + " elements: ");
+            for (var index = startIndex; index < startIndex + bestLength; index++)
+            {
+                jsConsole.write(inputArray[index] + " ");
+            }
+            jsConsole.writeLine();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The number of div elements on the page</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="test-div1"></div>
+    <h1>Getting the number of div elements on the current page</h1>
+	<div id="test-div2"></div>
+    <a href="#" onclick="onCountDivsButtonClick()">Count div elements</a>
+    <div id="js-console"></div>
+	<div id="test-div3"></div>
+	<div id="test-div4"></div>
+	<div id="test-div5"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onCountDivsButtonClick() {
+            var divElementsCount = countDivElements();
+            jsConsole.writeLine("The number of div elements on the current page is: " + divElementsCount);
+        }
+
+        function countDivElements() {
+            var divElementsCount = document.getElementsByTagName("div").length;
+            return divElementsCount;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Smallest and largest properties</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the lexicographically smallest and largest properties in document, window and navigator objects</h1>
+    <a href="#" onclick="onGetMinMaxButtonClick()">Get smallest and largest properties</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onGetMinMaxButtonClick() {
+            var max = " "; // ASCII code 32 -> every letter/digit has bigger ASCII code
+            var min = "~"; // ASCII code 126 -> every letter/digit has smaller ASCII code
+
+            // Scanning the 'document' object
+            for (var property in document) {
+                if (property > max) { // Use 'property.toLowerCase()' instead 'property' to scan case insensitive
+                    max = property;
+                }
+                if (property < min) { // Use 'property.toLowerCase()' instead 'property' to scan case insensitive
+                    min = property;
+                }
+            }
+            jsConsole.writeLine("Lexicographically smallest property in 'document' is: " + min);
+            jsConsole.writeLine("Lexicographically largest property in 'document' is: " + max);
+            jsConsole.writeLine();
+
+            // Resetting the min and max values
+            max = " ";
+            min = "~";
+
+            // Scanning the 'window' object
+            for (var property in window) {
+                if (property > max) { // Use 'property.toLowerCase()' instead 'property' to scan case insensitive
+                    max = property;
+                }
+                if (property < min) { // Use 'property.toLowerCase()' instead 'property' to scan case insensitive
+                    min = property;
+                }
+            }
+            jsConsole.writeLine("Lexicographically smallest property in 'window' is: " + min);
+            jsConsole.writeLine("Lexicographically largest property in 'window' is: " + max);
+            jsConsole.writeLine();
+
+            // Resetting the min and max values
+            max = " ";
+            min = "~";
+
+            // Scanning the 'navigator' object
+            for (var property in navigator) {
+                if (property > max) { // Use 'property.toLowerCase()' instead 'property' to scan case insensitive
+                    max = property;
+                }
+                if (property < min) { // Use 'property.toLowerCase()' instead 'property' to scan case insensitive
+                    min = property;
+                }
+            }
+            jsConsole.writeLine("Lexicographically smallest property in 'navigator' is: " + min);
+            jsConsole.writeLine("Lexicographically largest property in 'navigator' is: " + max);
+            jsConsole.writeLine();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Group people by first name, last name and age</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Grouping an array of people by age, first name and last name</h1>
+    <label for="tb-inputArray">Enter people in format "FirstName LastName Age" separated by "|": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <a href="#" onclick="onGroupButtonClick()">Group</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function buildPerson(firstName, lastName, age) {
+            return {
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                toString: function () { return this.firstName + " " + this.lastName + " " + this.age + " years old"; }
+            }
+        }
+
+        function getPeopleArray(inputArrayAsString) {
+            var peopleArray = new Array();
+            var peopleAsStrings = inputArrayAsString.split("|");
+            var peopleCount = peopleAsStrings.length;
+            for (var person = 0; person < peopleCount; person++) {
+                var personNamesAndAge = peopleAsStrings[person].trim().split(" ");
+                peopleArray.push(buildPerson(personNamesAndAge[0], personNamesAndAge[1], personNamesAndAge[2]));
+            }
+            return peopleArray;
+        }
+
+        function onGroupButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var peopleArray = getPeopleArray(inputArrayAsString);
+
+            jsConsole.writeLine("***People grouped by first name***")
+            var groupedByFirstName = group(peopleArray, "firstName");
+            for (var firstName in groupedByFirstName) {
+                jsConsole.write(firstName + " -> ");
+                jsConsole.writeLine(groupedByFirstName[firstName].join(" | "));
+            }
+            jsConsole.writeLine("------------------------------------------------------------------------------");
+
+            jsConsole.writeLine("***People grouped by last name***")
+            var groupedByLastName = group(peopleArray, "lastName");
+            for (var lastName in groupedByLastName) {
+                jsConsole.write(lastName + " -> ");
+                jsConsole.writeLine(groupedByLastName[lastName].join(" | "));
+            }
+            jsConsole.writeLine("------------------------------------------------------------------------------");
+
+            jsConsole.writeLine("***People grouped by age***")
+            var groupedByAge = group(peopleArray, "age");
+            for (var age in groupedByAge) {
+                jsConsole.write(age + " -> ");
+                jsConsole.writeLine(groupedByAge[age].join(" | "));
+            }
+            jsConsole.writeLine("------------------------------------------------------------------------------");
+        }
+
+        function group(peopleArray, indicator) {
+            var groupedPeople = new Object();
+            if (indicator === "firstName") {
+                for (var person in peopleArray) {
+                    var currentFirstName = peopleArray[person].firstName;
+                    if (groupedPeople[currentFirstName] === undefined) {
+                        groupedPeople[currentFirstName] = new Array();
+                        groupedPeople[currentFirstName].push(peopleArray[person]);
+                    }
+                    else {
+                        groupedPeople[currentFirstName].push(peopleArray[person]);
+                    }
+                }
+            }
+            else if (indicator === "lastName") {
+                for (var person in peopleArray) {
+                    var currentLastName = peopleArray[person].lastName;
+                    if (groupedPeople[currentLastName] === undefined) {
+                        groupedPeople[currentLastName] = new Array();
+                        groupedPeople[currentLastName].push(peopleArray[person]);
+                    }
+                    else {
+                        groupedPeople[currentLastName].push(peopleArray[person]);
+                    }
+                }
+            }
+            else if (indicator === "age") {
+                for (var person in peopleArray) {
+                    var currentAge = peopleArray[person].age;
+                    if (groupedPeople[currentAge] === undefined) {
+                        groupedPeople[currentAge] = new Array();
+                        groupedPeople[currentAge].push(peopleArray[person]);
+                    }
+                    else {
+                        groupedPeople[currentAge].push(peopleArray[person]);
+                    }
+                }
+            }
+            return groupedPeople;
+        }
+    </script>
+</body>
+</html>

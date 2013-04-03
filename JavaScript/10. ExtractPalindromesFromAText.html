@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Palindromes extractor</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Extracting all palindromes from a text</h1>
+    <label for="tb-text">Enter the text: </label>
+    <input type="text" id="tb-text" />
+    <br />
+    <a href="#" onclick="onExtractPalindromesButtonClick()">Extract palindromes</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onExtractPalindromesButtonClick() {
+            var text = jsConsole.read("#tb-text");
+            var palindromes = extractPalindromes(text);
+            if (palindromes.length !== 0) {
+                jsConsole.writeLine("All palindromes from the text are: ");
+                for (var i in palindromes) {
+                    jsConsole.writeLine(palindromes[i]);
+                }
+            }
+            else {
+                jsConsole.writeLine("There are no palindromes in the text.");
+            }
+        }
+
+        function buildStringBuilder() {
+            return {
+                result: [],
+                length: 0,
+                append: function (value) {
+                    this.result[this.length] = value;
+                    this.length += value.length;
+                    return this;
+                },
+                clear: function () {
+                    this.result = [];
+                    this.length = 0;
+                },
+                toString: function () {
+                    return this.result.join("");
+                }
+            };
+        }
+
+        function extractPalindromes(text) {
+            var palindromes = new Array();
+            var currentWord = buildStringBuilder();
+            for (var index = 0; index < text.length; index++) {
+                if (isLetterOrDigit(text[index])) {
+                    currentWord.append(text[index]);
+                }
+                else {
+                    if (currentWord.length != 0 && isPalindrome(currentWord.toString().toLowerCase())) {
+                        palindromes.push(currentWord.toString());
+                    }
+                    currentWord.clear();
+                }
+            }
+            // Check for the last word
+            if (currentWord.length != 0 && isPalindrome(currentWord.toString().toLowerCase())) {
+                palindromes.push(currentWord.toString());
+            }
+            return palindromes;
+        }
+
+        function isLetterOrDigit(symbol) {
+            if (symbol >= "0" && symbol <= "9") {
+                return true;
+            }
+            if (symbol >= "a" && symbol <= "z") {
+                return true;
+            }
+            if (symbol >= "A" && symbol <= "Z") {
+                return true;
+            }
+            if (symbol >= "à" && symbol <= "ÿ") {
+                return true;
+            }
+            if (symbol >= "À" && symbol <= "ß") {
+                return true;
+            }
+            return false;
+        }
+
+        function isPalindrome(word) {
+            var length = word.length;
+            for (var index = 0; index < length / 2; index++) {
+                if (word[index] != word[length - index - 1]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

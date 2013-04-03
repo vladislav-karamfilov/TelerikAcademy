@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Template UL creation</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body onload="createUL()">
+    <h1>Creating an UL with a template</h1>
+    <div data-type="template" id="list-item" style="visibility: hidden">
+        <strong>-{name}-</strong> <span>-{age}-</span>
+    </div>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function createUL() {
+            var people = [
+                { name: "Pesho", age: 25 },
+                { name: "Gosho", age: 20 },
+                { name: "Lili", age: 15 },
+                { name: "Penka", age: 19 },
+                { name: "Ivan", age: 30 } ];
+            var template = document.getElementById("list-item").innerHTML;
+            var peopleList = generateList(people, template);
+            jsConsole.writeLine("The created UL is:\n" + peopleList);
+        }
+
+        function generateList(people, template) {
+            var currentProperty = "";
+            var inProperty = false;
+
+            var result = "<ul>";
+            for (var person = 0; person < people.length; person++) {
+                result += "<li>";
+                for (var i = 0; i < template.length - 1; i++) {
+                    if (template[i] === "-" && template[i + 1] === "{") {
+                        inProperty = true;
+                        i++;
+                        continue;
+                    }
+                    else if (template[i] === "}" && template[i + 1] === "-") {
+                        inProperty = false;
+                        i += 2;
+                    }
+                    if (inProperty) {
+                        currentProperty += template[i];
+                    }
+                    else {
+                        if (currentProperty.length != 0) {
+                            result += people[person][currentProperty];
+                        }
+                        currentProperty = "";
+                        result += template[i];
+                    }
+                }
+                result += "</li>";
+            }
+            resizeBy += "</ul>";
+
+            return result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Trapezoid area calculator</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Calculating trapezoid's area by the two bases and the height</h1>
+    <label for="tb-firstBase">Enter the first base: </label>
+	<input type="text" id="tb-firstBase" />
+	<br />
+    <label for="tb-secondBase">Enter the other base: </label>
+	<input type="text" id="tb-secondBase" />
+	<br />
+    <label for="tb-height">Enter the height: </label>
+	<input type="text" id="tb-height" />
+	<br />
+    <a href="#" onclick="onCalculateAreaButtonClick()">Calculate area</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCalculateAreaButtonClick() {
+            var firstBase = parseFloat(jsConsole.readFloat("#tb-firstBase"));
+            var secondBase = parseFloat(jsConsole.readFloat("#tb-secondBase"));
+            var height = parseFloat(jsConsole.readFloat("#tb-height"));
+            var trapezoidArea = (firstBase + secondBase) * height / 2;
+            jsConsole.writeLine("The area of the trapezoid is " + trapezoidArea);
+        }
+    </script>
+</body>
+</html>

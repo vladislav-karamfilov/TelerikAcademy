@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The sign of the product of three numbers</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Printing information about the sign of the product of three numbers</h1>
+    <label for="tb-number1">Enter a real number: </label>
+	<input type="text" id="tb-number1" />
+	<br />
+    <label for="tb-number2">Enter a real number: </label>
+	<input type="text" id="tb-number2" />
+	<br />
+    <label for="tb-number3">Enter a real number: </label>
+	<input type="text" id="tb-number3" />
+	<br />
+    <a href="#" onclick="onCheckSignButtonClick()">Check sign</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCheckSignButtonClick() {
+            var firstNumber = parseFloat(jsConsole.readFloat("#tb-number1"));
+            var secondNumber = parseFloat(jsConsole.readFloat("#tb-number2"));
+            var thirdNumber = parseFloat(jsConsole.readFloat("#tb-number3"));
+            if ((firstNumber == 0) || (secondNumber == 0) || (thirdNumber == 0)) {
+               jsConsole.writeLine("The product is 0.");
+            }
+            else {
+                var isPositive = true;
+                if (firstNumber < 0) {
+                    isPositive = !isPositive; 
+                }
+                if (secondNumber < 0) {
+                    isPositive = !isPositive;
+                }
+                if (thirdNumber < 0) {
+                    isPositive = !isPositive;
+                }
+                if (isPositive == true) {
+                    jsConsole.writeLine("The product of the numbers is positive.");
+                }
+                else {
+                    jsConsole.writeLine("The product of the numbers is negative.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

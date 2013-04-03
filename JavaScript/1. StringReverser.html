@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>String reverser</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Reversing a string</h1>
+    <label for="tb-input">Enter the string to be reversed: </label>
+    <input type="text" id="tb-input" />
+	<br />
+    <a href="#" onclick="onReverseButtonClick()">Reverse the string</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onReverseButtonClick() {
+            var inputString = jsConsole.read("#tb-input");
+            var reversedString = reverseString(inputString);
+            jsConsole.writeLine("The reversed string is: " + reversedString);
+        }
+
+        function reverseString(inputString) {
+            var reversedString = buildStringBuilder();
+            var length = inputString.length;
+            for (var index = 0; index < length; index++) {
+                reversedString.append(inputString[length - index - 1]);
+            }
+            return reversedString.toString();
+        }
+
+        function buildStringBuilder() {
+            return {
+                result: [],
+                length: 0,
+                append: function (value) {
+                    this.result[this.length] = value;
+                    this.length += value.length;
+                    return this;
+                },
+                toString: function () {
+                    return this.result.join("");
+                }
+            };
+        }
+    </script>
+</body>
+</html>

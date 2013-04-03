@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Integer's third bit</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding the third bit (counting from 0) of an integer number</h1>
+    <label for="tb-number">Enter an integer: </label>
+	<input type="text" id="tb-number" />
+	<br />
+    <a href="#" onclick="onCheckThirdBitButtonClick()">Check third bit</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCheckThirdBitButtonClick() {
+            var number = parseInt(jsConsole.readInteger("#tb-number"));
+            var mask = 8;
+            var zeroBit = ((number & mask) === 0);
+            if (zeroBit === false)
+            {
+                jsConsole.writeLine("Fourth bit of " + number + " is 1.");
+            }
+            else
+            {
+                jsConsole.writeLine("Fourth bit of " + number + " is 0.");
+            }
+        }
+    </script>
+</body>
+</html>

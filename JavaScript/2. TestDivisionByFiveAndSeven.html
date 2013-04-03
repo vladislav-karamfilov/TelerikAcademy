@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Test division by 5 and 7 at the same time</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Testing if an integer can be divided without remainder by 5 and 7 in the same time</h1>
+    <label for="tb-number">Enter an integer: </label>
+	<input type="text" id="tb-number" />
+	<br />
+    <a href="#" onclick="onCheckDivisionClick()">Check</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCheckDivisionClick() {
+            var number = parseInt(jsConsole.readInteger("#tb-number"));
+            var output = (number % 35 === 0) ?
+                "The number can be divided without remainder by 5 and 7 in the same time." :
+                "The number cannot be divided without remainder by 5 and 7 in the same time.";
+            jsConsole.writeLine(output);
+        }
+    </script>
+</body>
+</html>

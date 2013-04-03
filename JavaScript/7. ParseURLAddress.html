@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>URL Parser</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Parsing an URL address given in format [protocol]://[server]/[resource]</h1>
+    <label for="tb-inputURL">Enter URL in the described format: </label>
+    <input type="text" id="tb-inputURL" />
+    <br />
+	<a href="#" onclick="onParseURLButtonClick()">Parse the URL address</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onParseURLButtonClick() {
+            var input = jsConsole.read("#tb-inputURL");
+            var url = parseURL(input);
+            jsConsole.writeLine("The parsed URL address is : " + url);
+        }
+
+        function parseURL(input) {
+            // Extracting the protocol
+            var serverSeparatorIndex = input.indexOf(':');
+            var protocol = input.substr(0, serverSeparatorIndex);
+            // Extracting the server
+            var resourceSeparatorIndex = input.indexOf('/', serverSeparatorIndex + 3); // "+3" for skipping "://"
+            var server = input.substr(serverSeparatorIndex + 3, resourceSeparatorIndex - serverSeparatorIndex - 3);
+            // Extracting the resource -> the rest of the URL address
+            var resource = input.substr(resourceSeparatorIndex);
+            return buildParsedURL(protocol, server, resource);
+        }
+
+        function buildParsedURL(protocol, server, resource) {
+            return {
+                protocol: protocol,
+                server: server,
+                resource: resource,
+                toString: function () {
+                    return "[protocol: " + this.protocol + " | server: " + this.server + " | resource: " + this.resource + "]";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Remove specific element from an array</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Removing all elements with a specific value from an array</h1>
+    <label for="tb-inputArray">Enter all the elements of the array separated by ",": </label>
+    <input type="text" id="tb-inputArray" />
+    <br />
+    <label for="tb-valueToRemove">Enter the value to be removed from the array: </label>
+    <input type="text" id="tb-valueToRemove" />
+    <br />
+    <a href="#" onclick="onRemoveElementsButtonClick()">Remove elements</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onRemoveElementsButtonClick() {
+            var inputArrayAsString = jsConsole.read("#tb-inputArray");
+            var valueToRemove = jsConsole.read("#tb-valueToRemove");
+            var inputArray = inputArrayAsString.split(",");
+            // Trimming the values of the array for correct comparing
+            for (var index = 0; index < inputArray.length; index++) {
+                inputArray[index] = inputArray[index].trim();
+            }
+            inputArray.remove(valueToRemove);
+            jsConsole.writeLine("The array after removing all the elements with value " + valueToRemove + " is: ");
+            jsConsole.writeLine(inputArray.join(", "));
+        }
+
+        Array.prototype.remove = function (value) {
+            for (var index = 0; index < this.length; index++) {
+                if (this[index] === value) {
+                    this.splice(index, 1);
+                    index--;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

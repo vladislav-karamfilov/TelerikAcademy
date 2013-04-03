@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Check number's third digit right-to-left</title>
+    <link href="styles\js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Checking if integer's third digit right-to-left is 7</h1>
+    <label for="tb-number">Enter an integer: </label>
+	<input type="text" id="tb-number" />
+    <br />
+    <a href="#" onclick="onCheckThirdDigitClick()">Check</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onCheckThirdDigitClick() {
+            var intNumber = parseInt(jsConsole.readInteger("#tb-number"));
+            var tempInteger = Math.floor(intNumber / 100);
+            var checkDigit = ((Math.abs(tempInteger % 10)) === 7);
+            if (checkDigit) {
+                jsConsole.writeLine("Third digit right-to-left of " + intNumber + " is 7.");
+            }
+            else {
+                jsConsole.writeLine("Third digit right-to-left of " + intNumber + " is not 7. It is " + Math.abs(tempInteger % 10) + ".");
+            }
+        }
+    </script>
+</body>
+</html>

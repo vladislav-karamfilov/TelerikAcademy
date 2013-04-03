@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Check if an object has a given property</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Checking if an object contains a given property</h1>
+    <a href="#" onclick="onCheckObjectsButtonClick()">Check some objects for some properties</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onCheckObjectsButtonClick() {
+            var dog = {
+                name: "Sharo",
+                breed: "Borzoi",
+                age: 10
+            };
+            var student = {
+                firstName: "Pesho",
+                lastName: "Goshov",
+                facultyNumber: 111111111
+            };
+            var textDocument = {
+                name: "Test.txt",
+                encoded: true,
+                size: 521512
+            };
+
+            jsConsole.writeLine("The 'dog' object has 'age' property -> " + hasProperty(dog, "age"));
+            jsConsole.writeLine("The 'student' object has 'speciality' property -> " + hasProperty(student, "speciality"));
+            jsConsole.writeLine("The 'text document' object has 'encoded' property -> " + hasProperty(textDocument, "encoded"));
+            jsConsole.writeLine("The 'window' object of the web page has 'width' property -> " + hasProperty(window, "width"));
+        }
+
+        function hasProperty(object, property) {
+            for (var prop in object) {
+                if (prop === property) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

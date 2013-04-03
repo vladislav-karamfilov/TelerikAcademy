@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>E-mails extractor</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Extracting all email addresses from a text</h1>
+    <label for="tb-text">Enter the text: </label>
+    <input type="text" id="tb-text" />
+    <br />
+    <a href="#" onclick="onExtractEmailsButtonClick()">Extract emails</a>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function onExtractEmailsButtonClick() {
+            var inputText = jsConsole.read("#tb-text");
+            var extractedEmails = extractEmails(inputText);
+            jsConsole.writeLine("All emails in the text are:");
+            for (var index = 0; index < extractedEmails.length; index++) {
+                jsConsole.writeLine(extractedEmails[index]);
+            }
+        }
+
+        function extractEmails(inputText) {
+            var emailRegEx = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+            var emails = inputText.match(emailRegEx);
+            return emails;
+        }
+    </script>
+</body>
+</html>

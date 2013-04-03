@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>String format placeholders</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body onload="stringFormatExample()">
+    <h1>Implementation of the stringFormat function with placeholders</h1>
+    <div id="js-console"></div>
+    <script src="scripts\js-console.js"></script>
+    <script>
+        function stringFormatExample() {
+            var format = "{0}, {1}, {0} text {2}";
+            var str = stringFormat(format,1,"Pesho","Gosho");
+            jsConsole.writeLine(stringFormat("The formatted string is: {0}.", str));
+            format = "{0} - {2} - {1} - {0} - {2} - {3}";
+            str = stringFormat(format, 1.21512, false, true, "Didi");
+            jsConsole.writeLine(stringFormat("The formatted string is: {0}.", str));
+            str = stringFormat("Just a test {0} with answer: {1}", 3, "correct");
+            jsConsole.writeLine(str);
+        }
+
+        function stringFormat() {
+            var text = arguments[0];
+            var args = new Array();
+            for (var i = 1; i < arguments.length; i++) {
+                args.push(arguments[i]);
+            }
+
+            var formattedString = buildStringBuilder();
+            var inPlaceholder = false;
+            var placeholder = buildStringBuilder();
+            for (var i = 0; i < text.length; i++) {
+                if (text[i] === "{") {
+                    inPlaceholder = true;
+                    continue;
+                }
+                else if (text[i] === "}") {
+                    inPlaceholder = false;
+                    continue;
+                }
+                if (inPlaceholder) {
+                    placeholder.append(text[i]);
+                }
+                else {
+                    if (placeholder.length != 0) {
+                        var placeholderIndex = parseInt(placeholder);
+                        formattedString.append(args[placeholderIndex]);
+                    }
+                    placeholder.clear();
+                    formattedString.append(text[i]);
+                }
+            }
+            if (placeholder.length != 0) {
+                var placeholderIndex = parseInt(placeholder);
+                formattedString.append(args[placeholderIndex]);
+            }
+            return formattedString;
+        }
+
+        function buildStringBuilder() {
+            return {
+                result: [],
+                length: 0,
+                append: function (value) {
+                    this.result[this.length] = value;
+                    this.length++;
+                    return this;
+                },
+                clear: function () {
+                    this.result = [];
+                    this.length = 0;
+                },
+                toString: function () {
+                    return this.result.join("");
+                }
+            };
+        }
+    </script>
+</body>
+</html>

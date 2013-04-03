@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Last digit name in English</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Printing the name of the last digit of an entered integer</h1>
+    <label for="tb-number">Enter an integer: </label>
+    <input type="text" id="tb-number" />
+    <br />
+    <a href="#" onclick="onGetDigitNameButtonClick()">Get last digit name</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function getLastDigitName(number) {
+            if (number < 0) {
+                number = Math.abs(number);
+            }
+            var lastDigit = number % 10;
+            switch (lastDigit) {
+                case 1:
+                    return "One";
+                case 2:
+                    return "Two";
+                case 3:
+                    return "Three";
+                case 4:
+                    return "Four";
+                case 5:
+                    return "Five";
+                case 6:
+                    return "Six";
+                case 7:
+                    return "Seven";
+                case 8:
+                    return "Eight";
+                case 9:
+                    return "Nine";
+                default: // case 0
+                    return "Zero";
+            }
+        }
+
+        function onGetDigitNameButtonClick() {
+            var number = jsConsole.readInteger("#tb-number");
+            var lastDigitName = getLastDigitName(number);
+            jsConsole.writeLine("The last digit of " + number + " is: " + lastDigitName);
+        }
+    </script>
+</body>
+</html>

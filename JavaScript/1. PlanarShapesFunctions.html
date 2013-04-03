@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Functions for working with shapes in planar coordinate system</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Calculating the distance between two points and checking if three segment lines form a triangle</h1>
+    <label for="tb-firstX">Enter A point's X coordinate: </label>
+    <input type="text" id="tb-firstX" />
+    <br />
+    <label for="tb-firstY">Enter A point's Y coordinate: </label>
+    <input type="text" id="tb-firstY" />
+    <br />
+    <label for="tb-secondX">Enter B point's X coordinate: </label>
+    <input type="text" id="tb-secondX" />
+    <br />
+    <label for="tb-secondY">Enter B point's Y coordinate: </label>
+    <input type="text" id="tb-secondY" />
+    <br />
+    <label for="tb-thirdX">Enter C point's X coordinate: </label>
+    <input type="text" id="tb-thirdX" />
+    <br />
+    <label for="tb-thirdY">Enter C point's Y coordinate: </label>
+    <input type="text" id="tb-thirdY" />
+    <br />
+    <a href="#" onclick="onCalculateDistanceButtonClick()">Calculate distance between A and B points</a>
+    <a href="#" onclick="onCheckForTriangleButtonClick()">Check if AB, AC and BC form a triangle</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var xCoordA;
+        var yCoordA;
+        var xCoordB;
+        var yCoordB;
+        var xCoordC;
+        var yCoordC;
+
+        var pointA;
+        var pointB;
+        var pointC;
+
+        function readInput() {
+            xCoordA = jsConsole.readFloat("#tb-firstX");
+            yCoordA = jsConsole.readFloat("#tb-firstY");
+            xCoordB = jsConsole.readFloat("#tb-secondX");
+            yCoordB = jsConsole.readFloat("#tb-secondY");
+            xCoordC = jsConsole.readFloat("#tb-thirdX");
+            yCoordC = jsConsole.readFloat("#tb-thirdY");
+
+            pointA = buildPoint(xCoordA, yCoordA);
+            pointB = buildPoint(xCoordB, yCoordB);
+            pointC = buildPoint(xCoordC, yCoordC);
+        }
+
+        function buildPoint(xCoordinate, yCoordinate) {
+            return {
+                xCoordinate: xCoordinate,
+                yCoordinate: yCoordinate,
+                toString: function () { return "(" + xCoordinate + ", " + yCoordinate + ")"; }
+            }
+        }
+        
+        function buildSegmentLine(startPoint, endPoint) {
+            return {
+                startPoint: startPoint,
+                endPoint: endPoint,
+                length: getDistanceBetweenTwoPoints(startPoint, endPoint),
+                toString: function () { return "{" + this.startPoint.toString() + ", " + this.endPoint.toString() + "}"; }
+            }
+        }
+
+        function onCalculateDistanceButtonClick() {
+            readInput();
+
+            var distanceAB = getDistanceBetweenTwoPoints(pointA, pointB);
+            jsConsole.writeLine("The distance between A" + this.pointA.toString() + " and B" + this.pointB.toString() + " is " + distanceAB);
+        }
+
+        function onCheckForTriangleButtonClick() {
+            readInput();
+
+            var segmentAB = buildSegmentLine(pointA, pointB);
+            var segmentAC = buildSegmentLine(pointA, pointC);
+            var segmentBC = buildSegmentLine(pointB, pointC);
+
+            if ((segmentAB.length + segmentAC.length > segmentBC.length) &&
+                (segmentAB.length + segmentBC.length > segmentAC.length) &&
+                (segmentAC.length + segmentBC.length > segmentAB.length)) {
+                jsConsole.writeLine("The three segments AB" + segmentAB.toString() + ", AC" + segmentAC.toString() +
+                    " and BC" + segmentBC.toString() + " can form a triangle!");
+            }
+            else {
+                jsConsole.writeLine("The three segments AB" + segmentAB.toString() + ", AC" + segmentAC.toString() +
+                    " and BC" + segmentBC.toString() + " cannot form a triangle!");
+            }
+        }
+
+        function getDistanceBetweenTwoPoints(point1, point2) {
+            return Math.sqrt((point1.xCoordinate - point2.xCoordinate) * (point1.xCoordinate - point2.xCoordinate) +
+                (point1.yCoordinate - point2.yCoordinate) * (point1.yCoordinate - point2.yCoordinate));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Word occurrences in a text</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Finding how many times a word occurres in a text</h1>
+    <label for="tb-text">Enter the text: </label>
+    <textarea id="tb-text"></textarea>
+    <br />
+    <label for="tb-word">Enter the word: </label>
+    <input type="text" id="tb-word" />
+    <br />
+	<a href="#" onclick="onCountOccurrencesButtonClick()">Get the number of word occurrences</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function onCountOccurrencesButtonClick() {
+            var inputText = jsConsole.read("#tb-text");
+            var word = jsConsole.read("#tb-word");
+            jsConsole.writeLine("The number of occurrences of the word (case sensitive): " + countWordOccurrences(inputText, word, true));
+            jsConsole.writeLine("The number of occurrences of the word (case insensitive): " + countWordOccurrences(inputText, word));
+        }
+
+        function countWordOccurrences(inputText, word, caseSensitive) {
+            var caseSensitive = caseSensitive || false;
+            var matches;
+
+            if (caseSensitive) {
+                var caseSensitivePattern = new RegExp(word, "g");
+                matches = inputText.match(caseSensitivePattern);
+            }
+            else {
+                var caseInsensitivePattern = new RegExp(word, "ig");
+                matches = inputText.match(caseInsensitivePattern);
+            }
+
+            if (matches === null) {
+                return 0;
+            }
+            else {
+                return matches.length;
+            }
+        }
+    </script>
+</body>
+</html>
