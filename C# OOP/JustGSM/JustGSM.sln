@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustGsm.CommonPackage", "JustGsm.CommonPackage\JustGsm.CommonPackage.csproj", "{2CF865A9-4084-46E7-BA29-F6DCC1814343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustGsm.GsmTest", "JustGSM.GSMTest\JustGsm.GsmTest.csproj", "{90C28A89-E94A-428D-8168-42EC1D8C5A91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustGsm.GsmCallHistoryTest", "JustGsm.GsmCallHistoryTest\JustGsm.GsmCallHistoryTest.csproj", "{2DEAC67D-61E7-4405-B77F-D0DB91898E49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CF865A9-4084-46E7-BA29-F6DCC1814343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF865A9-4084-46E7-BA29-F6DCC1814343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF865A9-4084-46E7-BA29-F6DCC1814343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF865A9-4084-46E7-BA29-F6DCC1814343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90C28A89-E94A-428D-8168-42EC1D8C5A91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90C28A89-E94A-428D-8168-42EC1D8C5A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90C28A89-E94A-428D-8168-42EC1D8C5A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90C28A89-E94A-428D-8168-42EC1D8C5A91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DEAC67D-61E7-4405-B77F-D0DB91898E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEAC67D-61E7-4405-B77F-D0DB91898E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEAC67D-61E7-4405-B77F-D0DB91898E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEAC67D-61E7-4405-B77F-D0DB91898E49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
