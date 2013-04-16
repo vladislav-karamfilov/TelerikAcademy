@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. RefactorUsingVariables", "1. RefactorUsingVariables\1. RefactorUsingVariables.csproj", "{4CDFC22F-FB50-4160-9BE7-F093D9242C4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. RefactorVariableUsageAndExpressions", "2. RefactorVariableUsageAndExpressions\2. RefactorVariableUsageAndExpressions.csproj", "{A0632FD4-91B2-45AF-B9D8-49DD4E8A5350}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CDFC22F-FB50-4160-9BE7-F093D9242C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDFC22F-FB50-4160-9BE7-F093D9242C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDFC22F-FB50-4160-9BE7-F093D9242C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDFC22F-FB50-4160-9BE7-F093D9242C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0632FD4-91B2-45AF-B9D8-49DD4E8A5350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0632FD4-91B2-45AF-B9D8-49DD4E8A5350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0632FD4-91B2-45AF-B9D8-49DD4E8A5350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0632FD4-91B2-45AF-B9D8-49DD4E8A5350}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
