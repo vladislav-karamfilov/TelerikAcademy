@@ -30,7 +30,7 @@ public class Chef
         //...
     }
 
-    private void Cut(Vegetable potato)
+    private void Cut(Vegetable vegetable)
     {
         //...
     }
