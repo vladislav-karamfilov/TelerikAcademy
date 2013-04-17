@@ -16,8 +16,10 @@ class RectangleRotationDemo
     {
         double cosineOfAngleToRotate = Math.Cos(angleInRadians);
         double absoluteCosineOfAngleToRotate = Math.Abs(cosineOfAngleToRotate);
+
         double sineOfAngleToRotate = Math.Sin(angleInRadians);
         double absoluteSineOfAngleToRotate = Math.Abs(sineOfAngleToRotate);
+
         double rectangleToRotateWidth = rectangleToRotate.Width;
         double rectangleToRotateHeight = rectangleToRotate.Height;
 

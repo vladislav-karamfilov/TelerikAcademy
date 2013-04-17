@@ -19,14 +19,14 @@ namespace RefactorVariableUsageAndExpressions
     {
         public void PrintStatistics(double[] numbersArray, int numbersCount)
         {
-            double maxElement = GetMax(numbersArray, numbersCount);
-            PrintMax(maxElement);
+            double maxNumber = GetMax(numbersArray, numbersCount);
+            Print("The maximal number is: ", maxNumber);
 
-            double minElement = GetMin(numbersArray, numbersCount);
-            PrintMin(minElement);
+            double minNumber = GetMin(numbersArray, numbersCount);
+            Print("The minimal number is: ", minNumber);
 
             double average = GetAverage(numbersArray, numbersCount);
-            PrintAverage(average);
+            Print("The average is: ", average);
         }
 
         private double GetMax(double[] numbersArray, int numbersCount)
@@ -43,11 +43,6 @@ namespace RefactorVariableUsageAndExpressions
             return max;
         }
 
-        private void PrintMax(double maxNumber)
-        {
-            Console.WriteLine("The maximal number is: " + maxNumber);
-        }
-
         private double GetMin(double[] numbersArray, int numbersCount)
         {
             double min = double.MaxValue;
@@ -62,11 +57,6 @@ namespace RefactorVariableUsageAndExpressions
             return min;
         }
 
-        private void PrintMin(double minNumber)
-        {
-            Console.WriteLine("The minimal number is: " + minNumber);
-        }
-
         private double GetAverage(double[] numbersArray, int numbersCount)
         {
             double sum = 0;
@@ -79,9 +69,9 @@ namespace RefactorVariableUsageAndExpressions
             return average;
         }
 
-        private void PrintAverage(double average)
+        private void Print(string message, double number)
         {
-            Console.WriteLine("The average is: " + average);
+            Console.WriteLine("{0}{1}", message, number);
         }
     }
 }
