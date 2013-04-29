@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Vehicles class hierarchy</title>
+    <script src="scripts/VehiclesNS.js"></script>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of the Vehicles class hierarchy</h1>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var wheels = [
+            new vehiclesNS.Wheel(5),
+            new vehiclesNS.Wheel(5),
+            new vehiclesNS.Wheel(5),
+            new vehiclesNS.Wheel(5)
+        ];
+
+        var landVehicle = new vehiclesNS.LandVehicle(30, wheels);
+        jsConsole.writeLine("The initial speed of a land vehicle: " + landVehicle.speed);
+        jsConsole.writeLine("The radius of the wheels of the land vehicle: " + landVehicle.propulsionUnits[0].radius);
+
+        landVehicle.accelerate();
+        jsConsole.writeLine("The speed of the land vehicle after acceleration: " + landVehicle.speed);
+        jsConsole.writeLine();
+
+        var propellingNozzle = new vehiclesNS.PropellingNozzle(500, vehiclesNS.AfterburnerState.ON);
+
+        var airVehicle = new vehiclesNS.AirVehicle(150, propellingNozzle);
+        jsConsole.writeLine("The initial speed of an air vehicle: " + airVehicle.speed);
+        jsConsole.writeLine("The power of the propelling nozzle of the air vehicle: " + airVehicle.propulsionUnits[0].power);
+        jsConsole.writeLine("The afterburner state of the propelling nozzle of the air vehicle: "
+            + airVehicle.propulsionUnits[0].afterburnerState);
+
+        airVehicle.accelerate();
+        jsConsole.writeLine("The speed of the air vehicle after acceleration: " + airVehicle.speed);
+
+        jsConsole.writeLine("Switching off the afterburner...")
+        airVehicle.setAfterburnerState(vehiclesNS.AfterburnerState.OFF);
+        jsConsole.writeLine("The afterburner state of the propelling nozzle of the air vehicle: "
+            + airVehicle.propulsionUnits[0].afterburnerState);
+
+        airVehicle.accelerate();
+        jsConsole.writeLine("The speed of the air vehicle after acceleration: " + airVehicle.speed);
+        jsConsole.writeLine();
+
+        var propellers = [
+            new vehiclesNS.Propeller(30, vehiclesNS.SpinDirection.CLOCKWISE),
+            new vehiclesNS.Propeller(30, vehiclesNS.SpinDirection.CLOCKWISE),
+            new vehiclesNS.Propeller(30, vehiclesNS.SpinDirection.CLOCKWISE),
+            new vehiclesNS.Propeller(30, vehiclesNS.SpinDirection.CLOCKWISE),
+            new vehiclesNS.Propeller(30, vehiclesNS.SpinDirection.CLOCKWISE)
+        ];
+
+        var waterVehicle = new vehiclesNS.WaterVehicle(25, propellers);
+        jsConsole.writeLine("The initial speed of an water vehicle: " + waterVehicle.speed);
+        jsConsole.writeLine("The fins count of a propeller of the water vehicle: " + waterVehicle.propulsionUnits[0].finsCount);
+        jsConsole.writeLine("The spin direction of the propellers of the water vehicle: "
+            + waterVehicle.propulsionUnits[0].spinDirection);
+
+        waterVehicle.accelerate();
+        jsConsole.writeLine("The speed of the water vehicle after acceleration: " + waterVehicle.speed);
+
+        jsConsole.writeLine("Changing the spin direction of the propellers to counter-clockwise...");
+        waterVehicle.setPropellersSpinDirection(vehiclesNS.SpinDirection.COUNTERCLOCKWISE);
+        jsConsole.writeLine("The spin direction of the propellers of the water vehicle: "
+            + waterVehicle.propulsionUnits[0].spinDirection);
+
+        waterVehicle.accelerate();
+        jsConsole.writeLine("The speed of the water vehicle after acceleration: " + waterVehicle.speed);
+        jsConsole.writeLine();
+
+        var amphibia = new vehiclesNS.Amphibia(20, propellers[0], wheels, vehiclesNS.AmphibiaMode.WATER);
+        jsConsole.writeLine("The mode of the amphibian vehicle: " + amphibia.mode);
+        jsConsole.writeLine("The initial speed of an amphibian vehicle: " + amphibia.speed);
+        jsConsole.writeLine("The fins count of the propeller of the amphibian vehicle: " + amphibia.propulsionUnits[0].finsCount);
+        amphibia.propulsionUnits[0].spinDirection = vehiclesNS.SpinDirection.CLOCKWISE;
+        jsConsole.writeLine("The spin direction of the propeller of the amphibia vehicle: "
+            + amphibia.propulsionUnits[0].spinDirection);
+        
+        amphibia.accelerate();
+        jsConsole.writeLine("The speed of the amphibian vehicle after acceleration: " + amphibia.speed);
+
+        jsConsole.writeLine("Changing the spin direction of the propeller to counter-clockwise...");
+        amphibia.propulsionUnits[0].spinDirection = vehiclesNS.SpinDirection.COUNTERCLOCKWISE;
+        jsConsole.writeLine("The spin direction of the propeller of the amphibia vehicle: "
+            + amphibia.propulsionUnits[0].spinDirection);
+
+        amphibia.accelerate();
+        jsConsole.writeLine("The speed of the water vehicle after acceleration: " + amphibia.speed);
+        jsConsole.writeLine();
+
+        jsConsole.writeLine("Changing the mode of the amphibian vehicle...");
+        amphibia.setMode(vehiclesNS.AmphibiaMode.LAND);
+        jsConsole.writeLine("The mode of the amphibian vehicle: " + amphibia.mode);
+        jsConsole.writeLine("The initial speed of the amphibian vehicle: " + amphibia.speed);
+        jsConsole.writeLine("The number of wheels of the amphibian vehicle: " + (amphibia.propulsionUnits.length - 1));
+        jsConsole.writeLine("The radius of the wheels of the amphibian vehicle: " + amphibia.propulsionUnits[1].radius);
+
+        amphibia.accelerate();
+        jsConsole.writeLine("The speed of the amphibian vehicle after acceleration: " + amphibia.speed);
+    </script>
+</body>
+</html>
