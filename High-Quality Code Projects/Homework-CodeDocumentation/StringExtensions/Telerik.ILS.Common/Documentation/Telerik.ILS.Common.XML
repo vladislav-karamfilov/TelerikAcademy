@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Telerik.ILS.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Telerik.ILS.Common.StringExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:System.String"/> class.
+            </summary>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToMd5Hash(System.String)">
+            <summary>
+            Returns the MD5 hash value of the current instance.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>The MD5 128-bit hash value of the current instance.</returns>
+            <seealso cref="!:http://en.wikipedia.org/wiki/Md5"/>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToBoolean(System.String)">
+            <summary>
+            Converts the current instance to a <see cref="T:System.Boolean"/> value.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>The <see cref="T:System.Boolean"/> representation of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToShort(System.String)">
+            <summary>
+            Converts the current instance to an <see cref="T:System.Int16"/> value.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>The <see cref="T:System.Int16"/> representation of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToInteger(System.String)">
+            <summary>
+            Converts the current instance to an <see cref="T:System.Int32"/> value.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>The <see cref="T:System.Int32"/> representation of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToLong(System.String)">
+            <summary>
+            Converts the current instance to an <see cref="T:System.Int64"/> value.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>The <see cref="T:System.Int64"/> representation of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToDateTime(System.String)">
+            <summary>
+            Converts the current instance to a <see cref="T:System.DateTime"/> value.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>The <see cref="T:System.DateTime"/> representation of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.CapitalizeFirstLetter(System.String)">
+            <summary>
+            Capitalizes the first letter of the current instance
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>
+            A copy of this string with capital first letter or
+            the current instance if it is null or empty
+            </returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.GetStringBetween(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Returns the substring between <paramref name="startString"/> and <paramref name="endString"/> 
+            starting from <paramref name="startFrom"/> index of the current instance.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <param name="startString">The string from which the result string starts.</param>
+            <param name="endString">The string at which the result string ends.</param>
+            <param name="startFrom">The zero-based character position from which the search starts.</param>
+            <returns>
+            The substring from <paramref name="startString"/> to <paramref name="endString"/>
+            starting from <paramref name="startFrom"/> index of the current instance.
+            </returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ConvertCyrillicToLatinLetters(System.String)">
+            <summary>
+            Replaces all cyrillic letters with their latin representations in the current instance.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>A string in which all cyrillic letters are replaced by their latin representations.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ConvertLatinToCyrillicKeyboard(System.String)">
+            <summary>
+            Replaces all latin letters with their cyrillic representations in the current instance.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>A string in which all latin letters are replaced by their cyrillic representations.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToValidUsername(System.String)">
+            <summary>
+            Returns a string in which all cyrillic letters in the current instance are
+            replaced by their latin representations and all non-alphanumeric 
+            characters (excluding ".") are removed.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>
+            A copy of the current instance in which all cyrillic letters
+            in the current instance are replaced by their latin representations
+            and all non-alphanumeric characters (excluding ".") are removed.
+            </returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToValidLatinFileName(System.String)">
+            <summary>
+            Returns a string in which all cyrillic letters in the current instance 
+            are replaced by their latin representations, all white spaces are
+            replaced by hyphens and all non-alphanumeric characters 
+            (excluding "." and "-") are removed.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>
+            A copy of the current instance in which all cyrillic letters
+            in the current instance are replaced by their latin representations,
+            all white spaces are replaced by hyphens and all
+            non-alphanumeric characters (excluding "." and "-") are removed.
+            </returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.GetFirstCharacters(System.String,System.Int32)">
+            <summary>
+            Returns the first <paramref name="charsCount"/> number of characters of the current instance.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <param name="charsCount">The number of characters to be taken from the start of the current instance.</param>
+            <returns>A string consisting from the first <paramref name="charsCount"/> characters of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.GetFileExtension(System.String)">
+            <summary>
+            Returns the file extension of the current instance interpreted as a file name.
+            </summary>
+            <param name="fileName">The current <see cref="T:System.String"/> instance interpreted as a file name.</param>
+            <returns>The file extension of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToContentType(System.String)">
+            <summary>
+            Converts the current instance interpreted as a file extension to a content type value.
+            </summary>
+            <param name="fileExtension">The current <see cref="T:System.String"/> instance interpreted as a file extension.</param>
+            <returns>The content type representation of the current instance.</returns>
+        </member>
+        <member name="M:Telerik.ILS.Common.StringExtensions.ToByteArray(System.String)">
+            <summary>
+            Converts the current instance to a byte array value.
+            </summary>
+            <param name="input">The current <see cref="T:System.String"/> instance.</param>
+            <returns>The byte array representation of the current instance.</returns>
+        </member>
+    </members>
+</doc>

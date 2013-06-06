@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuckyTransformation", "LuckyTransforamtion\LuckyTransformation.csproj", "{BDD81751-E1D4-4B3E-BCA8-388DCAA9F8B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chocolates", "Chocolates\Chocolates.csproj", "{F94A384E-3866-45AB-8F76-CF3DDB319CA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marks", "Marks\Marks.csproj", "{4540B1D6-9350-464D-A531-573ED4437E2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDD81751-E1D4-4B3E-BCA8-388DCAA9F8B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDD81751-E1D4-4B3E-BCA8-388DCAA9F8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDD81751-E1D4-4B3E-BCA8-388DCAA9F8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDD81751-E1D4-4B3E-BCA8-388DCAA9F8B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F94A384E-3866-45AB-8F76-CF3DDB319CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F94A384E-3866-45AB-8F76-CF3DDB319CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F94A384E-3866-45AB-8F76-CF3DDB319CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F94A384E-3866-45AB-8F76-CF3DDB319CA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4540B1D6-9350-464D-A531-573ED4437E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4540B1D6-9350-464D-A531-573ED4437E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4540B1D6-9350-464D-A531-573ED4437E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4540B1D6-9350-464D-A531-573ED4437E2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

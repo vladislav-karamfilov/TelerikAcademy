@@ -1,0 +1,29 @@
+h1 {
+    color: #0094ff;
+    font-family: 'Book Antiqua', Consolas;
+    font-size: 1.6em;
+    text-align: center;
+    width: 800px;
+}
+
+input[type=text] {
+    background-color: black;
+	color: white;
+	border: 1px solid black;
+	padding: 5px 15px;
+	font-family: Consolas;		   
+	margin-bottom: 5px;
+}
+
+a {
+	color: black;
+    display: inline-block;		 
+	border: 1px solid black;
+	padding: 5px 15px;						
+	margin: 15px 0;
+    text-decoration: none;	   
+}
+
+a:hover {
+	text-decoration: underline;
+}

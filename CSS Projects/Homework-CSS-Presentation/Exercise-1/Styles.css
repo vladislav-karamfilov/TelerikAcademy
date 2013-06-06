@@ -1,0 +1,19 @@
+/* Paragraph styles */
+p {
+	color: #0094FF;
+	font-family: Consolas, Arial, Times New Roman;
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 18px;
+}
+p:first-letter {
+    font-family: Edwardian Script ITC, Kunstler Script;
+    font-size: 50px;
+    font-weight: bold;    
+    line-height: 52px;
+}
+p:first-line {
+    font-weight: bold;    
+}

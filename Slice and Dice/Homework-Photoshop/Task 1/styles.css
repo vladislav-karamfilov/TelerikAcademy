@@ -1,0 +1,47 @@
+.btn {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    height: 47px;
+    font-weight: bold;
+    line-height: 47px;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 200px;
+}
+
+    .btn .text {
+        background: url("images/middle.png");
+        display: block;
+    }
+
+        .btn .text a {
+            text-decoration: none;
+            color: black;
+        }
+
+            .btn .text a:hover {
+                text-decoration: underline;
+            }
+        
+
+    .btn .left, .btn .right {
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        height: 47px;
+        width: 29px;
+    }
+
+    .btn .left {
+        background: url("images/left.png");
+        float: left;
+        margin-left: -20px;
+    }
+
+    .btn .right {
+        background: url("images/right.png");
+        float: right;
+        margin-right: -20px;
+    }

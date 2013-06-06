@@ -1,0 +1,18 @@
+td, th
+{
+	border: 1px solid black;
+	padding: 5px;
+	text-align: center;
+}
+
+table
+{
+	border: 1px solid black;
+	border-spacing: 0;
+}
+
+#welcome
+{
+    position: relative;
+    top: -60px; 
+}

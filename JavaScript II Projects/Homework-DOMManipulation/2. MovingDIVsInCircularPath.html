@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Moving DIVs in circular path</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Moving DIVs in circular path</h1>
+    <a id="start-button" href="#" onclick="onStartButtonClick(event)">Start</a>
+    <a id="stop-button" href="#" onclick="onStopButtonClick(event)">Stop</a>
+    <div id="divs-wrapper" style="position: relative">
+        <div class="moving-div"></div>
+        <div class="moving-div"></div>
+        <div class="moving-div"></div>
+        <div class="moving-div"></div>
+        <div class="moving-div"></div>
+    </div>
+    <script>
+        var MOVING_DIVS_COUNT = 5;
+
+        var radius = 150;
+        var currentAngle = 0;
+        var angleStep = 10;
+
+        function styleDivElement(div) {
+            div.style.width = 80 + "px";
+            div.style.height = 80 + "px";
+
+            div.style.backgroundColor = "#4cff00";
+
+            div.style.borderRadius = 50 + "%";
+            div.style.MozBorderRadius = 50 + "%";
+            div.style.WebkitBorderRadius = 50 + "%";
+
+            div.style.position = "absolute";
+            div.style.left = (300 + Math.sin(currentAngle) * radius) + "px";
+            div.style.top = (150 + Math.cos(currentAngle) * radius) + "px";
+            currentAngle += angleStep;
+        }
+
+        function generateDivs(divsWrapper) {
+            for (var i = 0; i < MOVING_DIVS_COUNT; i++) {
+                var newDiv = document.createElement("div");
+                divsWrapper.appendChild(newDiv);
+            }
+        }
+
+        function onStartButtonClick(event) {
+            if (!event) {
+                event = window.event;
+            }
+
+            document.getElementById("start-button").disabled = true;
+            document.getElementById("stop-button").disabled = false;
+
+            var divsWrapper = document.getElementById("divs-wrapper");
+            generateDivs(divsWrapper);
+
+            timer = setInterval(function () {
+                var movingDivs = divsWrapper.children;
+                for (var i = 0; i < MOVING_DIVS_COUNT; i++) {
+                    styleDivElement(movingDivs[i]);
+                }
+            }, 100);
+
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+
+            return false;
+        }
+
+        function onStopButtonClick(event) {
+            if (!event) {
+                event = window.event;
+            }
+
+            clearInterval(timer);
+            document.getElementById("start-button").disabled = false;
+            document.getElementById("stop-button").disabled = true;
+
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>

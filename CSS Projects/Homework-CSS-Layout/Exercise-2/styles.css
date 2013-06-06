@@ -1,0 +1,60 @@
+/* Initial resets and global settings */
+body {
+    background-color: #EEE;
+    font-family: Arial, 'Times New Roman';
+    font-size: 13px;
+    margin: 15px;
+    padding: 0;
+}
+/* Heading styles */
+h1 {
+    font-weight: 100;
+    font-size: 16px;
+}
+/* Content boxes styles */
+article {
+    background-color: white;
+    border: 1px solid #A6A6A6;
+    margin-bottom: 30px;
+    padding: 15px;
+    width: 400px;
+}
+article img {
+    border: 1px solid #A6A6A6;
+}
+/* Text in the boxes styles */
+p {
+    width: 210px;
+    float: right;
+    position: relative;
+    bottom: 13px;
+    right: 40px;
+}
+/* Buttons styles */
+input {
+    float: right;
+    position: relative;
+    bottom: 27px;
+}
+input.listen {
+    left: 20px;
+}
+.third {
+    bottom: 20px;
+}
+/* Text on buttons styles */
+a {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    float: right;
+    bottom: 24px;
+    left: 45px;
+    color: white;
+}
+a.listen-text {
+    left: 80px;
+}
+a.third {
+    bottom: 17px;
+}

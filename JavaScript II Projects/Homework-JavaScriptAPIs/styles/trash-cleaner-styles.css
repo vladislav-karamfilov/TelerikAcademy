@@ -1,0 +1,54 @@
+h1 {
+    display: inline-block;
+    color: #00ff21;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 0;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+#cleaning-container {
+    position: relative;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 960px;
+    height: 500px;
+    border: 1px solid #0094ff;
+    border-radius: 10px;
+}
+
+#high-score-board {
+    display: none;
+    margin-left: 10px;
+    border: 1px solid #f00;
+    width: 250px;
+    height: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    float: left;
+}
+
+#player-info-input {
+    display: none;
+    width: 330px;
+    padding: 5px;
+    clear: both;
+    border: 1px solid #ff4600;
+    border-radius: 10px;
+}
+
+#high-scores-title {
+    text-align: center;
+}
+
+input[type="submit"] {
+	margin-left: 5px;
+}
+
+#reload-button {
+    background-color: #00ff21;
+    border-radius: 5px;
+    padding: 5px;
+}

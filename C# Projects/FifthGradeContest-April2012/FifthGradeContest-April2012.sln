@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marks", "Marks\Marks.csproj", "{EED78401-B045-4DBC-8ADB-EC7FA99E9F4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDivisors", "..\ConsoleApplication2\CommonDivisors\CommonDivisors.csproj", "{6C8D57E0-7E66-4E44-8C60-B18F5757AED6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimilarArrays", "SimilarArrays\SimilarArrays.csproj", "{62BCEBC4-4636-4378-8438-A00E0B7A4E91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EED78401-B045-4DBC-8ADB-EC7FA99E9F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED78401-B045-4DBC-8ADB-EC7FA99E9F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED78401-B045-4DBC-8ADB-EC7FA99E9F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED78401-B045-4DBC-8ADB-EC7FA99E9F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C8D57E0-7E66-4E44-8C60-B18F5757AED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8D57E0-7E66-4E44-8C60-B18F5757AED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8D57E0-7E66-4E44-8C60-B18F5757AED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8D57E0-7E66-4E44-8C60-B18F5757AED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62BCEBC4-4636-4378-8438-A00E0B7A4E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62BCEBC4-4636-4378-8438-A00E0B7A4E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62BCEBC4-4636-4378-8438-A00E0B7A4E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62BCEBC4-4636-4378-8438-A00E0B7A4E91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

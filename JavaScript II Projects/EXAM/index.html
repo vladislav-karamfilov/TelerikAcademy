@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>GridView Control</title>
+    <script src="scripts/gridview-controls.js"></script>
+    <script src="scripts/schools-storage.js"></script>
+    <script src="scripts/school-system.js"></script>
+    <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+    <div id="gridview-container"></div>
+    <div id="schools-grid"></div>
+    <div id="deserialized"></div>
+    <script>
+        // Task 1
+        var schoolsGridView = controls.getGridView("#gridview-container");
+        schoolsGridView.addHeader(["Name", "Location", "Total Students", "Specialty"]);
+        var academyRow = schoolsGridView.addRow(["Telerik Academy", "Sofia", 5000, "IT"]);
+        schoolsGridView.addRow(["TUES", "Sofia", 500, "IT"]);
+        schoolsGridView.addRow(["PMG", "Burgas", 400, "Mathematics"]);
+        
+        // Task 2
+        var academyGrid = academyRow.getNestedGridView();
+        academyGrid.addHeader(["Title", "Start Date", "Total students"]);
+        academyGrid.addRow(["SEO", "12-april-2013", 1400]);
+        academyGrid.addRow(["Slice and Dice", "15-april-2013", 500]);
+        var js = academyGrid.addRow(["JS 2", "11-april-2013", 400]);
+        var lecturesGrid = js.getNestedGridView();
+        lecturesGrid.addHeader(["Lecture name", "Durance"]);
+        lecturesGrid.addRow(["DOM Manipulation", "4"]);
+
+        schoolsGridView.render();
+
+        // Task 4
+        var studentIvan = new schoolSystem.Student("Ivan", "Ivanov", 10, 5);
+        var studentPesho = new schoolSystem.Student("Pesho", "Peshov", 7, 5);
+        var studentGosho = new schoolSystem.Student("Gosho", "Goshov", 9, 4);
+        var studentLili = new schoolSystem.Student("Lili", "Nikolova", 7, 6);
+
+        var courseMath = new schoolSystem.Course(
+            "Maths", "15-09-2013", 4, [studentIvan, studentPesho, studentGosho, studentLili]);
+        var courseBiology = new schoolSystem.Course(
+            "Biology", "15-09-2013", 2, [studentIvan, studentLili]);
+
+        var courses = [courseMath, courseBiology];
+        var schoolPMG = new schoolSystem.School("PMG", "Sofia", 2, "IT", courses);
+        var schoolTUES = new schoolSystem.School("TUES", "Sofia", 2, "Biology", courses);
+
+        var schoolsData = [schoolPMG, schoolTUES];
+        schoolStorage.schoolsRepository.save("school-repo", schoolsData);
+        console.log(schoolStorage.schoolsRepository.load("school-repo"));
+
+        // Task 5
+        // Correct school system
+        var schoolsRepoGrid = controls.getGridView("#schools-grid");
+        schoolsRepoGrid.addHeader(["Name", "Location", "Total Students", "Specialty"]);
+        var academyRow = schoolsRepoGrid.addRow(["Telerik Academy", "Sofia", 5000, "IT"]);
+        schoolsRepoGrid.addRow(["TUES", "Sofia", 500, "IT"]);
+        var pmgRow = schoolsRepoGrid.addRow(["PMG", "Burgas", 400, "Mathematics"]);
+        var pmgCourses = pmgRow.getNestedGridView();
+        pmgCourses.addHeader(["Title", "Start date", "Total students"]);
+        var mathsCourse = pmgCourses.addRow(["Maths", "15-09-2013", 4]);
+        var mathsStudents = mathsCourse.getNestedGridView();
+        mathsStudents.addHeader(["First name", "Last name", "Grade", "Mark"]);
+        mathsStudents.addRow(["Lili", "Nikolova", 7, 6]);
+        mathsStudents.addRow(["Pesho", "Peshov", 7, 5]);
+        mathsStudents.addRow(["Pesho", "Peshov", 7, 5]);
+        mathsStudents.addRow(["Ivan", "Ivanov", 10, 5]);
+
+        var biologyCourse = pmgCourses.addRow(["Biology", "15-09-2013", 2]);
+        var biologyStudents = biologyCourse.getNestedGridView();
+        biologyStudents.addHeader(["First name", "Last name", "Grade", "Mark"]);
+        biologyStudents.addRow(["Ivan", "Ivanov", 10, 5]);
+        biologyStudents.addRow(["Lili", "Nikolova", 7, 6]);
+
+        schoolsRepoGrid.render();
+
+        // Get data into schools repository
+        var schoolsGridData = schoolsRepoGrid.getGridViewData();
+        schoolStorage.schoolsRepository.save("schools-repository", schoolsGridData);
+
+        // Task 6
+        var schoolsDataFromRepo = schoolStorage.schoolsRepository.load("schools-repository");
+        console.log(schoolsDataFromRepo);
+        var schoolsGridViewDeserialized = controls.buildGridView("#deserialized", schoolsDataFromRepo);
+        schoolsGridViewDeserialized.addRow(["New school", "Varna", 300, "Physics"]);
+
+        schoolsGridViewDeserialized.render();
+    </script>
+</body>
+</html>

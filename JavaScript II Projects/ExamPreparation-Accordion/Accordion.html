@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Accordion Example</title>
+    <script src="scripts/AccordionControls.js"></script>
+    <script src="scripts/storage-extensions.js"></script>
+</head>
+<body>
+    <div id="accordion-container"></div>
+    <div id="new-accordion-container"></div>
+    <script>
+        var accordion = controls.getAccordion("accordion-container");
+        var desktop = accordion.add("Desktop");
+        desktop.add("Apps for Windows 8");
+        desktop.add("Windows Blue development");
+        accordion.add("Mobile");
+        var embedded = accordion.add("Embedded");
+        var web = accordion.add("Web");
+        embedded.add("Assembly language");
+        var html = web.add("HTML");
+        web.add("CSS");
+        var javaScript = web.add("JavaScript");
+        javaScript.add("Part 1");
+        javaScript.add("Part 2");
+        html.add("v4.1");
+        var html5 = html.add("v5");
+        var test1 = html5.add("test list item");
+        var test2 = test1.add("sadasd");
+        test2.add("asdasgasgasas");
+        var serialized = accordion.serialize();
+        localStorage.setObject("new-accordion", serialized);
+        accordion.render();
+
+        var newAccordion = controls.buildNewAccordion("new-accordion-container", serialized);
+        var newCategory = newAccordion.add("New");
+        newCategory.add("Sub new");
+        newAccordion.render();
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+table 
+{
+	border-spacing: 0px;
+	border-left: solid black 2px;
+	border-top: solid black 1px;
+	border-bottom: solid black 2px;
+	border-right: solid black 1px;
+}
+
+td 
+{
+    padding: 3px;
+    border-top: solid black 1px;
+	border-right: solid black 1px;
+}
+
+th
+{
+	text-align: right;
+	width: 100px;
+    padding: 3px;
+    border-top: solid black 1px;
+	border-right: solid black 1px;
+}
+
+tfoot td
+{
+	text-align: center;
+	background-color: aqua;
+}
+
+.namesEmailWidth
+{
+	width: 270px;
+}
+
+th#stateWidth
+{
+	width: 35px;
+}
+
+#stateInput
+{
+	width: 70px;
+}
+
+#zipCodeInput
+{
+	width: 75px;
+}
+
+.countryCodeAreaYearWidth
+{
+	width: 50px;
+}
+
+#numberPhone
+{
+	width: 100px;
+}
+
+.monthDayWidth
+{
+	width: 23px;
+}

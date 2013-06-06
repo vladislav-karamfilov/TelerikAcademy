@@ -1,0 +1,62 @@
+/* Main settings and resets */
+* {
+    font-family: Arial;
+    font-size: .97em;
+    font-weight: normal;
+	margin: 0;
+    padding: 0;
+}
+
+/* Table styles */
+table {
+    border-collapse:collapse;
+    border-bottom: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+}
+#colOne {
+    width: 150px;
+}
+#colTwo {
+    width: 120px;
+}
+#colThree {
+    width: 140px;
+}
+thead {
+    background-color: #5ECE06;
+}
+tr:nth-child(2n) {
+    background-color: #ECECD8;
+}
+th {
+    border: 1px solid #CCC;
+    color: white;
+    padding: 5px;
+    text-align: left;
+}
+td {
+	border-right: 1px solid #CCC;
+    padding: 7px;
+}
+
+/* The flag images styles */
+.flagGermany {
+    background: url("Germany.png") no-repeat;
+    background-position: 5px center;
+    padding-left: 35px;
+}
+.flagMexico {
+    background: url("Mexico.png") no-repeat;
+    background-position: 5px center;
+    padding-left: 35px;
+}
+.flagUK {
+    background: url("UK.png") no-repeat;
+    background-position: 5px center;
+    padding-left: 35px;
+}
+
+/* Checkboxes styles */
+input[type=checkbox] {
+    margin-left: 3px;
+}

@@ -1,0 +1,35 @@
+td
+{
+	padding: 4px;
+}
+
+fieldset
+{
+	border: 2px solid black;
+}
+
+input[type="range"]
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.centerAlign
+{
+	text-align: center;
+}
+
+#choiceTable
+{
+	border: 2px solid black;
+}
+
+#headRow
+{
+	border-bottom: 2px solid black;
+}
+
+.bottomFieldset
+{
+	margin-bottom: 5px;
+}

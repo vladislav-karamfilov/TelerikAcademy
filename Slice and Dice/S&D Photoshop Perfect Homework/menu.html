@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Menu</title>
+    <style>
+        body, ul, nav, li {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        nav {
+            
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        span.left {
+            width: 6px;
+            height: 50px;
+            position: absolute;
+            background: url(img/Menu_left.png) no-repeat transparent;
+            top: 0px;
+            left: -5px;
+        }
+
+        span.right {
+            width: 6px;
+            height: 50px;
+            position: absolute;
+            background: url(img/Menu_right.png) no-repeat transparent;
+            top: 0px;
+            right: -6px;
+        }
+
+        ul {
+            list-style: none;
+            display: inline-block;
+            margin: 15px;
+        }
+
+        li {
+            height:20px;
+            background: url(img/menu_bgr.png) repeat-x top #f4f4f4;
+            display: inline-block;
+            padding: 15px 19px 15px 17px;
+            border-right: 1px solid #cfcfcf;
+            border-left: 1px solid white;
+            margin-right: -2px;
+            margin-left: -2px;
+        }
+
+            li:first-of-type {
+                padding-left: 11px;
+                position: relative;
+                margin-right: -2px;
+                margin-left: 0px;
+            }
+
+            li:last-of-type {
+                padding-right: 11px;
+                position: relative;
+                border: none;
+                margin-right: 0px;
+                margin-left: -1px;
+            }
+
+        nav a {
+            text-decoration: none;
+            color: #a7162e;
+        }
+
+            nav a:hover {
+                color: #ef2042;
+            }
+    </style>
+</head>
+
+<body>
+    <nav>
+
+        <ul>
+            <li><span class="left"></span><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">MORE INFORMATION</a></li>
+            <li><a href="#">CONTACTS</a><span class="right"></span></li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Personal Information</title>
+	<link href="Personal-Information-Style.css" rel="stylesheet" />
+</head>
+<body>
+	<form name="personalInfo" method="post" action="#">
+		<table>
+            <tfoot>
+				<tr>
+					<td colspan="4">
+						<input type="submit" id="submitButton" name="submitBtn" value="Submit" />
+						<input type="reset" id="resetButton" name="resetBtn" value="Clear This Form" />
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr>
+					<th>
+						<label for="lastNameInput">Last Name</label>
+					</th>
+					<td colspan="3">
+						<input type="text" name="lastName" id="lastNameInput" class="namesEmailWidth" placeholder="Enter your last name..." required="required" /> 
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="firstNameInput">First Name</label>
+					</th>
+					<td colspan="3">
+						<input type="text" name="firstName" id="firstNameInput" class="namesEmailWidth" placeholder="Enter your first name..." required="required" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="addressInput">Address</label>
+					</th>
+					<td colspan="3">
+						<textarea name="address" id="addressInput" cols="30" rows="4" placeholder="Enter your address..." required="required"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="cityInput">City</label>
+					</th>
+					<td>
+						<input type="text" name="city" id="cityInput" placeholder="Enter city..." required="required" />
+					</td>
+					<th id="stateWidth">
+						<label for="stateInput">State</label>
+					</th>
+					<td>
+						<input type="text" name="State" id="stateInput" placeholder="In state..." />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="zipCodeInput">Zip/Postal Code</label>
+					</th>
+					<td colspan="3">
+						<input type="text" name="zipCode" id="zipCodeInput" required="required" placeholder="0000" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="countryInput">Country</label>
+					</th>
+					<td colspan="3">
+						<select name="country" id="countryInput">
+							<option value="BG" selected="selected">Bulgaria</option>
+							<option value="ENG">England</option>
+							<option value="USA">United States of America</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="phoneInput">Phone (country code, area code, number)</label>
+					</th>
+					<td colspan="3">
+						<span>(+</span><input type="text" name="countryCode" id="phoneInput" required="required" placeholder="359" class="countryCodeAreaYearWidth" /><span>)</span>
+						<input type="text" name="areaCode" id="areaCode" required="required" placeholder="88" class="countryCodeAreaYearWidth" /> <span>-</span>
+						<input type="text" name="phoneNumber" id="numberPhone" required="required" placeholder="88888" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="emailInput">E-mail</label>
+					</th>
+					<td colspan="3">
+						<input type="email" name="email" id="emailInput" placeholder="example@domain.com" required="required" class="namesEmailWidth" title="Email"
+                            pattern="[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="birthDateInput">Birth date</label>
+					</th>
+					<td colspan="3">
+						<span>Month </span><input type="text" name="birthMonth" id="birthDateInput" placeholder="01" required="required" class="monthDayWidth" />
+						<span>Day </span><input type="text" name="birthDay" id="birthDay" required="required" placeholder="01" class="monthDayWidth" />
+						<span>Year (4 digit) </span><input type="text" name="birthYear" id="birthYear" placeholder="1980" required="required" class="countryCodeAreaYearWidth" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="genderInput">Gender</label>
+					</th>
+					<td colspan="3">
+						<select name="gender" id="genderInput">
+							<option value="male" selected="selected">Male</option>
+							<option value="female">Female</option>
+							<option value="other">Other</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="sp06">Starting date</label>
+					</th>
+					<td colspan="3">
+						<input type="radio" name="startingDate" id="sp06" checked="checked" value="Spring 2006" />
+							<label for="sp06">Spring 2006</label>
+						<input type="radio" name="startingDate" id="su06" value="Summer 2006" />
+							<label for="su06">Summer 2006</label>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="commentsInput">Comments/Questions</label>
+					</th>
+					<td colspan="3">
+						<textarea name="comments" id="commentsInput" placeholder="Enter your comment or question..." cols="30" rows="6"></textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+</html>

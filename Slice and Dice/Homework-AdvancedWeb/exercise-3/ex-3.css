@@ -1,0 +1,14 @@
+html {background: #ffffff}
+
+body {
+	margin: 0 auto;
+	padding: 1.5em 0;
+	width: 640px;
+	color: #000000;
+	font-family: Calibri, "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, Lucida, sans-serif;
+	font-size: 14px
+}
+
+p {margin: 1.5em 0}
+
+.test {color:green}

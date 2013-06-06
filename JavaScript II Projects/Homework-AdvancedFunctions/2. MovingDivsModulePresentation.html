@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Moving Divs Module presentation</title>
+    <script src="scripts/Moving-Divs-Module.js"></script>
+    <style>
+        button {
+            height: 30px;
+            background-color: #00ff21;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+
+        #wrapper {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of the Moving Divs Module</h1>
+    <button onclick="addMovingDiv('rectangle')">Add new div to move in rectangular orbit</button>
+    <button onclick="addMovingDiv('ellipse')">Add new div to move in elliptical orbit</button>
+    <div id="wrapper"></div>
+    <script>
+        function addMovingDiv(orbitType) {
+            movingDivs.add(orbitType);
+        }
+    </script>
+</body>
+</html>

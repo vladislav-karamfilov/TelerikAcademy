@@ -1,0 +1,179 @@
+/* Resets */
+html, body, div, header, aside, nav, article, section, footer, time, em, span, ul, li, a, h1, h2, h3, p, img {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+
+/* Main wrapper styles */
+#wrapper {
+    border: 2px solid #e1ebf7;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11px;
+    width: 778px;
+}
+
+/* Page header styles */
+header h1 {
+    background-color: #59518c;
+    color: white;
+    font-size: 1.44em;
+    float: left;
+    padding: 14px 0 14px 28px;
+    width: 100px;
+}
+header #site-logo{
+    background: url(images/site-logo.png) no-repeat 122px 0;
+    height: 47px;
+}
+
+/* Page navigation styles */
+#wrapper > nav {
+    background-color: #f2f3f7;
+    float: left;
+    width: 128px;
+}
+
+    #wrapper > nav .main-list {
+        margin-top: 16px;
+
+    }
+        #wrapper > nav .main-list span {
+            color: #424284;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        #wrapper > nav .main-list ul {
+           list-style-image: url(images/black-bullet.png);
+        }
+        #wrapper > nav .main-list li {
+            margin-top: 2px;
+            margin-left: 20px;
+        }
+            #wrapper > nav .main-list li a {
+                color: #006699;
+            }
+
+/* Page main section styles */
+section#main {
+    background-color: #e6def5;
+    height: 350px;
+}
+
+    /* Main section navigation */
+    section#main > nav {
+        background: url(images/star.png) no-repeat 135px 6px;
+        line-height: 25px;
+    }
+        section#main > nav span {
+            color: #6d64a3;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 25px;
+        }
+    section#main > nav ul {
+        display: inline-block;
+        line-height: 12px;
+    }
+    section#main > nav ul li {
+        display: inline-block;
+        border-right: 1px solid #0000cc;
+    }
+        section#main nav > ul li:last-of-type {
+            border-right: none;
+        }
+        section#main nav > ul li a {
+            color: #0000cc;
+            margin-right: 5px;
+            margin-left: 1px;
+        }
+    
+    /* Main section article */
+    section#main article {
+        margin-left: 3px;
+        background-color: #f9f4fd;
+        padding: 10px;
+        height: 303px;
+        width: 430px;
+        float: left;
+    }
+        section#main article img {
+            float: left;
+            border: 1px solid #000;
+            margin-right: 10px;
+
+        }
+        section#main article header h2 {
+            font-size: 1.5em;
+            font-weight: 500;
+            color: #c41e89;
+            margin-bottom: 5px;
+            margin-top: 18px;
+        }
+        section#main article header time, h3 {
+            color: #4b3e82;
+        }
+        section#main article header h3 {
+            font-size: 0.9em;
+            font-weight: 700;
+            margin-top: 2px;
+            margin-bottom: 25px;
+        }
+        section#main article p {
+            color: #4b3e82;
+            margin-bottom: 20px;
+        }
+        section#main article ul {
+            list-style-image: url(images/orange-bullet.png);
+            margin-left: 10px;
+        }
+
+        /* Main section aside */
+    section#main aside {
+        float: right;
+        background-color: #f9f4fd;
+        position: relative;
+        bottom: 22px;
+        height: 345px;
+        width: 193px;
+    }
+        section#main aside #other-articles div {
+            display: block;
+            float: left;
+            margin: 10px 0 0 10px;
+        }
+            section#main aside #other-articles div img {
+                border: 1px solid #000;
+                float: left;
+            }
+        section#main aside #other-articles div p {
+            float: left;
+            color: #4b3e82;
+            margin-left: 8px;
+            width: 110px;
+        }
+        section#main aside nav {
+            font-size: 0.95em;
+        }
+        section#main aside nav #left{
+            margin-left: 20px;
+            margin-top: 15px;
+            float: left;
+        }
+        section#main aside nav #right{
+            margin-top: 15px;
+            float: right;
+        }
+        section#main aside nav ul {
+            list-style-image: url(images/orange-bullet.png);
+        }
+/* Page footer styles */
+footer {
+    background-color: #59518c;
+    text-align: center;
+    padding: 13px 0;
+    color: white;
+}

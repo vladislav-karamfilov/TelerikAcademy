@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Trash Cleaning</title>
+    <link rel="stylesheet" href="styles/trash-cleaner-styles.css" />
+</head>
+<body onload="initialize()">
+    <h1>Drag the trash over the trash bucket and drop it in</h1>
+    <input type="button" id="reload-button" value="Play Again" onClick="window.location.reload()">
+    <div id="cleaning-container">
+        <img src="images/closed-trash-bucket.jpg" alt="Trash bucket" id="trash-bucket"
+            ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="closeBucket(event)" />
+    </div>
+    <div id="high-score-board"></div>
+    <div id="player-info-input"></div>
+    <script>
+        var trashItemsCount = 10;
+        var timeStart = new Date().getTime();
+        var timeEnd;
+
+        function initialize() {
+            loadTrash();
+            printHighScores();
+        }
+
+        function loadTrash() {
+            for (var i = 0; i < trashItemsCount; i++) {
+                generateTrash("#cleaning-container", i);
+            }
+        }
+
+        function generateTrash(containerSelector, id) {
+            var trash = document.createElement("img");
+            trash.setAttribute("src", "images/trash-item.jpg");
+            trash.setAttribute("alt", "Trash");
+            trash.setAttribute("draggable", "true");
+            trash.setAttribute("id", ("trash" + id));
+
+            if (trash.addEventListener) {
+                trash.addEventListener("dragstart", drag, false);
+            } else {
+                trash.attachEvent("ondragstart", drag);
+            }
+
+            trash.style.width = "50px";
+            trash.style.height = "50px";
+
+            trash.style.position = "absolute";
+            trash.style.top = getRandomNumberInRange(0, 400) + "px";
+            trash.style.left = getRandomNumberInRange(300, 900) + "px";
+
+            trash.style.cursor = "move";
+
+            var container = document.querySelector(containerSelector);
+            container.appendChild(trash);
+        }
+
+        function getRandomNumberInRange(min, max) {
+            return ((Math.random() * (max - min + 1)) | 0) + min;
+        }
+
+        function drag(event) {
+            if (!event) {
+                event = window.event;
+            }
+
+            var eventSource = (event.target ? event.target : event.srcElement);
+
+            event.dataTransfer.setData("dragged-id", eventSource.id);
+        }
+
+        function allowDrop(event) {
+            if (!event) {
+                event = window.event;
+            }
+
+            var eventSource = (event.target ? event.target : event.srcElement);
+            eventSource.setAttribute("src", "images/opened-trash-bucket.jpg");
+
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            if (!event) {
+                event = window.event;
+            }
+
+            event.preventDefault();
+
+            var itemId = event.dataTransfer.getData("dragged-id");
+            var item = document.getElementById(itemId);
+            item.parentNode.removeChild(item);
+
+            var eventSource = (event.target ? event.target : event.srcElement);
+            eventSource.setAttribute("src", "images/closed-trash-bucket.jpg");
+
+            trashItemsCount--;
+            if (trashItemsCount == 0) {
+                timeEnd = new Date().getTime();
+                processScore();
+            }
+        }
+
+        function closeBucket(event) {
+            if (!event) {
+                event = window.event;
+            }
+
+            var eventSource = (event.target ? event.target : event.srcElement);
+            eventSource.setAttribute("src", "images/closed-trash-bucket.jpg");
+
+            event.preventDefault();
+        }
+
+        function processScore() {
+            var playerInfoContainer = document.getElementById("player-info-input");
+            var playerNameInputLabel = document.createElement("label");
+            playerNameInputLabel.innerHTML = "Enter your name: ";
+            playerInfoContainer.appendChild(playerNameInputLabel);
+
+            var playerNameInput = document.createElement("input");
+            playerNameInput.setAttribute("type", "text");
+            playerNameInput.setAttribute("id", "player-name");
+            playerInfoContainer.appendChild(playerNameInput);
+
+            var submitButton = document.createElement("input");
+            submitButton.setAttribute("type", "submit");
+            submitButton.setAttribute("value", "Submit");
+            if (submitButton.addEventListener) {
+                submitButton.addEventListener("click", addScore, false);
+            } else {
+                submitButton.attachEvent("onclick", addScore);
+            }
+
+            playerInfoContainer.appendChild(submitButton);
+            playerInfoContainer.style.display = "block";
+        }
+
+        function addScore() {
+            var playerScore = (timeEnd - timeStart) / 1000;
+            var playerName = document.getElementById("player-name").value;
+            localStorage.setItem(playerName, playerScore);
+
+            printHighScores();
+        }
+
+        function printHighScores() {
+            var highScores = getHighScores();
+
+            highScores.sort(orderBy);
+
+            var resultHTML = "<div id='high-scores-title'>High scores:</div><ol>";
+            for (var i = 0; i < 5; i++) {
+                if (highScores[i]) {
+                    resultHTML += "<li>";
+                    resultHTML += highScores[i].name + " - " + highScores[i].score + "s.";
+                    resultHTML += "</li>";
+                } else {
+                    break;
+                }
+            }
+
+            resultHTML += "</ol>";
+
+            var highScoreContainer = document.getElementById("high-score-board");
+            highScoreContainer.innerHTML = resultHTML;
+            highScoreContainer.style.display = "block";
+        }
+
+        function getHighScores() {
+            var highScores = [];
+            var key;
+            var player;
+            for (var i = 0; i < localStorage.length; i++) {
+                key = localStorage.key(i);
+                player = { name: key, score: localStorage.getItem(key) };
+                highScores.push(player);
+            }
+
+            return highScores;
+        }
+
+        function orderBy(first, second) {
+            return first.score - second.score;
+        }
+    </script>
+</body>
+</html>

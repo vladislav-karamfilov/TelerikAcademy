@@ -1,0 +1,7 @@
+Teacher: Name=Nakov
+LocalCourse: Name=OOP; Teacher=Svetlin Nakov; Topics=[Using Classes and Objects, Defining Classes, OOP Principles, Teamwork, Exam Preparation]; Lab=Light
+OffsiteCourse: Name=HTML; Teacher=Svetlin Nakov; Topics=[Using Classes and Objects, Defining Classes, OOP Principles, Teamwork, Exam Preparation]; Town=Plovdiv
+Teacher: Name=Svetlin Nakov; Courses=[OOP, HTML]
+LocalCourse: Name=Object-Oriented Programming; Teacher=George Georgiev; Topics=[Using Classes and Objects, Defining Classes, OOP Principles, Teamwork, Exam Preparation, Practical Exam]; Lab=Enterprise
+OffsiteCourse: Name=HTML Basics; Teacher=George Georgiev; Topics=[Using Classes and Objects, Defining Classes, OOP Principles, Teamwork, Exam Preparation, Practical Exam]; Town=Varna
+LocalCourse: Name=CSS; Lab=Ultimate

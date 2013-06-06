@@ -1,0 +1,207 @@
+body, div, header, h1, h2, h3, h4, h5, h6, footer, section, article, span, a, li, ul, img, p {
+	margin: 0;
+	padding: 0;
+}
+
+html, body, #wrapper {
+	height: 100%;
+	min-height: 100%;
+}
+
+ul {
+	list-style-type: none;
+}
+
+body #wrapper {
+	width: 960px;
+	margin: 0 auto;
+	position: relative;
+}
+
+	body #wrapper > header {
+		padding: 25px;
+		border-bottom: 1px solid black;
+	}
+
+		body #wrapper > header h1 {
+			margin-left: 55px;
+			font-size: 2.5em;
+		}
+
+			body #wrapper > header h1 a {
+				text-decoration: none;
+				color: #999;
+			}
+
+		body #wrapper > header nav {
+			float: right;
+			margin-top: 5px;
+			zoom: 1;
+		}
+
+			body #wrapper > header nav:after {
+				content: "";
+				display: block;
+				height: 0;
+				clear: both;
+			}
+
+			body #wrapper > header nav ul li {
+				display: inline-block;
+				position: relative;
+				margin-left: 10px;
+				font-size: 1.3em;
+				border: 1px solid black;
+				border-radius: 15px;
+				background: #fff;
+			}
+
+				body #wrapper > header nav ul li a {
+					display: inline-block;
+					padding: 5px 15px;
+					color: black;
+					text-decoration: none;
+				}
+
+				body #wrapper > header nav ul li:hover {
+					background: #aaa;
+				}
+
+					body #wrapper > header nav ul li:hover > a {
+						text-decoration: underline;
+					}
+
+	body #wrapper > section {
+		margin: 0 auto;
+	}
+
+		body #wrapper > section header .slider {
+			padding: 25px;
+		}
+
+			body #wrapper > section header .slider ul {
+				width: 90%;
+				margin: 0 auto;
+			}
+
+				body #wrapper > section header .slider ul li {
+					display: none;
+				}
+
+					body #wrapper > section header .slider ul li h2 {
+						font-size: 1.5em;
+					}
+
+					body #wrapper > section header .slider ul li p {
+						text-align: justify;
+					}
+
+					body #wrapper > section header .slider ul li.slider-current {
+						display: block;
+					}
+
+			body #wrapper > section header .slider .slider-controls {
+				float: right;
+				margin-right: 50px;
+			}
+
+				body #wrapper > section header .slider .slider-controls a {
+					text-decoration: none;
+					color: black;
+				}
+
+					body #wrapper > section header .slider .slider-controls a:hover {
+						text-decoration: underline;
+					}
+
+		body #wrapper > section article {
+			margin: 0 auto;
+			width: 80%;
+			border: 1px solid black;
+			border-radius: 15px;
+			margin-bottom: 15px;
+			zoom: 1;
+		}
+
+			body #wrapper > section article:after {
+				content: "";
+				display: block;
+				height: 0;
+				clear: both;
+			}
+
+			body #wrapper > section article header {
+				padding-top: 5px;
+				padding-left: 5px;
+			}
+
+			body #wrapper > section article .article-content img {
+				width: 70px;
+				float: left;
+				margin: 5px;
+			}
+
+			body #wrapper > section article .article-content p {
+				text-align: justify;
+				padding: 5px 15px;
+			}
+
+	body #wrapper > footer {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 60px;
+		margin: 0 auto;
+		padding-top: 15px;
+		border-top: 1px solid black;
+		text-align: center;
+	}
+
+		body #wrapper > footer h2 {
+			font-size: 1.7em;
+		}
+
+/* Styles for screen with maximum width 480px */
+@media only screen and (max-width : 480px) {
+    body #wrapper {
+        width: 100%;
+    }
+ 
+    #wrapper header nav ul li {
+        margin-top: 5px;
+        text-align: center;
+        width: 100%;
+    }
+
+    body #wrapper > header {
+            border: none;
+    }
+
+    body #wrapper > header nav {
+        margin-bottom: 5px;
+        margin-left: -25px;
+    }
+
+    body #wrapper > section article {
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        width: 100%;
+    }
+
+    section header div.slider {
+        display: none;
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    section h1 {
+        font-size: 2em;
+    }
+
+    body #wrapper > footer {
+        border: none;
+        position: static;
+    }
+}

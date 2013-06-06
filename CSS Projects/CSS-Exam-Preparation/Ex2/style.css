@@ -1,0 +1,84 @@
+﻿body,
+table,
+thead,
+tr,
+th,
+td,
+tbody,
+tfoot,
+button,
+label {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #dfecf4;
+  width: 900px;
+}
+body table {
+  border-collapse: separate;
+  border-spacing: 5px 0;
+  margin-top: 7px;
+  margin-left: 10px;
+}
+body table thead tr:first-of-type th {
+  background-image: -webkit-linear-gradient(top, #f2edd9 0%, #dbd0a3 100%);
+  height: 80px;
+  font-family: Georgia;
+  font-size: 2.2em;
+  color: #9b907a;
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 25px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+body table thead tr:first-of-type th label {
+  font-size: 0.4em;
+  display: block;
+}
+body table thead tr:first-of-type th:first-of-type {
+  background-image: none;
+}
+body table thead tr:not(:first-of-type) > th:not(:first-of-type) {
+  background-color: #be1208;
+  color: white;
+  height: 35px;
+}
+body table tbody tr td:first-of-type {
+  text-align: right;
+}
+body table tbody tr:first-of-type th:not(:first-of-type) {
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 30px;
+  background-color: #efe2bf;
+}
+body table tbody td:not(:first-of-type) {
+  text-align: center;
+  height: 35px;
+  background-color: #f1ede2;
+  border-bottom: 1px solid #ece4d7;
+}
+body table tbody td:first-of-type {
+  padding-right: 5px;
+}
+body table tfoot tr {
+  margin-top: -123px;
+}
+body table tfoot tr td:not(:first-of-type) {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #f1ede2;
+  height: 60px;
+}
+body table tfoot button {
+  color: white;
+  background-color: #a1b440;
+  border: none;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-size: 1.3em;
+  padding: 15px 25px;
+  margin: 5px;
+}

@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CaptainHookOOP.CommonClasses.BonusLevel" Collapsed="true">
+    <Position X="9.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAABAAgAAAACAAAABAAAAIAAAACAAAAAAAIAA=</HashCode>
+      <FileName>BonusLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Brick" Collapsed="true">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Brick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Castle" Collapsed="true">
+    <Position X="6.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Castle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.CastleLevel" Collapsed="true">
+    <Position X="14" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAABAAAAAAAAAAAgAAAAIAAAAAAAAAAACAIAA=</HashCode>
+      <FileName>CastleLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Cloud" Collapsed="true">
+    <Position X="12" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cloud.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Coin" Collapsed="true">
+    <Position X="0.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Coin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.ConsoleEngine" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAABQAAAAAAAgAAAAAAAAAAQAEAAAACAAAAQAAAAI=</HashCode>
+      <FileName>ConsoleEngine.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Flag" Collapsed="true">
+    <Position X="4.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Flag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.GameObjects" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAABAAAAAAAAAAEAAAABCAAAAAgAAAEAA=</HashCode>
+      <FileName>GameObjects.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.KeyboardInterface" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEQAAAAAAAAEAAEAAAAAAgAAAAAAAAAAAACBA=</HashCode>
+      <FileName>KeyboardInterface.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Level" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAgQAAAAAAAAAAAAAAAAAAhAAAAAAAAACAAAAACgA=</HashCode>
+      <FileName>Level.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.LevelGround" Collapsed="true">
+    <Position X="2.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LevelGround.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Mario" Collapsed="true">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Mario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.MarioException" Collapsed="true">
+    <Position X="10.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MarioException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.MovementManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQAAAAAACAAAgACQAEAAgAAAAAgQAAAgEAAA=</HashCode>
+      <FileName>MovementManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.MovingObject" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAABAAAAAQAAAAAAAEAAAAA=</HashCode>
+      <FileName>MovingObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.OutsideLevel" Collapsed="true">
+    <Position X="11.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAABAAAAAAAAACAABgAAAAAAAIAAAACAAAIAA=</HashCode>
+      <FileName>OutsideLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Pipe" Collapsed="true">
+    <Position X="8.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pipe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Pole" Collapsed="true">
+    <Position X="10.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.StaticObject" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <InheritanceLine Type="CaptainHookOOP.CommonClasses.GameObjects" FixedToPoint="true">
+      <Path>
+        <Point X="6.5" Y="1.062" />
+        <Point X="6.5" Y="1.375" />
+        <Point X="8.625" Y="1.375" />
+        <Point X="8.625" Y="1.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StaticObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaptainHookOOP.CommonClasses.Water" Collapsed="true">
+    <Position X="13.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Water.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="CaptainHookOOP.CommonClasses.MatrixCoordinates" Collapsed="true">
+    <Position X="8.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAwAFAAAAAAAAAAoAAAAAAAAAAAiA=</HashCode>
+      <FileName>MatrixCoordinates.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="CaptainHookOOP.CommonClasses.IConsolePrintable" Collapsed="true">
+    <Position X="12.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IConsolePrintable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CaptainHookOOP.CommonClasses.IEngine" Collapsed="true">
+    <Position X="14.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>IEngine.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CaptainHookOOP.CommonClasses.IMovable" Collapsed="true">
+    <Position X="12.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMovable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CaptainHookOOP.CommonClasses.IMovementManager" Collapsed="true">
+    <Position X="12.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAEAAgAAAAAgQAAAAEAAA=</HashCode>
+      <FileName>IMovementManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CaptainHookOOP.CommonClasses.IUserInterface" Collapsed="true">
+    <Position X="14.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEQAAAAAAAAEAAEAAAAAAgAAAAAAAAAAAACBA=</HashCode>
+      <FileName>IUserInterface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="CaptainHookOOP.CommonClasses.CloudImages" Collapsed="true">
+    <Position X="1.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>CloudImages.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CaptainHookOOP.CommonClasses.Colors" Collapsed="true">
+    <Position X="3" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAgAAQBAAABAAAAAAAAAAAAAIADAAAAA=</HashCode>
+      <FileName>Colors.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CaptainHookOOP.CommonClasses.MarioImages" Collapsed="true">
+    <Position X="4.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAA=</HashCode>
+      <FileName>MarioImages.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

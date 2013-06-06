@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Browser's Code Name Check</title>
+</head>
+<body>
+    <button onclick="onCheckBrowserButtonClick()">Check if your browser's code name is Mozilla</button>
+
+    <script>
+        function onCheckBrowserButtonClick(event) {
+            var browserCodeName = window.navigator.appCodeName;
+            var isMozilla = (browserCodeName == "Mozilla");
+            if (isMozilla) {
+                alert("Yes");
+            }
+            else {
+                alert("No");
+            }
+        }
+    </script>
+</body>
+</html>

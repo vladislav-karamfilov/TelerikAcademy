@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DOM Module presentation</title>
+    <script src="scripts/DOM-Module.js"></script>
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of the DOM Module</h1>
+    <script>
+        var LI_ELEMENTS_COUNT = 7;
+
+        var domModule = dom;
+        var wrapperDiv = document.createElement("div");
+        wrapperDiv.setAttribute("id", "wrapper");
+        wrapperDiv.style.color = "green";
+        wrapperDiv.innerHTML = "This div is created by the DOM Module!<br /><br />";
+        domModule.appendChild(wrapperDiv, "body");
+
+        var navListWrapper = document.createElement("div");
+        navListWrapper.setAttribute("id", "navListWrapper");
+        navListWrapper.style.color = "red";
+        navListWrapper.innerHTML = "<span>This list is created by the DOM Module!</span><br />";
+        domModule.appendChild(navListWrapper, "#wrapper");
+
+        var ul = document.createElement("ul");
+        var newLIElement;
+        for (var i = 0; i < LI_ELEMENTS_COUNT; i++) {
+            newLIElement = document.createElement("li");
+            newLIElement.innerHTML = "List item " + (i + 1);
+            domModule.appendChild(newLIElement, "#navListWrapper");
+        }
+        domModule.removeChildren("div#wrapper", "li:nth-child(2n)");
+
+        var link = document.createElement("a");
+        link.setAttribute("href", "#");
+        link.innerHTML = "<br />Click me!<br /><br />";
+        domModule.appendChild(link, "#wrapper");
+        domModule.attachEventHandler("div#wrapper a", "click", function () {
+            alert("The link was clicked!");
+        });
+
+        var fragmentDiv = document.createElement("div");
+        fragmentDiv.setAttribute("id", "fragmentDiv");
+        fragmentDiv.style.color = "black";
+        domModule.appendChild(fragmentDiv, "#wrapper");
+
+        var spanElement;
+
+        // This won't append anything to the fragments div
+        //for (var i = 0; i < 99; i++) {
+        //    spanElement = document.createElement("span");
+        //    spanElement.innerHTML = "I was created after the " + (i + 1) + " iteration! ";
+        //    domModule.appendToBuffer("#fragmentDiv", spanElement);
+        //}
+
+        for (var i = 0; i < 100; i++) {
+            spanElement = document.createElement("span");
+            spanElement.innerHTML = (i + 1) + " ";
+            domModule.appendToBuffer("div#wrapper #fragmentDiv", spanElement);
+        }
+        domModule.appendChild(document.createElement("br"), "div#wrapper");
+
+        var liElements = domModule.getElements("li:nth-child(2n + 1)");
+        for (var i = 0, length = liElements.length; i < length; i++) {
+            domModule.appendChild(liElements[i].cloneNode(true), "#wrapper");
+        }
+    </script>
+</body>
+</html>

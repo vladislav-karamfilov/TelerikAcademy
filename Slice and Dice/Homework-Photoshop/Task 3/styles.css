@@ -1,0 +1,33 @@
+nav {
+    margin: 20px;
+}
+
+div {
+    background: url("images/main.png");
+    border-top: 1px solid #cfcfcf;
+    border-right: 1px solid #cfcfcf;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #cfcfcf;
+    display: inline-block;
+    margin-left: -4px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 15px;
+}
+
+    div#first {
+        border-left: 1px solid #cfcfcf;
+        border-radius: 5px 0 0 5px;
+    }
+
+    div#last {
+        border-right: 1px solid #cfcfcf;
+        border-radius: 0 5px 5px 0;
+    }
+
+a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #ac3142;
+    font-weight: bold;
+}

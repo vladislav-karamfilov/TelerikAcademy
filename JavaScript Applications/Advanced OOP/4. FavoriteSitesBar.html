@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Favorite sites bar - Classical OOP</title>
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+
+        .fav-url {
+            float: left;
+            margin-left: 0;
+            margin-right: 0;
+            border: 1px solid #4cff00;
+            padding: 5px;
+            text-decoration: none;
+            color: #000;
+        }
+
+            .fav-url:hover {
+                background-color: #eae1e1;
+                text-decoration: underline;
+            }
+
+        .fav-folder {
+            float: left;
+            padding: 5px;
+            margin-left: 0;
+            margin-right: 0;
+            border: 1px solid #4cff00;
+        }
+
+            .fav-folder:hover {
+                cursor: pointer;
+            }
+
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Favorite sites bar functionality (Classical OOP)</h1>
+    <div id="favorite-sites-bar"></div>
+    <script src="scripts/classical-class-create-inherit.js"></script>
+    <script src="scripts/favorite-sites-bar.js"></script>
+    <script>
+        var academyOfficial = new Url("Telerik Academy", "http://academy.telerik.com/");
+        var studentSystem = new Url("Telerik Academy Student System", "http://telerikacademy.com/");
+        var forum = new Url("Telerik Academy Forums", "http://forums.academy.telerik.com/");
+
+        var nakovBlog = new Url("Nakov blog", "http://www.nakov.com/");
+        var nikiBlog = new Url("Niki blog", "http://nikolay.it/index.html");
+        var donchoBlog = new Url("Doncho blog", "http://minkov.it/");
+        var joroBlog = new Url("Joro blog", "http://itgeorge.net/");
+        var trainersBlogs = new Folder("Trainers blogs", [nakovBlog, nikiBlog, donchoBlog, joroBlog]);
+
+        var dataStructuresAndAlgorithms =
+            new Url("Data structures and algorithms", "http://telerikacademy.com/Courses/Courses/Details/89");
+        var jsApplications =
+            new Url("JavaScript applications", "http://telerikacademy.com/Courses/Courses/Details/87");
+        var currentCourses = new Folder("Current courses", [dataStructuresAndAlgorithms, jsApplications]);
+
+        var academyFavoriteSitesBar = new FavoriteSitesBar(
+            [academyOfficial, studentSystem, forum],
+            [currentCourses, trainersBlogs]);
+        academyFavoriteSitesBar.render("favorite-sites-bar");
+    </script>
+</body>
+</html>

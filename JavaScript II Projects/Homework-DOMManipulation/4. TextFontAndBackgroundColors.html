@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Font and background colors of text</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Changing the font and background colors of a text</h1>
+    <label for="font-color">Select the font color of the text:</label>
+    <input type="color" id="font-color" onchange="setFontColor()" />
+    <br />
+    <label for="bg-color">Select the background color of the text:</label>
+    <input type="color" id="bg-color" onchange="setBackgroundColor()" />
+    <br />
+    <br />
+    <textarea id="input-text" placeholder="Enter some text here..." style="width: 300px; height: 100px"></textarea>
+    <script>
+        var textarea = document.getElementById("input-text");
+
+        function setFontColor() {
+            textarea.style.color = document.getElementById("font-color").value;
+        }
+
+        function setBackgroundColor() {
+            textarea.style.backgroundColor = document.getElementById("bg-color").value;
+        }
+    </script>
+</body>
+</html>

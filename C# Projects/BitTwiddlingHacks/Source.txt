@@ -1,0 +1,1 @@
+The resource that is used in these project is http://graphics.stanford.edu/~seander/bithacks.html

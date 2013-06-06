@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Calculator Programmer View</title>
+    <link rel="stylesheet" href="Styles.css" />
+</head>
+<body>
+    <section>
+        <div id="menu">
+            <span class="menu-choice"><span class="first-letter">V</span>iew</span>
+            <span class="menu-choice"><span class="first-letter">E</span>dit</span>
+            <span class="menu-choice"><span class="first-letter">H</span>elp</span>
+        </div>
+        <div id="main-content">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <form>
+                            <input type="text" class="doubleBorder" value="8854455" />
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table id="binaryRep" class="doubleBorder" >
+                            <tr>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>0000</td>
+                            </tr>
+                            <tr>
+                                <td class="binPositionColor" colspan="4">63</td>
+                                <td class="binPositionColor" colspan="3">47</td>
+                                <td class="rightBinPosition binPositionColor">32</td>
+                            </tr>
+                            <tr>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>1000</td>
+                                <td>0111</td>
+                                <td>0001</td>
+                                <td>1011</td>
+                                <td>1011</td>
+                                <td>0111</td>
+                            </tr>
+                            <tr>
+                                <td class="binPositionColor" colspan="4">31</td>
+                                <td class="binPositionColor" colspan="3">15</td>
+                                <td class="rightBinPosition binPositionColor">0</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form class="numSystem">
+                            <input type="radio" name="numSystem" id="hex" />
+                            <label for="hex">Hex</label><br />
+                            <input type="radio" name="numSystem" id="dec" checked />
+                            <label for="dec">Dec</label><br />
+                            <input type="radio" name="numSystem" id="oct" />
+                            <label for="oct">Oct</label><br />
+                            <input type="radio" name="numSystem" id="bin" />
+                            <label for="bin">Bin</label>
+                        </form>
+                    </td>
+                    <td rowspan="2">
+                        <table>
+                            <tr>
+                                <td><button type="button" disabled></button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">Mod</button></td>
+                                <td><button type="button" class="letter" disabled>A</button></td>
+                                <td><button class="mCell doubleBorder" type="button">MC</button></td>
+                                <td><button class="mCell doubleBorder" type="button">MR</button></td>
+                                <td><button class="mCell doubleBorder" type="button">MS</button></td>
+                                <td><button class="mCell doubleBorder" type="button">M+</button></td>
+                                <td><button class="mCell doubleBorder" type="button">M-</button></td>
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="gradient1 doubleBorder">(</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">)</button></td>
+                                <td><button type="button" class="letter" disabled>B</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder"><span id="backspace">←</span></button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">CE</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">C</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">&plusmn;</button></td>
+                                <td><button type="button" disabled>&radic;</button></td>
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="gradient1 doubleBorder">RoL</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">RoR</button></td>
+                                <td><button type="button" class="letter" disabled>C</button></td>
+                                <td><button type="button" class="digit doubleBorder">7</button></td>
+                                <td><button type="button" class="digit doubleBorder">8</button></td>
+                                <td><button type="button" class="digit doubleBorder">9</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">/</button></td>
+                                <td><button type="button" disabled>%</button></td>
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="gradient1 doubleBorder">Or</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">Xor</button></td>
+                                <td><button type="button" class="letter" disabled>D</button></td>
+                                <td><button type="button" class="digit doubleBorder">4</button></td>
+                                <td><button type="button" class="digit doubleBorder">5</button></td>
+                                <td><button type="button" class="digit doubleBorder">6</button></td>
+                                <td><button type="button" class="operator gradient1 doubleBorder">*</button></td>
+                                <td><button type="button" disabled>1/x</button></td>
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="gradient1 doubleBorder">Lsh</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">Rsh</button></td>
+                                <td><button type="button" class="letter" disabled>E</button></td>
+                                <td><button type="button" class="digit doubleBorder">1</button></td>
+                                <td><button type="button" class="digit doubleBorder">2</button></td>
+                                <td><button type="button" class="digit doubleBorder">3</button></td>
+                                <td><button type="button" class="operator gradient1 doubleBorder">-</button></td>
+                                <td rowspan="2"><button type="button" id="equals" class="gradient1 doubleBorder">=</button></td>
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="gradient1 doubleBorder">Not</button></td>
+                                <td><button type="button" class="gradient1 doubleBorder">And</button></td>
+                                <td><button type="button" class="letter" disabled>F</button></td>
+                                <td colspan="2"><button type="button" id="zero" class="digit doubleBorder">0</button></td>
+                                <td><button type="button" disabled>.</button></td>
+                                <td><button type="button" class="operator gradient1 doubleBorder">+</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form class="word">
+                            <input type="radio" name="binLength" id="qword" checked />
+                            <label for="qword">Qword</label><br />
+                            <input type="radio" name="binLength" id="dword" />
+                            <label for="dword">Dword</label><br />
+                            <input type="radio" name="binLength" id="word" />
+                            <label for="word">Word</label><br />
+                            <input type="radio" name="binLength" id="byte" />
+                            <label for="byte">Byte</label>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+</body>
+</html>

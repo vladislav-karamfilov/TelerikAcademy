@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Tag cloud</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <style>
+        textarea#input-tags {
+            width: 400px;
+            height: 200px;
+        }
+
+        div#tag-cloud-container {
+            border: 1px solid #0094ff;
+            margin-top: 5px;
+            width: 700px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generating a tag cloud</h1>
+    <textarea id="input-tags" placeholder="Enter the tags for the tag cloud separated by a single comma ','"></textarea>
+    <br />
+    <a href="#" onclick="generateTagCloud(17, 42)">Generate the tag cloud</a>
+    <div id="tag-cloud-container"></div>
+    <script>
+        function getTagsWithOccurrences(tagsSeparated, tagsTable) {
+            var currentTag = "";
+            for (var i = 0, length = tagsSeparated.length; i < length; i++) {
+                currentTag = tagsSeparated[i].trim().toLowerCase();
+                if (tagsTable[currentTag]) {
+                    tagsTable[currentTag]++;
+                }
+                else {
+                    tagsTable[currentTag] = 1;
+                }
+            }
+        }
+
+        function generateTagCloud(minFontSize, maxFontSize) {
+            var tagCloudContainer = document.getElementById("tag-cloud-container");
+            while (tagCloudContainer.firstChild) {
+                tagCloudContainer.removeChild(tagCloudContainer.firstChild);
+            }
+
+            var tagsTable = {};
+            var tagsSeparated = document.getElementById("input-tags").value.split(',');
+            getTagsWithOccurrences(tagsSeparated, tagsTable);
+
+            var maxOccurrences = getMaxOccurrences(tagsTable);
+            var minOccurrences = getMinOccurrences(tagsTable);
+            var fontSizeRange = maxFontSize - minFontSize;
+            var occurrencesRange = maxOccurrences - minOccurrences;
+            var fontSizeIncrement = (fontSizeRange / occurrencesRange) | 0;
+
+            for (var tag in tagsTable) {
+                var tagLink = document.createElement("a");
+                tagLink.innerHTML = tag;
+                var fontSize = calculateFontSize(minFontSize, maxFontSize, minOccurrences, maxOccurrences, fontSizeIncrement, tagsTable[tag]);
+                setStyles(tagLink, fontSize);
+                tagCloudContainer.appendChild(tagLink);
+            }
+        }
+
+        function calculateFontSize(minFontSize, maxFontSize, minOccurrences, maxOccurrences, fontSizeIncrement, currentTagOccurrences) {
+            if (currentTagOccurrences == minOccurrences) {
+                return minFontSize;
+            }
+            else if (currentTagOccurrences == maxOccurrences) {
+                return maxFontSize;
+            }
+            else {
+                return minFontSize + (currentTagOccurrences - minOccurrences) * fontSizeIncrement;
+            }
+        }
+
+        function getMaxOccurrences(tagsTable) {
+            var max = 0;
+            for (var i in tagsTable) {
+                if (max < tagsTable[i]) {
+                    max = tagsTable[i];
+                }
+            }
+
+            return max;
+        }
+
+        function getMinOccurrences(tagsTable) {
+            var min = Number.MAX_VALUE;
+            for (var i in tagsTable) {
+                if (min > tagsTable[i]) {
+                    min = tagsTable[i];
+                }
+            }
+
+            return min;
+        }
+
+        function setStyles(tagLink, fontSize) {
+            tagLink.style.padding = 0;
+            tagLink.style.border = "none";
+            tagLink.style.fontSize = fontSize + "px";
+            tagLink.style.marginRight = 10 + "px";
+        }
+    </script>
+</body>
+</html>

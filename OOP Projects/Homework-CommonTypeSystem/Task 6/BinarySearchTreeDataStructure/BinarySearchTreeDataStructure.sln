@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchTreeDataStructure.Common", "BinarySearchTreeDataStructure.Common\BinarySearchTreeDataStructure.Common.csproj", "{46E3C292-35C2-4248-A6ED-6D69BA495F37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchTreeDataStructure.UI", "BinarySearchTreeDataStructure.UI\BinarySearchTreeDataStructure.UI.csproj", "{9B6DA6B9-283B-47CC-930F-1C43960FBC89}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46E3C292-35C2-4248-A6ED-6D69BA495F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E3C292-35C2-4248-A6ED-6D69BA495F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E3C292-35C2-4248-A6ED-6D69BA495F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E3C292-35C2-4248-A6ED-6D69BA495F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6DA6B9-283B-47CC-930F-1C43960FBC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6DA6B9-283B-47CC-930F-1C43960FBC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6DA6B9-283B-47CC-930F-1C43960FBC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6DA6B9-283B-47CC-930F-1C43960FBC89}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

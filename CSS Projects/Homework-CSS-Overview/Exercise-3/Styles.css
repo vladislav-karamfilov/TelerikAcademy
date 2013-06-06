@@ -1,0 +1,56 @@
+/* Body styles */
+body {
+    background-color: #A9A9A9;
+    font-family: 'Times New Roman';
+}
+
+/* Headings styles */
+h1 {
+	color: #FAFAD2;
+    font-size: 3em;
+	text-align: center;
+}
+section header h1 {
+	font-size: xx-large;
+    text-align: left;
+}
+
+/* List styles */
+ul li {
+	list-style-type: none;
+    text-align: center;
+}
+li:last-child {
+	color: white;
+	font-weight: bold;
+    text-decoration: underline;   
+}
+
+/* Links styles */
+li a:link, li a:visited {
+	color: white;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-decoration: none;
+}
+.current {
+	background-color: #D9D9D9;
+}
+footer a:link, footer a:visited {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Paragraphs styles */
+p {
+    font-size: 1.1em;
+}
+
+/* Footers styles */
+article footer {
+    font-size: 0.8em;
+}
+body > footer {
+	font-size: 1.1em;
+    text-align: center;
+}

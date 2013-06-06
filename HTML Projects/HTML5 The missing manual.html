@@ -1,0 +1,60 @@
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>HTML5: The missing manual</title>
+    <style>
+        canvas 
+        {
+            border: 1px dashed black;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById("drawingCanvas");
+            var context = canvas.getContext("2d");
+            context.lineWidth = 20;
+            context.strokeStyle = "rgb(25, 0, 0)";
+            context.moveTo(10, 10);
+            context.lineTo(10, 150);
+            context.lineCap = "butt";
+            context.stroke();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="drawingCanvas" width="400" height="200"></canvas><br />
+	<blockquote>
+		It's a blockquote that uses <mark>the mark element</mark>. So the blockquote element has an 
+		indent in the beginning and it's a block element.
+	</blockquote>
+	<form name="Personal Information">
+		<fieldset>
+			<legend>Contact Details</legend>
+			<label for="name">Name<strong>*</strong></label>
+			<input id="name" required="required" /><br />
+			<label for="telephone">Telephone<strong>*</strong></label>
+			<input id="telephone" spellcheck="true"/><br />
+			<input type="submit" value="submit" />
+            <input type="url" placeholder="URL expected" />
+            <input type="search" placeholder="Enter keywords..." />
+			<input type="number" min="0" max="130" step="1" required="required" /><br />
+            <input type="date" /><br />
+            <input type="datetime" /><br />
+            <input type="time" /><br />
+            <input type="datetime-local" /><br />
+            <input type="color" /><br />
+            <datalist id="laptopChoices">
+                <option label="Lenovo" value="Lenovo" />
+                <option label="HP" value="HP" />
+                <option label="Dell" value="Dell" />
+                <option label="Samsung" value="Samsung" />
+            </datalist>
+            <input id="laptop" list="laptopChoices" />
+		</fieldset>
+	</form>
+	<audio controls="controls" preload="metadata">
+        <source src="11-andain-promises_(myon_and_shane_54_summer_of_love_mix_edit).mp3" type="audio/mp3" />
+	</audio><br />
+	<time datetime="2012-11-24" pubdate="pubdate">This is written on 24<sup>th</sup> Nov 2012</time>
+</body>
+</html>

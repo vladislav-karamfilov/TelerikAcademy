@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Schools Repository - Classical OOP</title>
+    <link rel="stylesheet" href="styles/js-console.css" />
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Schools repository functionality (Classical OOP)</h1>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script src="scripts/classical-class-create-inherit.js"></script>
+    <script src="scripts/schools-classical-oop.js"></script>
+    <script>
+        var goshoStudent = new Student("Gosho", "Goshov", 17, 11);
+        var peshoStudent = new Student("Pesho", "Peshov", 16, 10);
+
+        var liliTeacher = new Teacher("Lili", "Petkova", 40, "Mathematics");
+        var kirilTeacher = new Teacher("Kiril", "Dimitrov", 45, "Informatics");
+
+        var mathsClass =
+            new SchoolClass("Mathematics", 20, [peshoStudent, goshoStudent], liliTeacher);
+        var informaticsClass =
+            new SchoolClass("Informatics", 30, [goshoStudent], kirilTeacher);
+        informaticsClass.addStudent(peshoStudent);
+        
+        var pmgSchool = new School("PMG", "Sofia", [mathsClass]);
+        pmgSchool.addClass(informaticsClass);
+
+        jsConsole.writeLine("---School---");
+        jsConsole.writeLine(pmgSchool);
+    </script>
+</body>
+</html>

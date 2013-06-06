@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>Geolocation example</title>
+
+    <!-- Modernizr Geolocation API for older IEs -->
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="modernizr.custom.34137.js"></script>
+    <script src="js-webshim/minified/polyfiller.js"></script>
+
+    <!-- Google maps API -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=true"></script>
+
+    <style>
+        div#google-map-canvas {
+            margin: 0;
+            padding: 0;
+            height: 600px;
+        }
+    </style>
+</head>
+<body onload="showMap()">
+    <div id="google-map-canvas"></div>
+    <script>
+        $.webshims.polyfill('geolocation');
+
+        function setMapSettings(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var mapProperties = {
+                center: new google.maps.LatLng(latitude, longitude),
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById('google-map-canvas'), mapProperties);
+
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(latitude, longitude)
+            });
+
+            marker.setMap(map);
+        }
+
+        function showMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(setMapSettings);
+            }
+        }
+
+        google.maps.event.addDomListener(window, 'load', setMapSettings);
+    </script>
+</body>
+</html>

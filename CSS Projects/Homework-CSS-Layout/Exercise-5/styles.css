@@ -1,0 +1,88 @@
+/* Initial resets and global settings */
+* {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation content styles */
+ul {
+    margin: 10px;
+    list-style: none;
+}
+#brands {
+    margin-left: 200px;
+}
+    #brands li {
+        display: inline;
+        font-size: 18px;
+        font-weight: bold;
+    }
+li {
+    margin-top: 8px;
+}
+    li a {
+        color: #00abef; 
+    }
+
+/* Horizontal rule styles */
+hr {
+    background-color: black;
+    height: 1px;
+    margin-left: 30px;
+    width: 50%;
+}
+
+/* Main section styles */
+section {
+    border: 1px solid black;
+    float: left;
+    margin: 10px;
+    width: 568px;
+    height: 475px;
+    overflow: hidden;
+}
+
+/* Form and its content in the main section styles */
+form {
+    float: left;
+    margin: 2px 5px 2px 5px;
+    height: 150px;
+}
+fieldset {
+    border: 1px solid black;
+    width: 270px;
+    height: 150px;
+}
+legend {
+    margin-left: 60px;
+}
+ul.price {
+    float: left;
+    text-align: center;
+    position: relative;
+    bottom: 10px;
+}
+ul.parameters {
+    position: relative;
+    top: 15px;
+}
+    ul.parameters li {
+        margin-top: 15px;
+    }
+
+/* Aside content for user selection styles */
+.price-ram {
+    position: relative;
+    top: 150px;
+}
+    .price-ram input {
+        width: 150px;
+    }
+    .price-ram div {
+        margin-bottom: 8px;
+    }
+        .price-ram div span {
+            float: right;
+        }
+    

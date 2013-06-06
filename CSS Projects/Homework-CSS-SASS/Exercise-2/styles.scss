@@ -1,0 +1,50 @@
+﻿$body-bgcolor: #000;
+
+/* Initial resets */
+body, form, label, input, img {
+	margin: 0;
+	padding: 0;
+}
+/* Body and its content styles */
+body {
+	background-color: $body-bgcolor;
+
+	form {
+		width: 1300px;
+		height: 500px;
+		position: relative;
+		bottom: 5px;
+		left: 25px;
+
+		ul {
+			list-style-type: none;
+			
+			li {
+				display: inline-block;
+
+				label {
+					margin-right: 15px;
+				}
+
+				&:last-child + label {
+					margin-right: 0;
+				}
+			}
+		}
+
+		& > img {
+			display: none;
+		}
+
+		input[type="radio"] {
+			display: none;
+
+			&:checked + img {
+				display: block;
+				position: relative;
+				bottom: 7px;
+				left: 340px
+			}
+		}
+	}
+}

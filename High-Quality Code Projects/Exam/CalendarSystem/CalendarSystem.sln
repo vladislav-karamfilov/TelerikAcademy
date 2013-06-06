@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarSystem.UI", "CalendarSystem.UI\CalendarSystem.UI.csproj", "{93982258-E356-4C63-8E7A-95199D90EF3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarSystem.Common", "CalendarSystem.Common\CalendarSystem.Common.csproj", "{5CCD2011-0A57-4A64-AA8C-B4C85742DF6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarSystem.Tests", "CalendarSystem.Tests\CalendarSystem.Tests.csproj", "{1F4D821C-1807-4807-A987-096DE4D3F245}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93982258-E356-4C63-8E7A-95199D90EF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93982258-E356-4C63-8E7A-95199D90EF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93982258-E356-4C63-8E7A-95199D90EF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93982258-E356-4C63-8E7A-95199D90EF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CCD2011-0A57-4A64-AA8C-B4C85742DF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CCD2011-0A57-4A64-AA8C-B4C85742DF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CCD2011-0A57-4A64-AA8C-B4C85742DF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CCD2011-0A57-4A64-AA8C-B4C85742DF6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4D821C-1807-4807-A987-096DE4D3F245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4D821C-1807-4807-A987-096DE4D3F245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4D821C-1807-4807-A987-096DE4D3F245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4D821C-1807-4807-A987-096DE4D3F245}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

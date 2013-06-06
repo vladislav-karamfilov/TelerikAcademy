@@ -1,0 +1,568 @@
+/**
+ * Styles
+ */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region Elements
+ */
+
+
+
+
+/** Root elements */
+html {
+	background: #ffffff;
+}
+body {
+	margin: 0 auto;
+	padding: 1.5em 0;
+	width: 640px;
+	color: #000000;
+	font-family: Calibri, "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, Lucida, sans-serif;
+	font-size: 14px;
+}
+
+
+
+
+/** Block Elements */
+div {}
+
+
+p {margin: 1.5em 0}
+pre {margin: 1.5em 0; font-family: monospace; white-space: pre}
+address {margin: 1.5em 0; font-style: italic}
+blockquote {margin: 1.5em 40px}
+
+
+
+
+/** Headings */
+h1, h2, h3, h4, h5, h6 {
+	font-family: Candara, "Myriad Pro", "Trebuchet MS", sans-serif;
+	font-weight: normal;
+}
+h1 {
+	margin: 1em 0;
+	font-size: 1.5em;
+	line-height: 1;
+}
+h2 {
+	margin: 1.2em 0;
+	font-size: 1.25em;
+	line-height: 1.2;
+}
+h3 {
+	margin: 1.5em 0;
+	font-size: 1em;
+	line-height: 1.5;
+	font-weight: bold;
+}
+h4, h5, h6 {
+	margin: 1.5em 0;
+	font-size: 1em;
+	line-height: 1.5;
+}
+
+
+
+
+/** Tables */
+table {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-spacing: 2px;
+	border-collapse: separate;
+}
+caption {
+	text-align: center;
+}
+thead, tbody ,tfoot {
+	vertical-align: top;
+}
+th, td {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	vertical-align: inherit;
+}
+th {
+	font-weight: bold;
+}
+td {}
+
+
+
+
+/** Lists */
+ol, ul {
+	margin: 1.5em 0;
+	padding: 0 0 0 40px;
+}
+ol ol, ol ul,
+ul ul, ul ol {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+
+dl {margin: 1.5em 0}
+dt {}
+dd {margin: 0 0 0 40px}
+
+
+
+
+/** Quotes */
+blockquote {quotes: ""; quotes: none}
+cite {font-style: italic}
+q {quotes: "\201c" "\201d" "\2018" "\2019"}
+
+
+
+
+/** Links */
+a {color: #0055aa; text-decoration: none}
+a:visited{color: #990099}
+a:hover {text-decoration: underline; color: #cc0000}
+a:focus {outline: 1px dotted}
+a:active {}
+
+
+
+
+
+/** Phrase elements */
+i, em {font-style: italic}
+b, strong {font-weight: bold}
+small {font-size: smaller}
+big {font-size: bigger}
+
+
+sub, sup {font-size: smaller; line-height: normal}
+sub {vertical-align: sub}
+sup {vertical-align: super}
+
+
+tt, code, kbd, samp {font-family: monospace}
+
+
+
+
+/** Images */
+img, a img {border: none; vertical-align: bottom}
+
+
+
+
+/** @endregion */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region	Form elements
+ */
+form {margin: 0; padding: 0}
+input, textarea, button, option, select {margin: 0; padding: 0}
+
+
+
+
+/** Fieldsets */
+fieldset {border: 1px solid #cccccc}
+fieldset > legend {}
+
+
+
+
+/** Textboxes */
+textarea,
+input[type=text],
+input[type=password] {
+	padding: 3px;
+	color: #000000;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	font: inherit;
+}
+
+
+
+/** Single / Multiple choice */
+input[type=radio],
+input[type=checkbox] {
+	margin: 0 3px 0 0;
+	vertical-align: middle;
+}
+
+
+
+
+/** Dropdowns */
+select {}
+option {}
+
+
+
+
+/** Buttons */
+button,
+input[type=button],
+input[type=submit] {}
+
+
+input[type=image] {vertical-align: middle}
+
+
+
+
+/** Buttons holder */
+.buttons {
+	margin: 1.5em 0 0 0;
+	text-align: center;
+}
+
+
+
+
+/** @endregion */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region Abstract
+ */
+
+
+
+
+/** Holder */
+.holder {
+	margin: 1.5em auto;
+	position: relative;
+}
+
+
+
+
+/** Meta */
+.meta {
+	font-size: .9em;
+	color: #999999;
+}
+
+
+
+
+/** @endregion */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region Micro patterns
+ */
+
+
+
+
+/** Selection */
+.selection {}
+.selection .selected {
+	font-weight: bold;
+}
+
+
+
+
+/** @endregion */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region Utility classes
+ */
+
+
+
+
+/** Flow */
+.float {float: left}
+.float-alt {float: right}
+.no-float {float: none}
+
+
+
+
+/** Hide / show */
+.skip, .hide,
+.hide-text span {display: none;}
+
+
+
+
+/** Visual clear */
+.clear {clear: both !important}
+.clear-left {clear: left !important}
+.clear-right {clear: right !important}
+.no-clear {clear: none !important}
+
+
+
+
+/** Self clear */
+.clear-self {
+	min-height: 0;
+	_zoom: 1;
+}
+.clear-self:after {
+	content: "";
+	height: 0;
+	clear: both;
+	display: block;
+}
+
+
+
+
+/** @endregion */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region UI Text
+ */
+
+
+
+
+/** Text alignment */
+.text-left {text-align: left}
+.text-right {text-align: right}
+.text-center {text-align: center}
+.text-justify {text-align: justify}
+
+
+
+
+/** Bold */
+.text-bold {font-weight: bold}
+.no-bold {font-weight: normal}
+
+
+
+
+/** Italic */
+.text-italic {font-style: italic}
+.no-italic {font-style: normal}
+
+
+
+
+/** Underline */
+.text-underline {text-decoration: underline}
+.no-underline {text-decoration: none}
+
+
+
+
+/** Text transfrom */
+.text-lowercase {text-transform: lowercase}
+.text-uppercase {text-transform: uppercase}
+.no-transform {text-transform: none}
+
+
+
+
+/** Text differences */
+.text-deleted {background: #ffdddd}
+.text-inserted {background: #ddffdd}
+.text-modified {background: #e4f2fd}
+
+
+
+
+/** Green text */
+.text-success,
+.text-positive {color: #339933}
+
+
+
+
+/** Blue text */
+.text-info,
+.text-normal {color: #5a96d0}
+
+
+
+
+/** Orange text */
+.text-warning {color: #ffa500}
+
+
+
+
+/** Red text */
+.text-error,
+.text-negative {color: #f44c4f}
+
+
+
+
+/** Gray text */
+.text-disabled {color: #999999}
+
+.article-example {background: #eeeeee; margin-left: 30px; padding:10px}
+
+
+
+
+/** @endregion */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region	UI boxes
+ */
+.ui-box {
+	margin: 1em 0;
+	padding: .75em .75em .75em 3em;
+	background-position: 1em center;
+	background-repeat: no-repeat;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	font-size: 0.9em;
+}
+
+
+
+	/** Box types */
+	ul.ui-box {}
+	p.ui-box {background-position: 1em .8em}
+
+
+
+	/** Box content */
+	.ui-box ul {
+		margin: 0;
+		padding: 0 0 0 40px;
+	}
+	.ui-box li {
+		padding: 0;
+		background: none;
+		list-style: disc;
+	}
+
+
+	.ui-box p {}
+
+
+
+
+	/** Green boxes */
+	.box-success {
+		background-color: #e4f1de;
+		border-color: #70bf54;
+	}
+
+
+		.box-success {background-image: url("../icons/silk/accept.png")}
+
+
+
+
+
+	/** Blue boxes */
+	.box-info {
+		background-color: #f0f0f0;
+		border-color: #b1c3d5;
+	}
+
+
+		.box-note {background-image: url("../icons/silk/information.png")}
+
+
+
+
+	/** Orange boxes */
+	.box-warning {
+		background-color: #fffac2;
+		border-color: #ffd400;
+	}
+
+
+		.box-warning {background-image: url("../icons/silk/error.png")}
+
+
+
+
+	/** Red boxes */
+	.box-error {
+		background-color: #fde8e5;
+		border-color: #f48587;
+	}
+
+
+		.box-error {background-image: url("../icons/silk/exclamation.png")}
+
+
+
+
+/** @endregion */
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * @region Fixes
+ */
+/** @endregion */

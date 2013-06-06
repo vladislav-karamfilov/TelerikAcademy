@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        button {
+            margin: 10px;
+            height: 47px;
+            background: url(img/btn_bgr.png);
+            background-repeat: repeat-x;
+            padding-left: 38px;
+            padding-Right: 38px;
+            font-family: Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+            font-size: 25px;
+            border: 0px;
+            border-radius: 22px;
+            -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.20);
+            -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.20);
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.20);
+            
+        }
+            .text{
+            height:47px;
+            display:block;
+            padding-top:7px;
+        }
+        .left, .right{
+            width: 24px;
+            height: 47px;
+             background-repeat: no-repeat;
+             background-position:0 0;
+             margin-top:-1px;
+        }
+        .right { 
+            float: right;
+            background-image: url(img/btn_Right.png);
+            margin-right:-39px;
+            
+        }
+
+        .left {
+            float: left;
+            background-image: url(img/btn_Left.png);
+            margin-left:-39px;
+        }
+    </style>
+    <title>Button</title>
+</head>
+<body>
+    <button>
+        <span class="right"></span>
+        <span class="left"></span> 
+        <span class="text">OK</span> 
+    </button>
+        <button>
+        <span class="right"></span>
+        <span class="left"></span> 
+        <span class="text">Cancel</span> 
+    </button>
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogOfFreeContent.UI", "CatalogOfFreeContent.UI\CatalogOfFreeContent.UI.csproj", "{1C5876DD-C5D0-4BA0-8F58-3981F4DC9FC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogOfFreeContent.Common", "CatalogOfFreeContent.Common\CatalogOfFreeContent.Common.csproj", "{2F746F11-B8F8-4299-8041-46CDBCC2FD98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogOfFreeContent.Tests", "CatalogOfFreeContent.Tests\CatalogOfFreeContent.Tests.csproj", "{FF5A16D7-F743-4714-9677-6032AB6CA71E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C5876DD-C5D0-4BA0-8F58-3981F4DC9FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C5876DD-C5D0-4BA0-8F58-3981F4DC9FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C5876DD-C5D0-4BA0-8F58-3981F4DC9FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C5876DD-C5D0-4BA0-8F58-3981F4DC9FC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F746F11-B8F8-4299-8041-46CDBCC2FD98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F746F11-B8F8-4299-8041-46CDBCC2FD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F746F11-B8F8-4299-8041-46CDBCC2FD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F746F11-B8F8-4299-8041-46CDBCC2FD98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5A16D7-F743-4714-9677-6032AB6CA71E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5A16D7-F743-4714-9677-6032AB6CA71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5A16D7-F743-4714-9677-6032AB6CA71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5A16D7-F743-4714-9677-6032AB6CA71E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>TODO List</title>
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }    
+    </style>
+    <script src="scripts/TODOList.js"></script>
+</head>
+<body>
+    <h1>Presenting functionality of the TODO list module</h1>
+    <div id="todo-list-container"></div>
+    <script>
+        var todoList = new todoListModule.TodoList("todo-list-container");
+        todoList.load();
+    </script>
+</body>
+</html>

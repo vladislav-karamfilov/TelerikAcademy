@@ -1,0 +1,156 @@
+/* Initial resets and global settings */
+body {
+    background-color: #f1f1f1;
+    border: 1px solid black;
+    font-family: Verdana;
+    margin: 15px;
+    padding: 0;
+}
+
+/* Site navigation styles */
+nav {
+    margin-left: 10px;
+    margin-top: 15px;
+    width: 200px;
+}
+    nav header h2 {
+        float: right;
+        font-size: 12px;
+        position: relative;
+        bottom: 5px;
+        right: 139px;
+    }
+    nav section h3 {
+        color: #900B09;
+        font-size: 12px;
+    }
+
+/* List styles */
+ul {
+    list-style: none;
+    position: relative;
+    right: 40px;
+    bottom: 17px;
+}
+    ul li a {
+        color: black;
+        font-size: 12px;
+        text-decoration: none;
+    }
+
+/* Main content section styles */
+.main-content {
+    background-color: white;
+    border: 1px solid #c4c4c4;
+    float: left;
+    padding: 5px;
+    position: relative;
+    left: 200px;
+    bottom: 851px;
+    width: 800px;
+    height: 730px;
+}
+    .main-content header h1 {
+        font-size: 22px;
+    }
+hr {
+    width: 100%;
+    margin-top: 6px;
+}
+
+/* Buttons and their content styles */
+.main-content button {
+    background-color: white;
+    border: 1px solid black;
+    width: 120px;
+}
+.arrow-left {
+    display: block;
+    float: left;
+}
+.arrow-right {
+    display: block;
+    float: right;
+}
+
+/* Articles styles */
+article header {
+    background-color: #808080;
+    color: white;
+    padding-left: 5px;
+    position: relative;
+    bottom: 6px;
+}
+    article header h2 {
+        font-size: 18px;
+        font-weight: normal;
+    }
+#first {
+    height: 160px;
+}
+
+/* Paragraphs in articles styles */
+#first p {
+    font-size: 15px;
+    position: relative;
+    left: 150px;
+    bottom: 130px;
+    width: 600px;
+}
+p a {
+    color: #900B09;
+}
+article p {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+/* Aside styles */
+aside {
+    float: right;
+    position: relative;
+    bottom: 866px;
+    width: 303px;
+}
+    aside header {
+        background-color: #808080;
+        color: white;
+        position: relative;
+        left: 2px;
+        text-align: center;
+        width: 299px;
+
+    }
+        aside header h2 {
+            font-size: 18px;
+            font-weight: normal;
+        }
+    aside section#second-section {
+        position: relative;
+        bottom: 28px;
+}
+
+/* Divs with ads styles */
+div {
+    background-color: white;
+    border: 1px solid grey;
+    text-align: center;
+    margin: 2px;
+    padding: 5px;
+}
+div.upper-position {
+    position: relative; 
+    bottom: 15px;
+}
+div a {
+    font-size: 15px;
+    color: #900B09;
+}
+div form input[type="button"] {
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    height: 22px;
+    border: 1px solid #6f91b1;
+}

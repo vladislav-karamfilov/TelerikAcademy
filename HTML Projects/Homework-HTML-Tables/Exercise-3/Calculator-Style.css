@@ -1,0 +1,39 @@
+td
+{
+	text-align: center;
+	padding: 0px;
+	border-top: solid black 1px;
+	border-right: solid black 1px;
+}
+
+th 
+{
+	border-right: solid black 1px;
+}
+
+table 
+{
+	border-spacing: 0px;
+	border-left: solid black 2px;
+	border-top: solid black 2px;
+	border-bottom: solid black 2px;
+	border-right: solid black 1px;
+}
+
+input[type="button"]
+{
+	width: 47px;
+	height: 40px;
+}
+
+input[type="text"]
+{
+	text-align: right;
+	width: 185px;
+	height: 40px;
+}
+
+input[type="button"]#calcZero
+{
+	width: 95px;
+}

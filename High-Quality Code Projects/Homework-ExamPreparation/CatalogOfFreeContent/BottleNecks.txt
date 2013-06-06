@@ -1,0 +1,2 @@
+When finding 100 elements in a big catalog it is slow.
+Updating content items URLs is slow because the method uses ToList() method from Linq to get the elements with the oldUrl. 

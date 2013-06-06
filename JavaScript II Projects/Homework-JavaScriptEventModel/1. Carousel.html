@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Carousel</title>
+	<style>
+		h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+	</style>
+    <script src="scripts/Carousel.js"></script>
+</head>
+<body>
+	<h1>Presenting functionality of the Carousel module</h1>
+    <div id="carousel-container""></div>
+    <script>
+        var imagesSources = [
+            "images/1.jpg",
+            "images/2.jpg",
+            "images/3.jpg",
+            "images/4.jpg"
+        ];
+
+        var carousel = new carouselModule.Carousel("carousel-container", imagesSources);
+        carousel.addImage("images/5.jpg", "picture");
+        carousel.load();
+    </script>
+</body>
+</html>

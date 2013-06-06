@@ -1,0 +1,42 @@
+/* CSS classes for all icons */
+.comment{ background-position: 0 0; width: 16px; height: 16px } 
+.comment_add{ background-position: -17px 0; width: 16px; height: 16px } 
+.comment_delete{ background-position: -34px 0; width: 16px; height: 16px } 
+.comment_edit{ background-position: -51px 0; width: 16px; height: 16px } 
+.comments{ background-position: -68px 0; width: 16px; height: 16px } 
+.comments_add{ background-position: -85px 0; width: 16px; height: 16px } 
+.comments_delete{ background-position: -102px 0; width: 16px; height: 16px } 
+.folder{ background-position: -119px 0; width: 16px; height: 16px } 
+.folder_add{ background-position: -136px 0; width: 16px; height: 16px } 
+.folder_delete{ background-position: -153px 0; width: 16px; height: 16px } 
+.folder_edit{ background-position: -170px 0; width: 16px; height: 16px } 
+.group{ background-position: -187px 0; width: 16px; height: 16px } 
+.group_add{ background-position: -204px 0; width: 16px; height: 16px } 
+.group_delete{ background-position: -221px 0; width: 16px; height: 16px } 
+.group_edit{ background-position: -238px 0; width: 16px; height: 16px } 
+.page_white{ background-position: -255px 0; width: 16px; height: 16px } 
+.page_white_acrobat{ background-position: -272px 0; width: 16px; height: 16px } 
+.page_white_actionscript{ background-position: -289px 0; width: 16px; height: 16px } 
+.page_white_add{ background-position: -306px 0; width: 16px; height: 16px } 
+.page_white_c{ background-position: -323px 0; width: 16px; height: 16px } 
+.page_white_camera{ background-position: -340px 0; width: 16px; height: 16px } 
+.page_white_cplusplus{ background-position: -357px 0; width: 16px; height: 16px } 
+.page_white_csharp{ background-position: -374px 0; width: 16px; height: 16px } 
+.page_white_cup{ background-position: -391px 0; width: 16px; height: 16px } 
+.page_white_delete{ background-position: -408px 0; width: 16px; height: 16px } 
+.page_white_edit{ background-position: -425px 0; width: 16px; height: 16px } 
+.page_white_excel{ background-position: -442px 0; width: 16px; height: 16px } 
+.page_white_php{ background-position: -459px 0; width: 16px; height: 16px } 
+.page_white_powerpoint{ background-position: -476px 0; width: 16px; height: 16px } 
+.page_white_ruby{ background-position: -493px 0; width: 16px; height: 16px } 
+.user{ background-position: -510px 0; width: 16px; height: 16px } 
+.user_add{ background-position: -527px 0; width: 16px; height: 16px } 
+.user_delete{ background-position: -544px 0; width: 16px; height: 16px } 
+.user_edit{ background-position: -561px 0; width: 16px; height: 16px }
+
+div {
+    background: url(icons-sprite.png);
+    display: inline-block;
+    margin-left: 15px;
+}
+    

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Special Console Module presentation</title>
+    <script src="scripts/Special-Console-Module.js"></script>
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of the Special Console Module</h1>
+    <div>Open the console with F12 to see the results</div>
+    <script>
+        specialConsole.writeLine(); // Empty line test
+
+        specialConsole.writeLine("Now Or Never"); // Write without formatting
+
+        // Write with formatting
+        var currentDateTime = new Date();
+        specialConsole.writeLine("This will be {0} with {1} string on {2}.{3}.{4}",
+            "printed", "format", currentDateTime.getDate(), currentDateTime.getMonth() + 1, currentDateTime.getFullYear());
+
+        // specialConsole.writeError();
+        specialConsole.writeError("Error!");
+        specialConsole.writeError("Error: {0}", "Something bad happened!");
+
+        specialConsole.writeWarning("Warning!");
+        specialConsole.writeWarning("Warning: {0}", "A warning!");
+    </script>
+</body>
+</html>

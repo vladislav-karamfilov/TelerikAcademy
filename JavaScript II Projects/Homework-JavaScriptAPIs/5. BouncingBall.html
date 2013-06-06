@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Bouncing ball</title>
+    <script src="scripts/BouncingBall.js"></script>
+    <style>
+        #frame-canvas {
+            border: 3px solid #000;
+            border-radius: 10px;
+            width: 900px;
+            height: 500px;
+        }
+
+        div#buttons {
+            clear:left;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+            button#add-button {
+                background-color: #00ff21;
+            }
+
+            button#clear-button {
+                background-color: #f00;
+            }
+    </style>
+</head>
+<body onload="load()">
+    <canvas id="frame-canvas"></canvas>
+    <div id="buttons">
+        <button id="add-button" onclick="addBall()">Add a new ball</button>
+        <button id="clear-button" onclick="clearBalls()">Clear all balls</button>
+    </div>
+    <script>
+        var BALL_X_COORDINATE = 10;
+        var BALL_Y_COORDINATE = 10;
+        var BALL_SPEED_X = 8;
+        var BALL_SPEED_Y = 8;
+        var BALL_RADIUS = 8;
+        var BALL_COLOR = "#0094ff";
+
+        function load() {
+            bouncingBalls.load("frame-canvas");
+        }
+
+        function addBall() {
+            bouncingBalls.addBall(BALL_X_COORDINATE, BALL_Y_COORDINATE, BALL_SPEED_X, BALL_SPEED_Y, BALL_RADIUS, BALL_COLOR);
+        }
+
+        function clearBalls() {
+            bouncingBalls.clearBalls();
+        }
+    </script>
+</body>
+</html>

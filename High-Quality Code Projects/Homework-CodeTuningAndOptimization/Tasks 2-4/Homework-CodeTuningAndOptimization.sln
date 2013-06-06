@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. NumericalTypesPerformanceComparison", "2. NumericalTypesPerformanceComparison\2. NumericalTypesPerformanceComparison.csproj", "{363CF3DC-380D-4091-8857-A39E6B25C587}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. MathOperationsPerformanceComparison", "3. MathOperationsPerformanceComparison\3. MathOperationsPerformanceComparison.csproj", "{0FDE7AEE-5335-4D1E-AC09-BE9F5DF27664}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. SortingPerformanceComparison", "4. SortingPerformanceComparison\4. SortingPerformanceComparison.csproj", "{210AEC9D-A372-40B6-B66F-4E8CFEF564A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{363CF3DC-380D-4091-8857-A39E6B25C587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363CF3DC-380D-4091-8857-A39E6B25C587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363CF3DC-380D-4091-8857-A39E6B25C587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363CF3DC-380D-4091-8857-A39E6B25C587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FDE7AEE-5335-4D1E-AC09-BE9F5DF27664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FDE7AEE-5335-4D1E-AC09-BE9F5DF27664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FDE7AEE-5335-4D1E-AC09-BE9F5DF27664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FDE7AEE-5335-4D1E-AC09-BE9F5DF27664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{210AEC9D-A372-40B6-B66F-4E8CFEF564A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{210AEC9D-A372-40B6-B66F-4E8CFEF564A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{210AEC9D-A372-40B6-B66F-4E8CFEF564A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{210AEC9D-A372-40B6-B66F-4E8CFEF564A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

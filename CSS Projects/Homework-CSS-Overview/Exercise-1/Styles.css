@@ -1,0 +1,55 @@
+/* Main settings and resets */
+* {
+    background-color: #595959;
+    font-family: Arial, Verdana;
+    font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+
+/* Table styles */
+th {
+    color: #AFAFAA;
+    font-size: 22px;
+	font-weight: 100;
+    text-align: left;
+}
+td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+}
+.title {
+    vertical-align: top;
+    font-style: italic;
+    color: #E8E9E8;
+}
+.info {
+    color: #AFA9A2;
+}
+#status {
+    color: #D86835;
+    font-weight: 700;
+}
+
+/* The circle styles */
+#indicator {
+    display: inline-block;
+	background-color: #71B47A;
+    border-radius: 50%;
+    height: 12px;
+	width: 12px;
+}
+
+/* The information below the name styles */
+div.info {
+	color: #FF090F;
+	font-weight: 700;
+    padding-top: 4px;
+}
+
+/* Links styles */
+a:link, a:visited {
+    color: #F4EFAB;
+	text-decoration: none;
+}

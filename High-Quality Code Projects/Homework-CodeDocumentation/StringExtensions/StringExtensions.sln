@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.ILS.Common", "Telerik.ILS.Common\Telerik.ILS.Common.csproj", "{D92C7547-ED28-4215-B617-CC85A1785844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringExtensions.UI", "StringExtensions.UI\StringExtensions.UI.csproj", "{FD32B2D1-D604-4463-9470-921B3ADEE917}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Help", "Help", "{0A31E987-0D38-43B3-A453-BB27C30337B6}"
+	ProjectSection(SolutionItems) = preProject
+		Help\Documentation.chm = Help\Documentation.chm
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D92C7547-ED28-4215-B617-CC85A1785844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D92C7547-ED28-4215-B617-CC85A1785844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D92C7547-ED28-4215-B617-CC85A1785844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D92C7547-ED28-4215-B617-CC85A1785844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD32B2D1-D604-4463-9470-921B3ADEE917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD32B2D1-D604-4463-9470-921B3ADEE917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD32B2D1-D604-4463-9470-921B3ADEE917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD32B2D1-D604-4463-9470-921B3ADEE917}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

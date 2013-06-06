@@ -1,0 +1,31 @@
+h1, h4 {
+    color: #00ff21;
+    text-align: center;
+}
+
+input[type=button] {
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.one-pair {
+    background-color: #0ff;
+}
+
+.all-pairs {
+    background-color: #4cff00;
+}
+
+#pairs-container {
+    padding: 10px;
+    margin-top: 10px;
+    width: 900px;
+    min-height: 300px;
+    border: 1px solid #f00;
+    border-radius: 10px;
+}
+
+ul {
+    list-style: none;
+}

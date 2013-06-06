@@ -1,0 +1,105 @@
+table
+{
+	border: thin solid silver;
+	border-width: 0 0 0 1px;
+    border-spacing: 0;
+}
+
+a
+{
+	text-decoration: none;
+	color: #000000;
+}
+
+th, td
+{
+	text-align: left;
+	font-weight: normal;
+	border: thin solid silver;
+	border-width: 1px 1px 0 0;
+    padding: 7px;
+}
+
+#rightText
+{
+	float: right;
+	position: relative;
+	top: 6px;
+}
+
+#rowOne
+{
+	background-color: #E7E9EB;
+}
+
+#rowTwo
+{
+	background-image: linear-gradient(bottom, rgb(219,223,228) 44%, rgb(242,242,244) 72%);
+	background-image: -o-linear-gradient(bottom, rgb(219,223,228) 44%, rgb(242,242,244) 72%);
+	background-image: -moz-linear-gradient(bottom, rgb(219,223,228) 44%, rgb(242,242,244) 72%);
+	background-image: -webkit-linear-gradient(bottom, rgb(219,223,228) 44%, rgb(242,242,244) 72%);
+	background-image: -ms-linear-gradient(bottom, rgb(219,223,228) 44%, rgb(242,242,244) 72%);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(219,223,228)), color-stop(0.72, rgb(242,242,244)));
+}
+
+#rowThree
+{
+	background-color: #DFE3E8;
+}
+
+#rowLast
+{
+	background-image: linear-gradient(bottom, rgb(185,190,195) 44%, rgb(229,223,237) 72%);
+	background-image: -o-linear-gradient(bottom, rgb(185,190,195) 44%, rgb(229,223,237) 72%);
+	background-image: -moz-linear-gradient(bottom, rgb(185,190,195) 44%, rgb(229,223,237) 72%);
+	background-image: -webkit-linear-gradient(bottom, rgb(185,190,195) 44%, rgb(229,223,237) 72%);
+	background-image: -ms-linear-gradient(bottom, rgb(185,190,195) 44%, rgb(229,223,237) 72%);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(185,190,195)), color-stop(0.72, rgb(229,223,237)));
+}
+
+#productID
+{
+	width: 30px;
+}
+
+.unitPriceUnits
+{
+	width: 90px;
+	position: relative;
+	top: -2px;			
+}
+
+#productQuantity
+{
+	width: 115px;
+}
+
+.picOneStyle 
+{
+	position: relative;
+	top: 4px;
+}
+
+#picOneExt 
+{
+    position: relative;
+    top: 3px;
+}
+
+.picStyle1
+{
+	position: relative;
+	top: 6px;
+}
+
+#selectedPage
+{
+	border: 1px solid #FE642E;
+	padding: 2px;
+}
+
+#checkDiscontinued 
+{
+    position: relative;
+    top: -1px;
+}

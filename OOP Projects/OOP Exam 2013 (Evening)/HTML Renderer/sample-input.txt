@@ -1,0 +1,20 @@
+IElementFactory htmlFactory = new HTMLElementFactory();
+IElement html = htmlFactory.CreateElement("html");
+IElement h1 = htmlFactory.CreateElement("h1", "Welcome!");
+html.AddElement(h1);
+Console.WriteLine(html);
+ITable table = htmlFactory.CreateTable(3, 2);
+table[0, 0] = htmlFactory.CreateElement("b", "First Name");
+table[0, 1] = htmlFactory.CreateElement("b", "Last Name");
+table[1, 0] = htmlFactory.CreateElement(null, "Svetlin");
+table[1, 1] = htmlFactory.CreateElement(null, "Nakov");
+table[2, 0] = htmlFactory.CreateElement(null, "George");
+table[2, 1] = htmlFactory.CreateElement(null, "Georgiev");
+html.AddElement(table);
+IElement br = htmlFactory.CreateElement("br", null);
+html.AddElement(br);
+IElement div = htmlFactory.CreateElement("div", 
+  "(c) Nakov & Joro @ <Telerik Software Academy>");
+html.AddElement(div);
+Console.WriteLine(html);
+

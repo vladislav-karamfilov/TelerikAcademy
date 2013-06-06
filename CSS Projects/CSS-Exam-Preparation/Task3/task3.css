@@ -1,0 +1,83 @@
+﻿body,
+div,
+ul,
+li,
+a,
+fieldset,
+select,
+label,
+option,
+textarea,
+button {
+  margin: 0;
+  padding: 0;
+}
+body #wrapper {
+  width: 1024px;
+}
+body #wrapper .invisible {
+  display: none;
+}
+body #wrapper .popup-item {
+  border-bottom: 1px solid black;
+  width: 100px;
+  padding: 5px;
+  position: relative;
+}
+body #wrapper .popup-item:first-of-type {
+  border-top: 1px solid black;
+}
+body #wrapper #popup-box {
+  margin-left: 15px;
+}
+body #wrapper #popup-box a {
+  text-decoration: none;
+  color: black;
+}
+body #wrapper #popup-box img {
+  height: 25px;
+}
+body #wrapper #popup-box .popup-content {
+  position: absolute;
+  left: 120px;
+  top: 0;
+}
+body #wrapper #popup-box .btn-popup-close {
+  position: absolute;
+  left: 176px;
+  top: 16px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0 5px;
+}
+body #wrapper #popup-box .btn-popup-close:hover {
+  text-decoration: underline;
+}
+body #wrapper #popup-box fieldset {
+  padding: 15px;
+  border: 1px solid black;
+  color: #333333;
+}
+body #wrapper #popup-box legend {
+  font-size: 19px;
+  font-weight: bold;
+}
+body #wrapper #popup-box button {
+  background-image: linear-gradient(bottom, #686868 0%, #cacaca 100%);
+  background-image: -o-linear-gradient(bottom, #686868 0%, #cacaca 100%);
+  background-image: -moz-linear-gradient(bottom, #686868 0%, #cacaca 100%);
+  background-image: -webkit-linear-gradient(bottom, #686868 0%, #cacaca 100%);
+  background-image: -ms-linear-gradient(bottom, #686868 0%, #cacaca 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #686868), color-stop(1, #cacaca));
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  color: #333333;
+}
+body #wrapper #popup-box button:hover {
+  background: #cccccc;
+}
+body #wrapper ul {
+  margin-top: 15px;
+  list-style-type: none;
+}

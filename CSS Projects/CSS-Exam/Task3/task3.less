@@ -1,0 +1,127 @@
+﻿body, div, hgroup, h1, h2, h3, p, a, span {
+	margin: 0;
+	padding: 0;
+}
+
+#wrapper {
+    width: 960px;
+    font-family: Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+    font-size: 16px;
+    float: left;
+    padding: 20px;
+
+    & > div {
+        border-top: 2px solid #d3d7da;
+		border-bottom: 2px solid #d3d7da;
+        float: left;
+        width: 144px;
+        border-right: none;
+        padding-left: 4px;
+        height: 260px;
+		&:first-of-type {
+            border-left: 2px solid #d3d7da;
+        }
+        &:last-of-type {
+            border-right: 2px solid #d3d7da;
+        }
+
+        & hgroup {
+            background: no-repeat;
+            background-position: 0 14px;
+            padding-top: 10px;
+            font-size: 0.9em;
+            height: 56px;
+
+            & h3 {
+                padding-left: 40px;
+            }
+
+            & h2 {
+                font-size: 1.1em;
+                text-align: left;
+                padding-left: 40px;
+            }
+        }
+
+        & p {
+            padding-bottom: 5px;
+            padding-right: 3px;
+        }
+
+        &:nth-of-type(2n) {
+            background: #fefeff; /* Old browsers */
+            /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZmVmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMWYyZjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+            background: -moz-linear-gradient(top, #fefeff 30%, #f1f2f3 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefeff), color-stop(100%,#f1f2f3)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #fefeff 30%,#f1f2f3 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #fefeff 0%,#f1f2f3 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #fefeff 0%,#f1f2f3 100%); /* IE10+ */
+            background: linear-gradient(to bottom, #fefeff 0%,#f1f2f3 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefeff', endColorstr='#f1f2f3',GradientType=0 ); /* IE6-8 */
+            height: 280px;
+			border-right: 2px solid #d3d7da;
+			border-left: 2px solid #d3d7da;
+        }
+
+        & a {
+            text-decoration: none;
+            color: #c72d2f;
+            display: block;
+
+            & span {
+                text-transform: uppercase;
+            }
+        }
+    }
+
+        & > div:nth-of-type(1) > hgroup {
+            background-image: url(imgs/install.png);
+        }
+
+        & > div:nth-of-type(2) > hgroup {
+            background-image: url(imgs/tuneUp.png);
+        }
+
+        & > div:nth-of-type(3) > hgroup {
+            background-image: url(imgs/manage.png);
+        }
+
+        & > div:nth-of-type(4) > hgroup {
+            background-image: url(imgs/openSource.png);
+
+            & h2 {
+                margin-top: 20px;
+            }
+        }
+
+        & > div:nth-of-type(5) {
+            & > hgroup {
+                background-image: url(imgs/twitter.png);
+
+                & h2 {
+                    margin-top: 20px;
+                }
+
+                height: 51px;
+            }
+
+            & .yellowBox {
+                border: 1px solid #ffff00;
+                background-color: #ffffdd;
+                margin-right: 4px;
+
+                & a {
+                    display: inline;
+                }
+            }
+        }
+
+        & > div:nth-of-type(6) > hgroup {
+            background-image: url(imgs/about.png);
+
+            & h2 {
+                margin-top: 20px;
+            }
+        }
+}

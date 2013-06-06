@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+	<title>TryingTables</title>
+	<style title="text/css">
+		table
+		{
+			background-color: skyblue;	
+		}
+		td
+		{
+			background-color: yellow;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<table cellspacing="10" cellpadding="10">
+		<tr><td>Table Data 1.1</td><td>Table Data 1.2</td></tr>
+		<tr><td>Table Data 2.1</td><td>Table Data 2.2</td></tr>
+	</table>
+	<br />
+	<!--Semantic Table in HTML 5. Table body is after table footer - that's important! Using <th> instead of <td> in the header, too!-->
+	<table>
+		<colgroup>
+			<col width="200px"/>
+			<col width="150px"/>
+			<col width="100px"/>
+			<col width="250px"/>
+		</colgroup>
+		<thead>
+			<tr><th colspan="4">Table Header</th></tr>
+		</thead>
+		<tfoot>
+			<tr><td colspan="4">Footer</td></tr>
+		</tfoot>
+		<tbody>
+			<tr>
+				<td>Body Cell 1.1</td>
+				<td>Body Cell 1.2</td>
+				<td>Body Cell 1.3</td>
+				<td>Body Cell 1.4</td>
+			</tr>
+			<tr>
+				<td>Body Cell 2.1</td>
+				<td>Body Cell 2.2</td>
+				<td>Body Cell 2.3</td>
+				<td>Body Cell 2.4</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

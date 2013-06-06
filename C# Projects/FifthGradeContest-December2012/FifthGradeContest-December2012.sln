@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presents", "Presents\Presents.csproj", "{4B4FA758-F9AF-4C43-9D3F-9F994E6DAB9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyTickets", "HappyTickets\HappyTickets.csproj", "{4937490A-8326-4367-961C-7694B6C8714D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advertisement", "Advertisement\Advertisement.csproj", "{B378D9AE-EC83-4AA4-A885-A15B181C20E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B4FA758-F9AF-4C43-9D3F-9F994E6DAB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B4FA758-F9AF-4C43-9D3F-9F994E6DAB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B4FA758-F9AF-4C43-9D3F-9F994E6DAB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B4FA758-F9AF-4C43-9D3F-9F994E6DAB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4937490A-8326-4367-961C-7694B6C8714D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4937490A-8326-4367-961C-7694B6C8714D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4937490A-8326-4367-961C-7694B6C8714D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4937490A-8326-4367-961C-7694B6C8714D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B378D9AE-EC83-4AA4-A885-A15B181C20E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B378D9AE-EC83-4AA4-A885-A15B181C20E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B378D9AE-EC83-4AA4-A885-A15B181C20E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B378D9AE-EC83-4AA4-A885-A15B181C20E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

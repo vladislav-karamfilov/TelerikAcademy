@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Various input types</title>
+    <script src="modernizr.custom.82113.js"></script>
+    <script src="jquery-1.9.1.min.js"></script>
+
+    <script src="js-webshim/minified/polyfiller.js"></script>
+    <script>$.webshims.polyfill();</script>
+
+    <script src="week-polyfill.min.js"></script>
+    
+    <script src="datetime-polyfill.min.js"></script>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery.ui.all.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+
+    <!-- [if lte IE 9]>
+        <script src="fd-slider.min.js"></script>
+        <link href="fd-slider.mhtml.min.css" rel="stylesheet" media="screen, projection" />
+    <![endif] -->
+
+</head>
+<body>
+    <form action="index.html" method="post">
+        <label for="html5shim-1">Range</label>
+        <input type="range" id="html5shim-1" name="html5shim-1" min="2" max="6" step="0.5" />
+        <br />
+
+        <label for="number">Number</label>
+        <input type="number" id="number" required="required" />
+        <br />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" required="required" />
+        <br />
+
+        <label for="date">Date</label>
+        <input type="date" id="date" required="required" />
+        <br />
+
+        <label for="color">Color</label>
+        <input type="color" id="color" />
+        <br />
+
+        <label for="datetime">Datetime</label>
+        <input type="datetime" id="datetime" required="required" />
+        <br />
+
+        <label for="month">Month</label>
+        <input type="month" id="month" required="required" />
+        <br />
+
+        <label for="search">Search</label>
+        <input type="search" id="search" required="required" />
+        <br />
+
+        <label for="tel">Telephone</label>
+        <input type="tel" id="tel" required="required" />
+        <br />
+
+        <label for="time">Time</label>
+        <input type="time" id="time" required="required" />
+        <br />
+
+        <label for="url">URL</label>
+        <input type="url" id="url" required="required" />
+        <br />
+
+        <label for="week">Week</label>
+        <input type="week" id="week" required="required" />
+        <br />
+
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>

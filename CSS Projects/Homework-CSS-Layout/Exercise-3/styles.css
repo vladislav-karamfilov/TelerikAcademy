@@ -1,0 +1,83 @@
+/* Initial resets and global settings */
+body {
+    font-family: 'Times New Roman', Arial, sans-serif;
+    margin: 10px;
+    padding: 0;
+}
+
+/* Content section styles */
+section {
+    background-color: #3b3b3b;
+    border: 1px solid #bcafa3;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    padding: 15px;
+    width: 650px;
+}
+/* Page header styles */
+section > header {
+    -moz-box-shadow: inset 0 -8px 10px #292929;
+    -webkit-box-shadow: inset 0 -8px 10px #292929;
+    box-shadow: inset 0 -8px 10px #292929;
+    position: relative;
+    right: 15px;
+    padding: 15px;
+    width: inherit;
+    height: 30px;
+}
+header img {
+    position: relative;
+    bottom: 22px;
+}
+/* User form styles */
+form {
+    position: relative;
+    bottom: 65px;
+    left: 50px;
+}
+label {
+    color: white;
+    font-family: Georgia;
+    font-size: 22px;
+    line-height: 24px;
+    font-weight: 700;
+}
+input[type="text"] {
+    margin-left: 15px;
+    padding-left: 10px;
+    width: 140px;
+}
+input[type="button"] {
+    background: rgba(229, 110, 110, .9);
+    -moz-box-shadow: inset 0px -15px 10px #f90a0f;
+    -webkit-box-shadow: inset 0px -15px 10px #f90a0f;
+    box-shadow: inset 0px -15px 10px #f90a0f;
+    border: 1px solid #f9fcff;
+    border-radius: 8px;
+    color: white;
+    margin-left: 15px;
+    height: 25px;
+    width: 50px;
+}
+/* Content heading styles */
+h1 {
+    color: #fad71b;
+    font-size: 28px;
+}
+/* Content paragraph styles */
+p {
+    color: #a8a8a8;
+    font-family: Verdana;
+    font-size: 13px;
+    line-height: 17px;
+    margin: 0;
+    width: 600px;
+}
+strong {
+    color: #fdfdfd;
+}
+a {
+    color: #a8a8a8;
+    text-decoration: none;
+}

@@ -1,0 +1,71 @@
+/* Initial resets and general settings */
+* {
+    color: #93acb6;
+    font-family: Arial, 'Trebuchet MS', Tahoma;
+    margin: 0;
+    padding: 0;
+}
+
+/* Content section styles */
+section {
+    background-color: #1e3741;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    height: 360px;
+    margin: 15px;
+    padding-top: 10px;
+    width: 660px;
+}
+
+/* General styles for lists */
+ul {
+    list-style: none;
+}
+    ul li a {
+        text-decoration: none;
+    }
+
+/* Navigation list styles */
+nav ul li {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+nav ul li:nth-child(2) {
+    text-decoration: underline;
+}
+nav ul li:not(:first-child) {
+    background-color: #4b5f67;
+}
+    nav ul li:first-child a {
+        color: #fff;
+    }
+
+/* Article and its content styles */
+article {
+    margin-top: 10px;
+}
+    article ul {
+        float: left;
+        width: 245px;
+    }
+        article ul li {
+            border-bottom: 1px solid #334952;
+            padding: 10px 0 10px 11px;
+        }
+        article ul li:last-child {
+            border: none;
+        }
+            article ul li a {
+                font-size: 12px;
+                font-weight: bold;
+            }
+                article ul li:hover {
+                    background-color: #00968c;
+                }
+                    article ul li:hover a {
+                        color: #fff;
+                    }
+

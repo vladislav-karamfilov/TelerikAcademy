@@ -1,0 +1,2 @@
+<html><h1>Welcome!</h1></html>
+<html><h1>Welcome!</h1><table><tr><td><b>First Name</b></td><td><b>Last Name</b></td></tr><tr><td>Svetlin</td><td>Nakov</td></tr><tr><td>George</td><td>Georgiev</td></tr></table><br></br><div>(c) Nakov &amp; Joro @ &lt;Telerik Software Academy&gt;</div></html>

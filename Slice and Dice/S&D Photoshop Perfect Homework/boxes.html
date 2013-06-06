@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>shadow</title>
+    <style>
+        body, table, td, tr, img, div {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrraper {
+            height: 500px;
+            width: 800px;
+            padding-left: 50px;
+            padding-top: 50px;
+        }
+                div.box{
+            float: left;
+             padding: 0px 7px 7px 0px;
+            position: relative;
+            margin: 0px 43px 43px 0px ;
+        }
+
+        div.big {
+            width: 500px;
+            height: 400px;
+        }
+
+        div.small {
+            
+            width: 150px;
+            height: 100px;
+           
+        }
+
+        div.shadow_right_corner {
+            width: 7px;
+            height: 7px;
+            position: absolute;
+            top: -1px;
+            right: 1px;
+            background: url(img/right_corner.png) no-repeat top transparent;
+        }
+
+        div.shadow_right {
+            width: 7px;
+            position: absolute;
+            top: 6px;
+            right: 1px;
+            bottom: 8px;
+            background: url(img/shadow_right.png) repeat-y top transparent;
+        }
+
+        div.shadow_right_bottom_corner {
+            width: 7px;
+            height: 7px;
+            position: absolute;
+            bottom: 1px;
+            right: 1px;
+            background: url(img/shaddow_angle.png) repeat-y top transparent;
+        }
+
+        div.shadow_bottom {
+            height: 7px;
+            position: absolute;
+            bottom: 1px;
+            left: 7px;
+            right: 8px;
+            background: url(img/shadow_bottom.png) repeat-x left transparent;
+        }
+
+        div.shadow_left_corner {
+            width: 7px;
+            height: 7px;
+            position: absolute;
+            bottom: 1px;
+            left: 0px;
+            background: url(img/Left_corner.png) no-repeat left transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrraper">
+        <div class="box big">
+            <img src="img/dog.jpg" width="500" height="400" alt="dog" />
+            <div class="shadow_right_corner"></div>
+            <div class="shadow_right"></div>
+            <div class="shadow_right_bottom_corner"></div>
+            <div class="shadow_bottom"></div>
+            <div class="shadow_left_corner"></div>
+        </div>
+        <div class="box small">
+            <img src="img/butterfly.jpg" width="150" height="100" alt="butterfly" />
+            <div class="shadow_right_corner"></div>
+            <div class="shadow_right"></div>
+            <div class="shadow_right_bottom_corner"></div>
+            <div class="shadow_bottom"></div>
+            <div class="shadow_left_corner"></div>
+        </div>
+        <div class="box small">
+            <img src="img/abstract.jpg" width="150" height="100" alt="abstract" />
+            <div class="shadow_right_corner"></div>
+            <div class="shadow_right"></div>
+            <div class="shadow_right_bottom_corner"></div>
+            <div class="shadow_bottom"></div>
+            <div class="shadow_left_corner"></div>
+        </div>
+        <div class="box small">
+            <img src="img/camomile.jpg" width="150" height="100" alt="camomile" />
+            <div class="shadow_right_corner"></div>
+            <div class="shadow_right"></div>
+            <div class="shadow_right_bottom_corner"></div>
+            <div class="shadow_bottom"></div>
+            <div class="shadow_left_corner"></div>
+        </div>
+    </div>
+
+</body>
+</html>

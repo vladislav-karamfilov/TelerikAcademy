@@ -1,0 +1,9 @@
+изброяване на елементите {
+	zoom: 1;
+}
+
+изброяване на елементите с :after {
+	content: "";
+	clear: both;
+	display: block;
+}

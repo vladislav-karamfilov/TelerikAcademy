@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Local Storage Demo</title>
+    <script src="scripts/LocalStorageAndSessionStoragePolyfill.js"></script>
+    <link rel="stylesheet" href="styles/storages-styles.css" />
+</head>
+<body>
+    <h1>Presenting Local Storage functionality</h1>
+    <h4>(To test it on Internet Explorer open the .html file through a Web server or with Visual Studio)</h4>
+    <label for="tb-key">Enter key:</label>
+    <input type="text" id="tb-key" /><br />
+    <label for="tb-value">Enter data:</label>
+    <input type="text" id="tb-data" /><br />
+    <input type="button" onclick="addPair('local')" class="one-pair" value="Add pair to local storage" />
+    <input type="button" onclick="removePair('local')" class="one-pair" value="Remove pair with entered key from local storage" />
+    <input type="button" onclick="clearPairs('local')" class="all-pairs" value="Clear all pairs from local storage" />
+    <input type="button" onclick="loadPairs('local')" class="all-pairs" value="Load all pairs from local storage" />    
+    <br />
+    <input type="button" onclick="addPair('session')" class="one-pair" value="Add pair to session storage" />
+    <input type="button" onclick="removePair('session')" class="one-pair" value="Remove pair with entered key from session storage" />
+    <input type="button" onclick="clearPairs('session')" class="all-pairs" value="Clear all pairs from session storage" />
+    <input type="button" onclick="loadPairs('session')" class="all-pairs" value="Load all pairs from session storage" />    
+    <div id="pairs-container">
+    </div>
+    <script>
+        function addPair(storageType) {
+            var keyContainer = document.getElementById("tb-key");
+            var key = keyContainer.value;
+
+            var dataContainer = document.getElementById("tb-data");
+            var data = dataContainer.value;
+
+            if (storageType == 'local') {
+                localStorage.setItem(key, data);
+            } else {
+                sessionStorage.setItem(key, data);
+            }
+
+            loadPairs(storageType);
+        }
+
+        function removePair(storageType) {
+            var keyContainer = document.getElementById("tb-key");
+            var key = keyContainer.value;
+
+            if (storageType == 'local') {
+                localStorage.removeItem(key);
+            } else {
+                sessionStorage.removeItem(key);
+            }
+
+            loadPairs(storageType);
+        }
+
+        function loadPairs(storageType) {
+            var pairsContainer = document.getElementById("pairs-container");
+            pairsContainer.innerHTML = "";
+
+            var resultHTML;;
+            var key;
+            if (storageType == "local") {
+                resultHTML = "Local Storage Pairs:";
+                resultHTML += "<ul>";
+                for (var i = 0; i < localStorage.length; i++) {
+                    key = localStorage.key(i);
+                    resultHTML += "<li>" + key + " -> " + localStorage.getItem(key) + "</li>";
+                }
+            } else {
+                resultHTML = "Session Storage Pairs:";
+                resultHTML += "<ul>";
+                for (var i = 0; i < sessionStorage.length; i++) {
+                    key = sessionStorage.key(i);
+                    resultHTML += "<li>" + key + " -> " + sessionStorage.getItem(key) + "</li>";
+                }
+            }
+
+            resultHTML += "</ul>";
+            pairsContainer.innerHTML = resultHTML;
+        }
+
+        function clearPairs(storageType) {
+            if (storageType == "local") {
+                localStorage.clear();
+            } else {
+                sessionStorage.clear();
+            }
+
+            var pairsContainer = document.getElementById("pairs-container");
+            pairsContainer.innerHTML = "";
+
+            loadPairs(storageType);
+        }
+    </script>
+</body>
+</html>

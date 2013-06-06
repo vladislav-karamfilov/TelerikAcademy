@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Change", "SixthGradeContest-June2012\Change.csproj", "{CEB7856A-34E9-4281-94EC-DE50FD6404AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decoration", "Decoration\Decoration.csproj", "{ED076504-94FD-4A48-AA06-71B8860186BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotels", "Hotels\Hotels.csproj", "{3C981712-D0AE-4462-9501-CFA2D8446FAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEB7856A-34E9-4281-94EC-DE50FD6404AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEB7856A-34E9-4281-94EC-DE50FD6404AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEB7856A-34E9-4281-94EC-DE50FD6404AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEB7856A-34E9-4281-94EC-DE50FD6404AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED076504-94FD-4A48-AA06-71B8860186BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED076504-94FD-4A48-AA06-71B8860186BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED076504-94FD-4A48-AA06-71B8860186BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED076504-94FD-4A48-AA06-71B8860186BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C981712-D0AE-4462-9501-CFA2D8446FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C981712-D0AE-4462-9501-CFA2D8446FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C981712-D0AE-4462-9501-CFA2D8446FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C981712-D0AE-4462-9501-CFA2D8446FAB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

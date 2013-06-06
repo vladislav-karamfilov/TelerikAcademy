@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas graphics</title>
+    <style>
+        body, canvas {
+            padding: 0;
+            margin: 5px;
+        }
+
+        canvas {
+            border: 1px solid #4cff00;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body onload="drawGraphics()">
+    <canvas id="head-canvas" width="400" height="400">If you see this, it means your browser does not support HTML5 canvas.
+    </canvas>
+    <canvas id="house-canvas" width="400" height="400">If you see this, it means your browser does not support HTML5 canvas.
+    </canvas>
+    <canvas id="bicycle-canvas" width="400" height="400">If you see this, it means your browser does not support HTML5 canvas.
+    </canvas>
+    <script>
+        function drawGraphics() {
+            drawHead();
+            drawHouse();
+            drawBycicle();
+        }
+
+        function drawHead() {
+            var headCanvas = document.getElementById("head-canvas");
+            var context = headCanvas.getContext("2d");
+
+            context.lineWidth = 2;
+            context.fillStyle = "#90cad7";
+            context.strokeStyle = "#205560";
+
+            // Head
+            context.beginPath();
+            context.arc(135, 165, 65, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+            context.closePath();
+
+            // Nose
+            context.beginPath();
+            context.moveTo(120, 175);
+            context.lineTo(105, 175);
+            context.lineTo(120, 145);
+            context.stroke();
+            context.closePath();
+
+            // Mouth
+            context.save();
+            context.beginPath();
+            context.lineWidth = 3;
+            context.setTransform(1, 0.1, 0, 0.3, 0, 0);
+            context.arc(122, 620, 22, 0, 2 * Math.PI, true);
+            context.stroke();
+            context.closePath();
+            context.restore();
+
+            // Eyes
+            context.save();
+            context.lineWidth = 2;
+
+            context.scale(1, 0.6);
+            context.beginPath();
+            context.arc(100, 230, 12, 0, 2 * Math.PI, true);
+            context.stroke();
+            context.closePath();
+
+            context.beginPath();
+            context.arc(145, 230, 12, 0, 2 * Math.PI, true);
+            context.stroke();
+            context.closePath();
+
+            context.fillStyle = "#205560";
+            context.scale(0.3, 1);
+            context.beginPath();
+            context.arc(313, 230, 10, 0, 2 * Math.PI, true);
+            context.stroke();
+            context.fill();
+            context.closePath();
+
+            context.beginPath();
+            context.arc(465, 230, 10, 0, 2 * Math.PI, true);
+            context.stroke();
+            context.fill();
+            context.closePath();
+
+            context.restore();
+
+            // Hat
+            context.strokeStyle = "#000";
+            context.fillStyle = "#396693";
+
+            context.save();
+            context.scale(1, 0.2);
+            context.beginPath();
+            context.arc(132, 500, 70, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+            context.closePath();
+            context.restore();
+
+            context.lineWidth = 3;
+            context.moveTo(100, 18);
+            context.lineTo(100, 92);
+            context.moveTo(180, 18);
+            context.lineTo(180, 92);
+            context.stroke();
+            context.fillRect(101, 18, 78, 73);
+
+            context.save();
+            context.lineWidth = 4;
+            context.scale(1, 0.2);
+
+            context.beginPath();
+            context.arc(140, 460, 40, 0, Math.PI, false);
+            context.stroke();
+            context.closePath();
+
+            context.beginPath();
+            context.arc(140, 90, 40, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+            context.closePath();
+            context.restore();
+        }
+
+        function drawHouse() {
+            var houseCanvas = document.getElementById("house-canvas");
+            var context = houseCanvas.getContext("2d");
+
+            context.lineWidth = 2;
+            context.fillStyle = "#975b5b";
+            context.strokeStyle = "#000";
+
+            // Main shapes
+            context.strokeRect(40, 160, 275, 205);
+            context.fillRect(41, 161, 273, 203);
+            context.beginPath();
+            context.moveTo(40, 160);
+            context.lineTo(175, 5);
+            context.lineTo(315, 160);
+            context.fill();
+            context.stroke();
+
+            // Chimney
+            context.moveTo(230, 120);
+            context.lineTo(230, 45);
+            context.moveTo(260, 120);
+            context.lineTo(260, 45);
+            context.moveTo(245, 82.5);
+            context.stroke();
+            context.fillRect(231, 48, 28, 55);
+            context.save();
+            context.scale(1, 0.3);
+            context.beginPath();
+            context.arc(245, 150, 15, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+            context.closePath();
+            context.restore();
+            
+            // Windows
+            context.fillStyle = "#000";
+            context.fillRect(60, 185, 47, 31);
+            context.fillRect(60, 220, 47, 31);
+            context.fillRect(110, 220, 47, 31);
+            context.fillRect(110, 185, 47, 31);
+
+            context.fillRect(195, 185, 47, 31);
+            context.fillRect(245, 185, 47, 31);
+            context.fillRect(245, 220, 47, 31);
+            context.fillRect(195, 220, 47, 31);
+
+            context.fillRect(195, 275, 47, 31);
+            context.fillRect(245, 275, 47, 31);
+            context.fillRect(245, 310, 47, 31);
+            context.fillRect(195, 310, 47, 31);
+
+            // Door
+            context.save();
+            context.scale(1, 0.5);
+            context.beginPath();
+            context.arc(108, 580, 40, 0, Math.PI, true);
+            context.stroke();
+            context.closePath();
+            context.restore();
+
+            context.beginPath();
+            context.moveTo(68, 288);
+            context.lineTo(68, 365);
+            context.stroke();
+            context.closePath();
+
+            context.beginPath();
+            context.moveTo(148, 288);
+            context.lineTo(148, 365);
+            context.stroke();
+            context.closePath();
+
+            context.beginPath();
+            context.moveTo(108, 270);
+            context.lineTo(108, 365);
+            context.stroke();
+            context.closePath();
+
+            context.beginPath();
+            context.arc(120, 340, 3, 0, 2 * Math.PI, true);
+            context.stroke();
+            context.closePath();
+
+            context.beginPath();
+            context.arc(95, 340, 3, 0, 2 * Math.PI, true);
+            context.stroke();
+            context.closePath();
+        }
+
+        function drawBycicle() {
+            var bicycleCanvas = document.getElementById("bicycle-canvas");
+            var context = bicycleCanvas.getContext("2d");
+
+            context.lineWidth = 2;
+            context.fillStyle = "#90cad7";
+            context.strokeStyle = "#37889b";
+
+            // Back wheel
+            context.beginPath();
+            context.arc(90, 180, 50, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+
+            // Front wheel
+            context.beginPath();
+            context.arc(300, 180, 50, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+
+            // Main frame with seat
+            context.beginPath();
+            context.moveTo(90, 180);
+            context.lineTo(155, 110);
+            context.lineTo(290, 110);
+            context.lineTo(185, 180);
+            context.lineTo(90, 180);
+            context.moveTo(185, 180);
+            context.lineTo(140, 80);
+            context.lineTo(115, 80);
+            context.moveTo(140, 80);
+            context.lineTo(165, 80);
+            context.stroke();
+
+            // Propulsion unit
+            context.beginPath();
+            context.arc(185, 180, 15, 0, 2 * Math.PI, true);
+            context.moveTo(177, 167);
+            context.lineTo(167, 152);
+            context.moveTo(196, 191);
+            context.lineTo(204, 204);
+            context.stroke();
+
+            // Front set
+            context.beginPath();
+            context.moveTo(300, 180);
+            context.lineTo(285, 65);
+            context.lineTo(315, 30);
+            context.moveTo(285, 65);
+            context.lineTo(240, 80);
+            context.stroke();
+        }
+    </script>
+</body>
+</html>
