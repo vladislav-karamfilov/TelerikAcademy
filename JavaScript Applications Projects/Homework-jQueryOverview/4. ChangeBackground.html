@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Changing the background color of the web page</title>
+    <script src="scripts/jquery-1.10.1.js"></script>
+    <script src="scripts/ProtoClass.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+            color: #00ff21;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting functionality for changing the background color of the web page</h1>
+    <label for="color-picker">Pick a background color: </label>
+    <input id="color-picker" type="color" />
+    <script>
+        $("#color-picker").change(function () {
+            $("body").css("background-color", $("#color-picker").val());
+        });
+    </script>
+</body>
+</html>

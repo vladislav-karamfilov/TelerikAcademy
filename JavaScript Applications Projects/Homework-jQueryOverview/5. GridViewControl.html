@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>GridView Control</title>
+    <script src="scripts/jquery-1.10.1.js"></script>
+    <script src="scripts/ProtoClass.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+            color: #00ff21;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid #000;
+        }
+
+            table thead {
+                background-color: #b4aeae;
+            }
+
+            table td, table th {
+                border: 1px solid #000;
+                padding: 10px;
+                cursor: default;
+            }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of GridView Control</h1>
+    <div id="gridview-container"></div>
+    <script src="scripts/gridview-control.js"></script>
+    <script>
+        var schoolsGridView = gridViewControls.getGridView("#gridview-container");
+        schoolsGridView.addHeader("Name", "Location", "Total Students", "Specialty");
+        var academyRow = schoolsGridView.addRow("Telerik Academy", "Sofia", 5000, "IT");
+        schoolsGridView.addRow("TUES", "Sofia", 500, "IT");
+        schoolsGridView.addRow("PMG", "Burgas", 400, "Mathematics");
+
+        var academyGrid = academyRow.getNestedGridView();
+        academyGrid.addHeader("Title", "Start Date", "Total students");
+        academyGrid.addRow("SEO", "12-april-2013", 1400);
+        academyGrid.addRow("Slice and Dice", "15-april-2013", 500);
+
+        var js = academyGrid.addRow("JS 2", "11-april-2013", 400);
+        var lecturesGrid = js.getNestedGridView();
+        lecturesGrid.addHeader("Lecture name", "Duration");
+        lecturesGrid.addRow("DOM Manipulation", "4");
+        lecturesGrid.addRow("Events", "4");
+        lecturesGrid.addRow("Object-oriented programming", "4");
+
+        schoolsGridView.render();
+    </script>
+</body>
+</html>

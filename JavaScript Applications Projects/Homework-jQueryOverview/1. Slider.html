@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Slider Control</title>
+    <script src="scripts/jquery-1.10.1.js"></script>
+    <script src="scripts/ProtoClass.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+            color: #00ff21;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        div#slider-container {
+            width: 600px;
+            height: 400px;
+        }
+
+        button#next-button {
+            padding: 5px 10px;
+            float: right;
+            border-radius: 8px;
+            border-color: #0ff;
+        }
+
+        button#prev-button {
+            padding: 5px 10px;
+            float: left;
+            border-radius: 8px;
+            border-color: #0ff;
+            margin-bottom: 10px;
+        }
+
+        div#slide-container {
+            clear: both;
+            border: 1px solid #0094ff;
+            border-radius: 5px;
+            min-height: 400px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of a slider control</h1>
+    <div id="slider-container"></div>
+    <script src="scripts/slider.js"></script>
+    <script>
+        var paragraphSlide = new Slide("<p>Morbi vitae condimentum leo. In diam lectus, " +
+            "eleifend sed sem vitae, semper suscipit erat. Donec ullamcorper varius leo, nec euismod " +
+            "velit commodo et. Curabitur nisi purus, consequat in enim eu, fermentum varius purus. Proin " +
+            "dictum est ut pretium consectetur. Etiam ut sodales velit, sed dictum elit. Quisque volutpat " +
+            "adipiscing elit, sed condimentum erat.</p>");
+        var imageSlide = new Slide("<img src='images/Telerik-Ninja.png' alt='Telerik Ninja'/>");
+        var linkSlide = new Slide("<a href='http://academy.telerik.com/'>Telerik Academy</a>");
+        var headerSlide = new Slide("<header><h1>JavaScript Applications</h1></header>");
+        var formSlide = new Slide('<form>' +
+                                    '<label for="car-select">Select favourite car: </label>' +
+                                    '<select id="car-select">' +
+                                        '<option value="toyota">Toyota</option>' +
+                                        '<option value="bmw">BMW</option>' +
+                                        '<option value="mercedes">Mercedes</option>' +
+                                        '<option value="audi">Audi</option>' +
+                                    '</select>' +
+                                    '<button>Submit</button>' +
+                                '</form>');
+        
+        var slides = [paragraphSlide, imageSlide, linkSlide, headerSlide];
+        var slider = new Slider(slides, 5);
+        slider.addSlide(formSlide);
+        slider.render("#slider-container");
+    </script>
+</body>
+</html>

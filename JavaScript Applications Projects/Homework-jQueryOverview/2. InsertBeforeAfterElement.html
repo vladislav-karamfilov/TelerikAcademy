@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Inserting a DOM element before or after another element</title>
+    <script src="scripts/jquery-1.10.1.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+            color: #00ff21;
+        }
+
+        button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        div#initial {
+            background-color: #0094ff;
+        }
+
+        div.demo-div {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting functionality for inserting a DOM element before or after another element</h1>
+    <button id="insert-before">Insert another div before</button>
+    <button id="insert-after">Insert another div after</button>
+    <br />
+    <div id="initial" class="demo-div"></div>
+    <script>
+        $("#insert-before").click(function () {
+            $("<div class='demo-div'></div>").
+                css("background-color", "#0ae6f5").
+                insertBefore($(".demo-div").first())
+                
+        });
+
+        $("#insert-after").click(function () {
+            $("<div class='demo-div'></div>").
+                css("background-color", "#2a00ff").
+                insertAfter($(".demo-div").last())
+
+        });
+    </script>
+</body>
+</html>
