@@ -1,4 +1,4 @@
 TelerikAcademy
 ==============
 
-This repository stores the best projects I've done as a student in Telerik Academy
+This repository stores all projects I've done as a student in Telerik Academy
