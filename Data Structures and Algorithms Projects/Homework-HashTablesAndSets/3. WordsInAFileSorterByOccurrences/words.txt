@@ -1,0 +1,15 @@
+Algorithms we can find everywhere. They have been developed to easy our daily life. It began with calculating algorithms and is today going to artificial intelligence and molecular biology. Google is one of the actual product of this development, knowledge based databases and neuronal networks will lead to the next...
+
+Algorithms - A new perspective on data
+We live in the age of information. Analysts are among those inundated with data. But with the aid of powerful computing techniques, analysts can make sense of volumes of data that come in many forms: text, numbers, images, video, audio. 
+Statisticians at Pacific Northwest National Laboratory are marrying computational power with statistical techniques to sift through all these forms of data together. Their work is being applied in a variety of areas, such as analyzing handwriting and identifying bioagents.
+
+Whether clients come in with existing data or PNNL gathers the data, statisticians help uncover hidden information through exploratory analysis, grouping like kinds of information and extracting key features. Using systematic sampling and experimental design techniques, they ensure data are reliable and will support confident decisions.
+
+"We take varying types of information, whether it is text, video or audio and turn it into mathematical representations. Once we have a mathematical representation, we can apply our statistical techniques of clustering and data analysis," said Brent Pulsipher, who manages PNNL statistical and quantitative sciences group.
+
+PNNL statisticians use clustering algorithms to find groups that share a common feature in some dimension and "cluster" them together. "Many of our algorithms are self-clustering. We do not say 'group these into a certain category that relates to a certain feature.' The algorithms specify categories themselves," said Pulsipher. Identifying these groupings is called "lead generation" because it provides leads that may explain what is causing a problem.
+
+In one project, statisticians are developing algorithms to identify handwriting samples. These algorithms quantify handwriting characteristics, such as density, height and slant. "We use statistical methods to test for similarities and differences between unknown and known handwriting samples," said Kris Jarman, who leads the effort.
+
+In another project, statisticians are using algorithms with a bio-pathogen sensor being developed at the Laboratory called Matrix-Assisted Laser Desorption Ionization Mass Spectrometry (MALDI-MS). The algorithms quickly identify the unique features of questionable bacteria and categorize those features in real time according to pathogen type. In lab tests, these algorithms were more than 95 percent accurate in classifying bacteria strains.

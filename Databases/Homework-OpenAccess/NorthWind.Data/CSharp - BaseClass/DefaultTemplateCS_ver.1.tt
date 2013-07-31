@@ -1,0 +1,35 @@
+﻿<#@ template debug="true" hostspecific="True" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".generated$LanguageSpecificExtension$" #>
+<#@ EntityDiagrams processor="EntityDiagramsDirectiveProcessor" requires="fileName='$ModelFile$'"  #>
+<#@ assembly name="EnvDTE"#>
+<#@ assembly name="System.Core"#>
+<#@ assembly name="System.Xml"#>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO"#>
+<#@ import namespace="System.Text"#>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating"#>
+<#@ import namespace="EnvDTE"#>
+<#@ import namespace="System.CodeDom.Compiler"#>
+<#@ import namespace="System.CodeDom"#>
+<#@ import namespace="System.Reflection"#>
+<#@ import namespace="Telerik.OpenAccess"#>
+<#@ import namespace="System.Diagnostics" #>
+<#@ Assembly Name="$DslAssemblyPath$Telerik.OpenAccess.CodeGeneration.dll" #>
+<#@ import namespace="Telerik.OpenAccess.CodeGeneration" #>
+<#@ Assembly Name="$DslAssemblyPath$Telerik.OpenAccess.Dsl.Design.dll" #>
+<#@ import namespace="Telerik.VS.Data.Design" #>
+<#@ import namespace="Telerik.OpenAccess.Metadata" #>
+<#@ Assembly Name="Telerik.OpenAccess, Version=$ProductVersion$, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342" #>
+<#@ import namespace="Telerik.OpenAccess.Metadata.Relational" #>
+<#@ include file="$TemplatesRootPath$Includes\General.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes\Specific.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes\Context.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes\OID.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes\Interfaces.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes\MainCs.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes\FluentMapping.ttinclude" #>
+<#@ parameter type="System.String" name="newItemFullName" #>
+<#+ 	string defaultExtension = ".generated$LanguageSpecificExtension$"; #>

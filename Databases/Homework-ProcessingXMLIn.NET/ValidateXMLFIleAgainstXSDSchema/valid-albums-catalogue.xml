@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<catalogue>
+  <album>
+    <name>System of a Down</name>
+    <artist>System Of A Down</artist>
+    <year>2000</year>
+    <producer>Rick Rubin</producer>
+    <price>27</price>
+    <songs>
+      <song>
+        <title>Suite-Pee</title>
+        <duration>2:31</duration>
+      </song>
+      <song>
+        <title>Know</title>
+        <duration>2:56</duration>
+      </song>
+      <song>
+        <title>Sugar</title>
+        <duration>2:33</duration>
+      </song>
+      <song>
+        <title>Spiders</title>
+        <duration>3:56</duration>
+      </song>
+    </songs>
+  </album>
+  <album>
+    <name>Toxicity</name>
+    <artist>System Of A Down</artist>
+    <year>2001</year>
+    <producer>Rick Rubin</producer>
+    <price>29</price>
+    <songs>
+      <song>
+        <title>Prison Song</title>
+        <duration>3:21</duration>
+      </song>
+      <song>
+        <title>Chop Suey!</title>
+        <duration>3:30</duration>
+      </song>
+      <song>
+        <title>Toxicity</title>
+        <duration>3:39</duration>
+      </song>
+      <song>
+        <title>Aerials</title>
+        <duration>6:11</duration>
+      </song>
+    </songs>
+  </album>
+  <album>
+    <name>Kill 'Em All</name>
+    <artist>Metallica</artist>
+    <year>1983</year>
+    <producer>Paul Curcio</producer>
+    <price>17</price>
+    <songs>
+      <song>
+        <title>Hit the Lights</title>
+        <duration>4:16</duration>
+      </song>
+      <song>
+        <title>The Four Horsemen</title>
+        <duration>7:13</duration>
+      </song>
+      <song>
+        <title>Motorbreath</title>
+        <duration>3:08</duration>
+      </song>
+      <song>
+        <title>Jump in the Fire</title>
+        <duration>4:41</duration>
+      </song>
+    </songs>
+  </album>
+  <album>
+    <name>Iowa</name>
+    <artist>Slipknot</artist>
+    <year>2001</year>
+    <producer>Ross Robinson</producer>
+    <price>28</price>
+    <songs>
+      <song>
+        <title>My Plague</title>
+        <duration>3:40</duration>
+      </song>
+      <song>
+        <title>Left Behind</title>
+        <duration>4:01</duration>
+      </song>
+      <song>
+        <title>Everything Ends</title>
+        <duration>4:14</duration>
+      </song>
+      <song>
+        <title>The Heretic Anthem</title>
+        <duration>4:14</duration>
+      </song>
+    </songs>
+  </album>
+  <album>
+    <name>Master of Puppets</name>
+    <artist>Metallica</artist>
+    <year>1986</year>
+    <producer>Flemming Rasmussen</producer>
+    <price>20</price>
+    <songs>
+      <song>
+        <title>Battery</title>
+        <duration>5:12</duration>
+      </song>
+      <song>
+        <title>Master of Puppets</title>
+        <duration>8:36</duration>
+      </song>
+      <song>
+        <title>The Thing That Should Not Be</title>
+        <duration>6:37</duration>
+      </song>
+      <song>
+        <title>Damage, Inc.</title>
+        <duration>5:29</duration>
+      </song>
+    </songs>
+  </album>
+</catalogue>

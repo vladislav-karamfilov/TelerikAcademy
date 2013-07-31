@@ -1,0 +1,152 @@
+<#+
+private void GenerateNestedOIDClasses(Telerik.OpenAccess.CodeGeneration.CodeClass codeClass)
+{
+	if(codeClass.NestedClasses.Count<1)
+	{
+		return;
+	}
+	string fullName = string.IsNullOrEmpty(codeClass.Namespace)?codeClass.Name:string.Concat(codeClass.Namespace,'.',codeClass.Name);
+	Telerik.OpenAccess.CodeGeneration.CodeClass oidClass = codeClass.NestedClasses[0];
+	#>
+	public class <#= oidClass.Name #> : Telerik.OpenAccess.IObjectId
+    {
+<#+ 
+		this.GenerateIdFieldsForOidClass(oidClass);
+#>
+
+		public <#= oidClass.Name #>()
+		{ }
+			
+<#+ 
+		this.GenerateStringConstructorForOid(oidClass);
+#>
+
+		public override bool Equals(object o)
+		{
+			if (this == o) return true;
+			
+			if(!(o is <#= string.Concat(codeClass.Name,'.',oidClass.Name) #>)) return false;
+			
+			<#= string.Concat(codeClass.Name,'.',oidClass.Name) #> id = (<#= string.Concat(codeClass.Name,'.',oidClass.Name) #>)o;
+<#+ 
+			IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = oidClass.Properties;
+			foreach(Telerik.OpenAccess.CodeGeneration.CodeProperty idProp in properties)
+			{
+#>
+
+			if(this.<#= idProp.FieldName #> != id.<#= idProp.FieldName #>) return false;
+<#+
+			}
+#>
+			return true;
+		}
+		
+		public override int GetHashCode()
+		{
+            int result = 0;
+<#+ 
+			foreach(Telerik.OpenAccess.CodeGeneration.CodeProperty idProp in properties)
+			{
+#>
+			
+			result = 29 *result + <#= idProp.FieldName #>.GetHashCode();
+<#+
+			}
+#>			return result;
+		}
+		
+<#+ 	
+		GenerateToStringMethodForOidClass(oidClass);	
+	#>}
+<#+ 
+}
+			
+
+private void GenerateToStringMethodForOidClass(Telerik.OpenAccess.CodeGeneration.CodeClass oidClass)
+{
+	string bufferAppendToken = ".Append('-')";
+#>
+	public override string ToString()
+	{
+		System.Text.StringBuilder buffer = new System.Text.StringBuilder();
+<#+ 
+		List<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = oidClass.Properties.ToList();
+		for(int i = 0; i < properties.Count; i++)
+		{
+			if(i == properties.Count - 1)
+			{
+				bufferAppendToken = string.Empty;
+			}
+			Telerik.OpenAccess.CodeGeneration.CodeProperty idProp = properties[i];	
+#>			
+			buffer.Append(<#= idProp.FieldName #>)<#= bufferAppendToken #>;
+<#+
+		}
+#>
+		return buffer.ToString();
+	}
+<#+ 	
+}
+
+private void GenerateIdFieldsForOidClass(Telerik.OpenAccess.CodeGeneration.CodeClass oidClass)
+{
+	IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = oidClass.Properties;
+	foreach(Telerik.OpenAccess.CodeGeneration.CodeProperty idProp in properties)
+	{
+
+#>
+		public <#=this.GetTypeStringPresentation(idProp)#> <#= idProp.FieldName #>; //pk
+<#+ 
+	}
+}
+
+private void GenerateStringConstructorForOid(Telerik.OpenAccess.CodeGeneration.CodeClass oidClass)
+{
+	string parseOrConstructorCallToken = string.Empty;
+	string substringLengthToken = ", i - p";
+	string endChar;
+	#>
+		public <#= oidClass.Name #>(string s)
+		{
+			int i, p = 0;
+<#+ 
+				List<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = oidClass.Properties.ToList();
+				for(int i = 0; i < properties.Count; i++)
+				{
+					if(i == properties.Count - 1)
+					{
+						substringLengthToken = string.Empty;
+					}
+					Telerik.OpenAccess.CodeGeneration.CodeProperty idProp = properties[i];
+					parseOrConstructorCallToken = GetParseOrConstructorCallToken(idProp, out endChar);
+#>
+			i = s.IndexOf('-', p);
+			<#= idProp.FieldName #> = <#= parseOrConstructorCallToken #>s.Substring(p<#= substringLengthToken #>)<#= endChar#>;
+<#+ 
+					if(!string.IsNullOrEmpty(substringLengthToken))
+					{
+#>			p = i + 1;
+<#+ 
+					}
+				}
+#>
+		}
+<#+ 
+}
+
+private string GetParseOrConstructorCallToken(Telerik.OpenAccess.CodeGeneration.CodeProperty idProperty, out string endChar)
+{	
+	string type = idProperty.Type;
+	endChar = ")";
+	if(type == typeof(Guid).Name || type == typeof(Guid).FullName)
+	{
+		return string.Concat("new ",type,'(');
+	}
+	if(type == typeof(string).Name || type == typeof(string).FullName)
+	{
+		endChar = string.Empty;
+		return string.Empty;
+	}
+	return string.Concat(type,".Parse(");
+}
+#>

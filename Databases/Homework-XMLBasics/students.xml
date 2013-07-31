@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+<students xmlns="urn:students">
+  <student>
+    <name>Ivan Stamatov</name>
+    <sex>Male</sex>
+    <birthDate>1990-01-12</birthDate>
+    <phone>088888888</phone>
+    <email>ivancho@mente.bg</email>
+    <course>2</course>
+    <specialty>Mathematics</specialty>
+    <facultyNumber>1234567890</facultyNumber>
+    <enrollment>
+      <date>2011-06-29</date>
+      <examScore>90</examScore>
+    </enrollment>
+    <takenExams>
+      <exam>
+        <name>Maths 1</name>
+        <tutor>prof. Geshev</tutor>
+        <score>68</score>
+      </exam>
+      <exam>
+        <name>Maths 2</name>
+        <tutor>prof. Peshev</tutor>
+        <score>77</score>
+      </exam>
+      <exam>
+        <name>Maths 3</name>
+        <tutor>prof. Lechkov</tutor>
+        <score>82</score>
+      </exam>
+    </takenExams>
+    <endorsements>11</endorsements>
+  </student>
+  <student>
+    <name>Sasho Sashov</name>
+    <sex>Male</sex>
+    <birthDate>1992-04-12</birthDate>
+    <phone>088888881</phone>
+    <email>sasheto@mente.bg</email>
+    <course>1</course>
+    <specialty>Informatics</specialty>
+    <facultyNumber>1357924680</facultyNumber>
+    <enrollment>
+      <date>2012-06-29</date>
+      <examScore>90</examScore>
+    </enrollment>
+    <takenExams>
+      <exam>
+        <name>Informatics 1</name>
+        <tutor>prof. Genchov</tutor>
+        <score>69</score>
+      </exam>
+      <exam>
+        <name>Informatics 2</name>
+        <tutor>prof. Lilieva</tutor>
+        <score>77</score>
+      </exam>
+      <exam>
+        <name>Informatics 3</name>
+        <tutor>prof. Petrov</tutor>
+        <score>92</score>
+      </exam>
+    </takenExams>
+    <endorsements>9</endorsements>
+  </student>
+  <student>
+    <name>Lili Marinova</name>
+    <sex>Female</sex>
+    <birthDate>1991-09-22</birthDate>
+    <phone>088882888</phone>
+    <email>lilcheto@mente.bg</email>
+    <course>3</course>
+    <specialty>Biology</specialty>
+    <facultyNumber>9876543210</facultyNumber>
+    <enrollment>
+      <date>2010-06-29</date>
+      <examScore>88</examScore>
+    </enrollment>
+    <takenExams>
+      <exam>
+        <name>Anatomy</name>
+        <tutor>prof. Petrova</tutor>
+        <score>78</score>
+      </exam>
+      <exam>
+        <name>Physiology</name>
+        <tutor>prof. Pencheva</tutor>
+        <score>67</score>
+      </exam>
+      <exam>
+        <name>Biology</name>
+        <tutor>prof. Lechkov</tutor>
+        <score>77</score>
+      </exam>
+    </takenExams>
+    <endorsements>5</endorsements>
+  </student>
+</students>

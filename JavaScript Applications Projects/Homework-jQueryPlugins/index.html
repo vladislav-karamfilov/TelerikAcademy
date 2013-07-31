@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Tree View plugin for jQuery</title>
+    <script src="scripts/jquery-1.10.1.js"></script>
+    <script src="scripts/tree-view.js"></script>
+    <script>
+        $("document").ready(function () {
+            $("#tree-view").treeView(500);
+        });
+    </script>
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of a TreeView plugin for jQuery</h1>
+    <ul id="tree-view">
+        <li>Item 1
+            <ul>
+                <li>Sub-Item 1</li>
+                <li>Sub-Item 2</li>
+            </ul>
+        </li>
+        <li>Item 2</li>
+        <li>Item 3
+            <ul>
+                <li>Sub-Item 1
+                    <ul>
+                        <li>Sub-Sub-Item 1</li>
+                        <li>Sub-Sub-Item 2</li>
+                        <li>Sub-Sub-Item 3</li>
+                    </ul>
+                </li>
+                <li>Sub-Item 2</li>
+                <li>Sub-Item 3
+                    <ul>
+                        <li>Sub-Sub-Item 1</li>
+                        <li>Sub-Sub-Item 2</li>
+                        <li>Sub-Sub-Item 3</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Item 4
+            <ul>
+                <li>Sub-Item 1</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

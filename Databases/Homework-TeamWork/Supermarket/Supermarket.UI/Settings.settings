@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Supermarket.UI" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ExcelReadConnectionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties="Excel 12.0 Xml;HDR=YES";</Value>
+    </Setting>
+    <Setting Name="SQLiteConnectionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=..\..\products-taxes.db;Version=3;</Value>
+    </Setting>
+    <Setting Name="ExcelWriteConnectionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=../../Products-Total-Report.xlsx;Extended Properties="Excel 12.0 Xml;HDR=YES";</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

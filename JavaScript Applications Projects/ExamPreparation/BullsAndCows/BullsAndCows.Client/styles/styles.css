@@ -1,0 +1,71 @@
+div, form, button, a, li, ul {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+#game-container {
+    border: 1px solid #0094ff;
+    border-radius: 5px;
+    width: 640px;
+    padding: 50px;
+}
+
+#btn-sign-in {
+    float: left;
+}
+
+#btn-sign-up {
+    float: right;
+}
+
+input {
+    display: block;
+}
+
+.button {
+    padding: 5px;
+    background-color: #ccc;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+    .button:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+.selected {
+    font-weight: bold;
+}
+
+ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.btn-back {
+    float: right;
+}
+
+#btn-logout {
+    float: right;
+}

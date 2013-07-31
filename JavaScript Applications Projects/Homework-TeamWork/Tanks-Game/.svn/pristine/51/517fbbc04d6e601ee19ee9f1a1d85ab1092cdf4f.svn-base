@@ -1,0 +1,10 @@
+<html>
+<head>
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/gameFramework.js"></script>
+</head>
+<body>
+	<div id="myGame"></div>
+	<script type="text/javascript" src="scripts/myGame.js"></script>
+</body>
+</html>

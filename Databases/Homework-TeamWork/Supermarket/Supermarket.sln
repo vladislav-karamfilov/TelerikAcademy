@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Client", "Supermarket.UI\Supermarket.Client.csproj", "{C8BEEC16-C458-4BF4-9636-BE8FE44BD07C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Model.MySQL", "Supermarket.Model.MySQL\Supermarket.Model.MySQL.csproj", "{C50145E6-A244-4F1F-B41F-90D1925B4A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Models", "Supermarket.Models\Supermarket.Models.csproj", "{05F425BB-C988-4E0C-B698-7D26246404CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Data", "Supermarket.Data\Supermarket.Data.csproj", "{A37906C4-9B3D-4680-9E81-29394FCCC1C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Model.Mongo", "Supermarket.Model.MongoDB\Supermarket.Model.Mongo.csproj", "{71108EC0-AE27-4F20-A8D6-98E58A5DBAE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Model.SQLite", "Supermarket.Model.SQLite\Supermarket.Model.SQLite.csproj", "{6159CB12-E960-4FCB-B7DD-8729CAFF50FF}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://vladislav-karamfilov.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Supermarket.Model.MySQL\\Supermarket.Model.MySQL.csproj
+		SccProjectName1 = Supermarket.Model.MySQL
+		SccLocalPath1 = Supermarket.Model.MySQL
+		SccProjectUniqueName2 = Supermarket.Models\\Supermarket.Models.csproj
+		SccProjectName2 = Supermarket.Models
+		SccLocalPath2 = Supermarket.Models
+		SccProjectUniqueName3 = Supermarket.Data\\Supermarket.Data.csproj
+		SccProjectName3 = Supermarket.Data
+		SccLocalPath3 = Supermarket.Data
+		SccProjectUniqueName4 = Supermarket.UI\\Supermarket.Client.csproj
+		SccProjectName4 = Supermarket.UI
+		SccLocalPath4 = Supermarket.UI
+		SccProjectUniqueName5 = Supermarket.Model.MongoDB\\Supermarket.Model.Mongo.csproj
+		SccProjectName5 = Supermarket.Model.MongoDB
+		SccLocalPath5 = Supermarket.Model.MongoDB
+		SccProjectUniqueName6 = Supermarket.Model.SQLite\\Supermarket.Model.SQLite.csproj
+		SccProjectName6 = Supermarket.Model.SQLite
+		SccLocalPath6 = Supermarket.Model.SQLite
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8BEEC16-C458-4BF4-9636-BE8FE44BD07C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8BEEC16-C458-4BF4-9636-BE8FE44BD07C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8BEEC16-C458-4BF4-9636-BE8FE44BD07C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8BEEC16-C458-4BF4-9636-BE8FE44BD07C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F425BB-C988-4E0C-B698-7D26246404CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F425BB-C988-4E0C-B698-7D26246404CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F425BB-C988-4E0C-B698-7D26246404CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F425BB-C988-4E0C-B698-7D26246404CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A37906C4-9B3D-4680-9E81-29394FCCC1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A37906C4-9B3D-4680-9E81-29394FCCC1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A37906C4-9B3D-4680-9E81-29394FCCC1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A37906C4-9B3D-4680-9E81-29394FCCC1C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71108EC0-AE27-4F20-A8D6-98E58A5DBAE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71108EC0-AE27-4F20-A8D6-98E58A5DBAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71108EC0-AE27-4F20-A8D6-98E58A5DBAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71108EC0-AE27-4F20-A8D6-98E58A5DBAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6159CB12-E960-4FCB-B7DD-8729CAFF50FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6159CB12-E960-4FCB-B7DD-8729CAFF50FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6159CB12-E960-4FCB-B7DD-8729CAFF50FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6159CB12-E960-4FCB-B7DD-8729CAFF50FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,9 @@
+1. What is SQL? What is DML? What is DDL? Recite the most important SQL commands.
+  - Structured Query Language (SQL) is a declarative language for query and manipulation of relational data. It consist of Data Manipulation Language (DML) which manipulates the data in a database with the commands SELECT, INSERT, UPDATE, DELETE and Data Definition Language (DDL) which is used for defining the data and the relationships between them CREATE, DROP, ALTER, GRANT, REVOKE.
+
+2. What is Transact-SQL (T-SQL)?
+  - T-SQL (Transact SQL) is an extension to the standard SQL language.It is the standard language used in MS SQL Server. Supports if statements, loops, exceptions. T-SQL is used for writing stored procedures, functions, triggers, etc.
+  
+3. Start SQL Management Studio and connect to the database TelerikAcademy. Examine the major tables in the "TelerikAcademy" database.
+  - Done.
+  

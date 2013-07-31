@@ -1,0 +1,65 @@
+<#+
+public class InterfacesGenerator: Telerik.OpenAccess.CodeGeneration.TelerikTextTransformationBase
+{
+	protected DocumentationGenerator documentationGenerator;
+	protected AttributesGenerator attributesGenerator;
+	protected PropertiesGenerator propertiesGenerator;
+
+	public InterfacesGenerator(TextTransformation rootGenerator, DocumentationGenerator documentationGenerator, 
+		AttributesGenerator attributesGenerator, PropertiesGenerator propertiesGenerator)
+		:base(rootGenerator)
+    {
+		this.documentationGenerator = documentationGenerator;
+		this.attributesGenerator = attributesGenerator;
+		this.propertiesGenerator = propertiesGenerator;
+	}
+
+	/// <summary>
+	/// Generates an interface.
+	/// </summary>
+	/// <param name="interface">The interface model.</param>
+	public void GenerateInterface(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+	{
+		this.documentationGenerator.GenerateComments(codeInterface.Comments);
+		this.documentationGenerator.GenerateSummary(codeInterface.Summary);
+		this.attributesGenerator.GenerateAttributes(codeInterface.Attributes);
+		this.GenerateInterfaceSignature(codeInterface);
+#>
+{
+<#+ 
+		this.PushIndent("\t");
+		this.propertiesGenerator.GenerateProperties(codeInterface);
+		this.GenerateInterfaceMethods(codeInterface);
+		this.PopIndent();
+#>
+}
+<#+ 
+	}
+
+	protected void GenerateInterfaceSignature(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+	{
+		string implementsStr = string.Empty;
+		if(codeInterface.Implements.Any())
+		{
+			implementsStr = " : " + string.Join(", ", codeInterface.Implements.Select(i => i.Name).ToArray());
+		}
+#>
+<#= codeInterface.TypeAccessModifier.ToCode() #> interface <#= codeInterface.Name #><#= implementsStr #>
+<#+  
+	}
+
+	protected void GenerateInterfaceMethods(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+	{
+		foreach(Telerik.OpenAccess.CodeGeneration.CodeFunction function in codeInterface.Functions)
+		{
+			string clrParametersDeclaration = function.Parameters.ToClrDeclarationString();
+		
+			this.attributesGenerator.GenerateAttributes(function.Attributes);
+#>
+<#=function.ReturnType#> <#= function.Name #>(<#= clrParametersDeclaration #>);
+<#+
+	
+		}
+	}
+}
+#>

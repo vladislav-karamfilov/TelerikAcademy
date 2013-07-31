@@ -1,0 +1,1259 @@
+﻿<#+
+
+private List<string> contextEndPoints = null;
+private string rlinqResourceName = string.Empty;
+private string rlinqAssemblyName = string.Empty;
+private bool generateClassicAPIMethods = false;
+private string fluentMetadataSourceName = string.Empty;
+private string localContextNamespace;
+private string currentBackend;
+
+private void GenerateContextFileBlock(Telerik.OpenAccess.CodeGeneration.CodeClass context, string @namespace, string connectionStringId, BackendConfiguration backendConfiguration, MappingDefinitionType mappingType, string[] contextEndPoints, string rlinqResourceName, string rlinqAssemblyName)
+{
+    this.rlinqResourceName = rlinqResourceName;
+	this.rlinqAssemblyName = rlinqAssemblyName;
+	this.localContextNamespace = @namespace;
+	this.contextEndPoints = new List<string>(contextEndPoints);
+	this.GenerateContextFileBlock(context, @namespace, connectionStringId, backendConfiguration, mappingType);
+}
+//private void GenerateContextFileBlock(Telerik.OpenAccess.CodeGeneration.CodeClass context, string @namespace, string connectionStringId, BackendConfiguration backendConfiguration, MappingDefinitionType mappingType)
+//{
+//	this.GenerateContextFileBlock(context, @namespace, connectionStringId, backendConfiguration, mappingType, string.Empty);
+//}
+
+/// <summary>
+/// Generates a file block for the context that represents the model.
+/// </summary>
+/// <param name="@class">The class object.</param>
+private void GenerateContextFileBlock(Telerik.OpenAccess.CodeGeneration.CodeClass context, string @namespace, string connectionStringId, BackendConfiguration backendConfiguration, MappingDefinitionType mappingType)
+{
+	//Telerik.OpenAccess.CodeGeneration.CodeClass contextClass = (context == null)? this.generatedContext : context;
+	//string contextNamespace = string.IsNullOrEmpty(@namespace)? this.defaultNamespace : @namespace;
+	//string contextName = string.IsNullOrEmpty(contextClass.Name)? this.defaultContextName : contextClass.Name;
+	if(context == null)
+	{
+		throw new ArgumentNullException("context");
+	}
+	
+	if(string.IsNullOrEmpty(connectionStringId))
+	{
+		connectionStringId = string.Empty;
+	}
+	
+	if (string.IsNullOrEmpty(context.Name))
+	{
+		 context.Name = "MyContext";
+	}
+	
+	if(backendConfiguration == null)
+	{
+		backendConfiguration = new BackendConfiguration();	
+	}
+    
+    //TODO: Add code for template location here.
+	this.GenerateUsings(context);
+	if (!String.IsNullOrEmpty(@namespace)) 
+	{#>
+
+namespace <#=@namespace #>	
+{
+<#+	}
+	//this.Warning("Generating entity with name:" +  contextName);	
+	Telerik.OpenAccess.CodeGeneration.CodeInterface contextInterface = utilities.GetModelContextInterfaceCodeClass(this.generatedContext);
+	
+	this.GenerateContextClass(context, connectionStringId, backendConfiguration, mappingType);
+	this.WriteLine(string.Empty);
+	this.GenerateContextInterface(contextInterface);
+
+	if (!String.IsNullOrEmpty(@namespace)) 
+	{#>
+}
+<#+	}
+	//TODO: implement better behavior
+	//this.templateContext.EndBlock();
+}
+
+//private void GenerateContextClass(Telerik.OpenAccess.CodeGeneration.CodeClass contextClass)
+//{
+//    BackendConfiguration currentBackend = this.modelSettings.BackendConfigurationSettings.BackendConfiguration;
+//	GenerateContextClass(contextClass, currentBackend);
+//}
+
+
+private void GenerateContextInterface(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+{
+	this.PushIndent("\t");
+	this.GenerateComments(codeInterface.Comments);	
+	string interfaceSignature = GetInterfaceSignature(codeInterface);
+	this.WriteLine(interfaceSignature);
+	this.WriteLine(classOpenToken);
+	this.GenerateContextInterfaceMembers(codeInterface);
+	this.GenerateContextInterfaceMethods(codeInterface);
+	this.WriteLine(classCloseToken);
+	PopIndent();
+}
+
+private void GenerateContextInterfaceMembers(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+{
+	System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = codeInterface.Properties;
+	PushIndent("\t");
+	properties.ForEach(
+		property => 
+		{
+			if(this.contextEndPoints == null || this.contextEndPoints.Contains(property.Type))
+			{
+				this.GenerateInterfaceMember(property);
+				this.WriteLine(string.Empty);
+			}
+		});
+
+	this.PopIndent();
+}
+
+private void GenerateContextInterfaceMethods(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+{
+	System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeFunction> functions = codeInterface.Functions;
+	PushIndent("\t");
+	functions.ForEach(
+		function => 
+		{
+			this.GenerateInterfaceMethod(function);
+			this.WriteLine(string.Empty);
+		});
+
+	this.PopIndent();
+}
+
+private void GenerateInterfaceMethod(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	string clrParametersDeclaration = this.GetClrParametersDeclarationForFunction(function, true);
+	string resultType= this.GetFunctionResultType(function);
+	this.GenerateCustomAttributes(function.Attributes);
+#>
+<#=resultType#> <#= function.Name #>(<#= clrParametersDeclaration #>);
+<#+
+
+	bool generateReturnValueOverload = ShouldGenerateReturnValueOverload(function);
+	if(generateReturnValueOverload)
+	{
+		clrParametersDeclaration = AppendClrParameters(clrParametersDeclaration, "out int returnValue");
+		this.GenerateCustomAttributes(function.Attributes);
+#>
+<#=resultType#> <#= function.Name #>(<#= clrParametersDeclaration #>);
+<#+
+	}
+
+}
+
+private void GenerateContextClass(Telerik.OpenAccess.CodeGeneration.CodeClass contextClass, string connectionStringId, BackendConfiguration backendConfiguration, MappingDefinitionType mappingType)
+{
+this.currentBackend = backendConfiguration.Backend;
+this.PushIndent("\t");
+this.GenerateContextClassSignature(contextClass);
+#>
+{
+<#+
+this.GenerateContextConstructorsAndMappingSource(contextClass, connectionStringId, mappingType);
+this.GenerateContextProperties(contextClass);
+this.GenerateInstanceMethods(contextClass.Functions);
+if (contextClass.UserData.Contains("ClassicAPIMethods"))
+{
+	System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeFunction> classicAPIFunctions = contextClass.UserData["ClassicAPIMethods"] as System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeFunction>;
+	if (classicAPIFunctions != null && this.generateClassicAPIMethods)
+	{
+		this.GenerateClassicAPIInstanceMethods(classicAPIFunctions);
+	}
+}
+
+this.GenerateBackendConfiguration(backendConfiguration);
+	#>
+}
+<#+
+this.PopIndent();
+}
+
+private void GenerateContextClassSignature(Telerik.OpenAccess.CodeGeneration.CodeClass contextClass)
+{
+	string[] modifierParts = new string[6];
+	modifierParts[0] = contextClass.AccessModifierString;
+	modifierParts[1] = contextClass.InheritanceModifierString;
+	modifierParts[2] = contextClass.PartialReservedWordString;
+	modifierParts[3] = contextClass.ClassReservedWordString;
+	modifierParts[4] = contextClass.Name;
+	modifierParts[5] = contextClass.ImplementedTypesString;
+	string classSignature = string.Empty;
+	
+	for (int i = 0; i < modifierParts.Length - 1; i++)
+	{
+		modifierParts[i] = modifierParts[i].Trim();
+		if (string.IsNullOrEmpty(modifierParts[i]))
+			continue;
+		classSignature = string.Concat(classSignature, " ", modifierParts[i]);
+	}
+	classSignature = string.Format("{0} : OpenAccessContext, {1}", classSignature, this.utilities.GetContextInterfaceName(contextClass));
+	classSignature = classSignature.Trim();
+	this.WriteLine(classSignature);
+}
+
+private void GenerateContextProperties(Telerik.OpenAccess.CodeGeneration.CodeClass contextClass)
+{
+	IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = contextClass.Properties;
+	foreach(Telerik.OpenAccess.CodeGeneration.CodeProperty property in properties)
+	{
+		if(this.contextEndPoints != null && !this.contextEndPoints.Contains(property.Type))
+			continue;
+#>
+	public <#= this.GetTypeStringPresentation(property) #> <#= property.Name #> 
+	{
+    	get
+    	{
+        	return this.GetAll<#=string.Concat('<', property.Type,'>') #>();
+    	}
+	}
+	
+<#+
+	}
+}
+
+private void GenerateContextConstructorsAndMappingSource(Telerik.OpenAccess.CodeGeneration.CodeClass contextClass, string connectionStringId, MappingDefinitionType mappingType)
+{
+	//MappingDefinitionType mappingType = this.modelSettings.CodeGenerationSettings.MappingDefinitionType;
+	//string defaultConnectionStringId = this.modelSettings.AppConfigConnectionPropertyName;
+	#>
+	private static string connectionStringName = @"<#= connectionStringId #>";
+		
+	private static BackendConfiguration backend = GetBackendConfiguration();
+	
+<#+ 
+	this.GenerateMappingSourceDefinition(contextClass, mappingType);
+	// Generate COnstructors BEGIN
+#>
+
+	public <#= contextClass.Name #>()
+		:base(connectionStringName, backend, metadataSource)
+	{ }
+	
+	public <#= contextClass.Name #>(string connection)
+		:base(connection, backend, metadataSource)
+	{ }
+
+	public <#= contextClass.Name #>(BackendConfiguration backendConfiguration)
+		:base(connectionStringName, backendConfiguration, metadataSource)
+	{ }
+		
+	public <#= contextClass.Name #>(string connection, MetadataSource metadataSource)
+		:base(connection, backend, metadataSource)
+	{ }
+	
+	public <#= contextClass.Name #>(string connection, BackendConfiguration backendConfiguration, MetadataSource metadataSource)
+		:base(connection, backendConfiguration, metadataSource)
+	{ }
+		
+<#+
+	// Generate COnstructors END
+}
+
+private void GenerateMappingSourceDefinition(Telerik.OpenAccess.CodeGeneration.CodeClass contextClass, MappingDefinitionType mappingType)
+{
+	if((mappingType & MappingDefinitionType.Xml) == MappingDefinitionType.Xml)
+	{
+		string xmlFileName = this.rlinqResourceName;
+		if(string.IsNullOrEmpty(xmlFileName))
+		{
+			xmlFileName = Path.GetFileName(this.Host.TemplateFile);
+#>		
+	private static MetadataSource metadataSource = XmlMetadataSource.FromAssemblyResource("<#= xmlFileName #>");
+<#+
+        }
+		else
+		{
+#>		
+	private static System.Reflection.AssemblyName assemblyName = new System.Reflection.AssemblyName("<#= this.rlinqAssemblyName #>");
+	private static System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(assemblyName);
+
+	private static MetadataSource metadataSource = XmlMetadataSource.FromAssemblyResource(assembly, "<#= xmlFileName #>");
+<#+
+		}
+    }
+	else if((mappingType & MappingDefinitionType.Attributes) == MappingDefinitionType.Attributes)
+	{
+#>		
+	private static MetadataSource metadataSource = AttributesMetadataSource.FromContext(typeof(<#= contextClass.Name #>));
+<#+
+	}
+	else if((mappingType & MappingDefinitionType.Fluent) == MappingDefinitionType.Fluent)
+	{
+		if(string.IsNullOrEmpty(this.fluentMetadataSourceName))
+		{
+			throw new Exception("The name of the fluent mapping source is not defined.");
+		}
+#>		
+	private static MetadataSource metadataSource = new <#= this.fluentMetadataSourceName #>();
+<#+
+	}
+}
+
+/// <summary>
+/// Generates the methods that execute stored procedures on the database server.
+/// </summary>
+/// <param name="functions">The list of methods.</param>
+private void GenerateInstanceMethods(System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeFunction> functions)
+{
+	//System.Diagnostics.Debugger.Break();
+GenerateReaderCalls(functions);
+	functions.ForEach(
+		function => 
+		{
+			GenerateFunction(function);
+		});
+}
+
+private void GenerateReaderCalls(System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeFunction> functions)
+{
+    IList<string> storedProcedureToMethod = new List<string>();
+    foreach(Telerik.OpenAccess.CodeGeneration.CodeFunction function in functions)
+    {
+        if (function.UserData.Contains("SqlName"))
+        {
+            string sqlName = function.UserData["SqlName"].ToString();
+            bool isMultiResultSet = false;
+            if(function.UserData.Contains("HasMultipleResultSet"))
+            {
+                bool.TryParse(function.UserData["HasMultipleResultSet"].ToString(), out isMultiResultSet);
+            }
+            if((string.IsNullOrEmpty(sqlName) || storedProcedureToMethod.Contains(sqlName)) || !isMultiResultSet)
+            {
+                continue;
+            }
+            GenerateReaderCall(function);
+            storedProcedureToMethod.Add(sqlName);
+        }
+    }
+}
+
+private string AppendClrParameters(string declaration1, string declaration2)
+{
+	var result = declaration1 + (string.IsNullOrEmpty(declaration1)? string.Empty: ", ") + declaration2;
+	return result;
+}
+
+private void GenerateReaderCall(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	bool generateReturnValueOverload = ShouldGenerateReturnValueOverload(function);
+    string sqlName = function.UserData["SqlName"].ToString();	
+    string correctedSqlName = function.UserData["ValidSqlName"].ToString();
+    string functionName = string.Concat("GetReaderFor", correctedSqlName);
+    string clrParametersDeclaration = GetClrParametersDeclarationForFunction(function, false);
+
+	bool hasOutputParams = HasOutputParameters(function);
+	if(hasOutputParams)
+    {
+		clrParametersDeclaration = AppendClrParameters(clrParametersDeclaration, "out OAParameter[] inOutParameters");
+	}
+
+	if(generateReturnValueOverload)
+    {
+		clrParametersDeclaration = AppendClrParameters(clrParametersDeclaration, "out OAParameter returnValueParameter");
+    }
+    #>
+	public OADataReader <#= functionName #>(<#= clrParametersDeclaration #>)
+	{
+		using(OACommand command = this.Connection.CreateCommand())
+		{
+			command.CommandText = "<#=sqlName#>";
+			command.CommandType = CommandType.StoredProcedure;		
+				
+<#+ 
+			if(generateReturnValueOverload)
+            {
+				#>
+			returnValueParameter = new OAParameter();
+            returnValueParameter.Direction = ParameterDirection.ReturnValue;
+            returnValueParameter.ParameterName = "returnValueParameter";
+            command.Parameters.Add(returnValueParameter);
+
+<#+
+			}		
+
+			List<string> outputVariables = new List<string>();
+			this.PushIndent("\t");
+				for (int i = 0; i < function.Parameters.Count; i++)
+				{
+					var variableName = GenerateSqlParameterDeclaration(function.Parameters[i], true, true);
+					if(variableName != null)
+						outputVariables.Add(variableName);
+				}
+
+			if(hasOutputParams && outputVariables.Count > 0)
+            {
+				string allVariables = string.Join(", ", outputVariables);
+	#>	
+		inOutParameters = new OAParameter[]{ <#=allVariables#> };
+
+<#+
+			}
+			
+			this.PopIndent();		
+	#>
+			return command.ExecuteReader();
+		}
+	}
+<#+
+	this.WriteLine(string.Empty);
+}
+
+private void GenerateFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+    bool isMultiResultSet = false;
+    if(function.UserData.Contains("HasMultipleResultSet"))
+    {
+        bool.TryParse(function.UserData["HasMultipleResultSet"].ToString(), out isMultiResultSet);
+    }
+    if(isMultiResultSet)
+    {
+        this.GenerateFunctionCallToReader(function);
+		this.WriteLine(string.Empty);
+    }
+    else
+    {
+        this.GenerateFunctionCallToAdo(function);
+    }
+}
+
+private void GenerateClassicAPIInstanceMethods(System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeFunction> functions)
+{
+	//System.Diagnostics.Debugger.Break();
+GenerateReaderCalls(functions);
+	functions.ForEach(
+		function => 
+		{
+			this.GenerateClassicAPIFunction(function);
+		});
+}
+
+private void GenerateClassicAPIFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	string clrParametersDeclaration = GetClrParametersDeclarationForFunction(function, true);
+	string sqlParameterVariablesNames = GetSqlParameterVariablesNames(function);
+	string questionMarks = GetQuestionMarkTokensForFunction(function);
+	string executionParameters = GetExecutionParametersForFunction(function);
+	string sqlParameterDefinition = string.Empty;
+	if(string.IsNullOrEmpty(executionParameters))
+	{
+		sqlParameterDefinition = "null";
+	}
+	else
+	{
+		sqlParameterDefinition ="sqlParameters,";
+	}
+	string sqlName = string.Empty;
+	if (function.UserData.Contains("SqlName"))
+    {
+       sqlName = function.UserData["SqlName"].ToString();
+    }
+	this.PushIndent("\t");
+	GenerateCustomAttributes(function.Attributes);
+	this.PopIndent();
+	#>
+	public object[] <#= function.Name #>(<#= clrParametersDeclaration #>)
+	{
+<#+ 
+	string dictionaryName= string.Empty;
+	if(function.Parameters.Count > 0)
+	{
+		for (int i = 0; i < function.Parameters.Count; i++)
+    	{
+        	 GenerateSqlParameterDeclaration(function.Parameters[i]);
+    	}
+        bool hasOutput = this.HasOutputParameters(function);
+        
+        if(hasOutput)
+        {
+        dictionaryName = "out outParameterMap, ";
+        #>
+        IDictionary<string,object> outParameterMap = new Dictionary<string, object>();
+        <#+
+        
+        }
+#>
+	
+		List<SqlParameter> sqlParameters = new List<SqlParameter>()
+		{
+			<#= sqlParameterVariablesNames #>
+		};
+		
+<#+ } #>
+		object[] queryResult = this.ExecuteStoredProcedure<object>("<#= sqlName #> <#= questionMarks #>", <#=sqlParameterDefinition#><#=dictionaryName#> <#=executionParameters#>);
+        <#+
+		this.PushIndent("\t\t");
+        string parameterAssigning = this.GenerateParameterAssigning(function);
+        this.WriteLine(parameterAssigning);
+        this.PopIndent();
+        #>
+    	return queryResult;
+	}
+	
+<#+ 
+}
+
+private void GeneratePrimitiveFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function, string sqlName, string returnType, string clrParametersDeclaration)
+{
+	bool isDeterministic = Telerik.OpenAccess.CodeGeneration.MetaModelCodeGenUtilities.IsDeterministic(function);
+	string deterministicToken = isDeterministic ? "true" : "false";
+	string backendToken = Telerik.OpenAccess.CodeGeneration.MetaModelCodeGenUtilities.GetFunctionBackendToken(function, false);
+	this.PushIndent("\t");
+	GenerateCustomAttributes(function.Attributes);
+	this.PopIndent();
+#>
+	[MappedFunctionAttribute(Name="<#= sqlName #>", IsDeterministic=<#= deterministicToken #><#= backendToken #>)]
+	public static <#=returnType#> <#= function.Name #>(<#= clrParametersDeclaration #>)
+	{
+		throw new NotImplementedException();
+	}
+<#+ 
+	this.WriteLine(string.Empty);
+}
+
+private void GenerateFunctionCallToAdo(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	bool isFunction = Telerik.OpenAccess.CodeGeneration.MetaModelCodeGenUtilities.IsFunction(function);
+	bool generateReturnValueOverload = ShouldGenerateReturnValueOverload(function);
+	bool generateRef= true;
+    string clrParametersDeclaration = GetClrParametersDeclarationForFunction(function, generateRef);	
+	string executionParameters = GetSqlParameterVariablesNames(function);	
+   
+	string sqlName = string.Empty;
+
+	if (function.UserData.Contains("SqlName"))
+    {
+       sqlName = function.UserData["SqlName"].ToString();
+    }
+
+	string returnType = function.ReturnType;
+	if (string.IsNullOrEmpty(returnType))
+	{
+		 returnType = "object";
+	}
+
+	if (isFunction == true && function.FunctionType == Telerik.Data.Dsl.DomainFunctionType.PrimitiveType)
+	{
+		 this.GeneratePrimitiveFunction(function, sqlName, returnType, clrParametersDeclaration);
+
+		 return;
+	}
+
+    string methodToBeExecuted= string.Concat("this.ExecuteQuery<",returnType,">"); 
+    string resultType= string.Concat("IEnumerable<", returnType, ">");
+    if(function.FunctionType == Telerik.Data.Dsl.DomainFunctionType.Void)
+    {
+        methodToBeExecuted = "this.ExecuteNonQuery";
+        resultType = "int";
+    }
+    else if(function.FunctionType == Telerik.Data.Dsl.DomainFunctionType.PrimitiveType)
+    {
+        methodToBeExecuted = string.Concat("this.ExecuteScalar<", returnType,">");
+        resultType = function.ReturnType;
+    }
+
+	this.PushIndent("\t");
+	GenerateCustomAttributes(function.Attributes);
+	this.PopIndent();
+	string returnValueParamDeclaration = string.Empty;
+	if(generateReturnValueOverload)
+    {
+		returnValueParamDeclaration = "OAParameter returnValueParameter;";
+		executionParameters = AppendClrParameters(executionParameters, "returnValueParameter");
+		GenerateFunctionOverload(function, resultType, ref clrParametersDeclaration);
+	}
+
+	if(!string.IsNullOrEmpty(executionParameters))
+    {
+        executionParameters = string.Concat(", ",executionParameters);
+    }
+
+	this.PushIndent("\t");
+	GenerateCustomAttributes(function.Attributes);
+	this.PopIndent();
+	#>
+	public <#=resultType#> <#= function.Name #>(<#= clrParametersDeclaration #>)
+	{
+<#+ 
+	if(generateReturnValueOverload)
+    {
+#>		OAParameter returnValueParameter = new OAParameter();
+	    returnValueParameter.Direction = ParameterDirection.ReturnValue;
+	    returnValueParameter.ParameterName = "returnValueParameter";
+
+<#+
+	}
+
+	if(function.Parameters.Count > 0)
+	{
+		for (int i = 0; i < function.Parameters.Count; i++)
+    	{
+        	GenerateSqlParameterDeclaration(function.Parameters[i], false, generateRef);
+			this.WriteLine(string.Empty);
+    	}        
+	 }
+
+	 if(isFunction)
+	 {
+		string sqlParameters = GetExecutionParametersForFunction(function, true);
+		string sql = string.Empty;
+		if(IsOracle())
+			sql = string.Format("SELECT {0}({1}) FROM dual", sqlName, sqlParameters);
+		else
+			sql = string.Format("SELECT * FROM {0}({1})", sqlName, sqlParameters);
+	
+#>
+		<#=resultType#> queryResult = <#=methodToBeExecuted#>("<#= sql #>", CommandType.Text<#=executionParameters#>);
+<#+
+	 }
+	 else
+	 {
+#>
+		<#=resultType#> queryResult = <#=methodToBeExecuted#>("<#= sqlName #>", CommandType.StoredProcedure<#=executionParameters#>);
+
+<#+		
+	 }
+
+	if(generateReturnValueOverload)
+	{
+#>
+		returnValue = returnValueParameter.Value == DBNull.Value 
+				? -1
+				: (int)returnValueParameter.Value;
+<#+
+	}
+
+	this.GenerateParameterAssigningForAdoApi(function);
+#>
+
+    	return queryResult;
+	}
+	
+<#+
+}
+
+private void GenerateFunctionOverload(Telerik.OpenAccess.CodeGeneration.CodeFunction function, string resultType, ref string clrParametersDeclaration)
+{
+	string clrParametersDeclarationOverload = clrParametersDeclaration;
+	clrParametersDeclaration = AppendClrParameters(clrParametersDeclaration, "out int returnValue");
+	
+	string clrExecutionParametersOverload = GetExecutionParametersForFunction(function, false, true);
+	clrExecutionParametersOverload = AppendClrParameters(clrExecutionParametersOverload, "out returnValue");
+
+	#>
+	public <#=resultType#> <#= function.Name #>(<#= clrParametersDeclarationOverload #>)
+	{
+		int returnValue;
+		return <#= function.Name #>(<#= clrExecutionParametersOverload #>);
+	}
+
+<#+
+}
+
+private void GenerateFunctionCallToReader(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	bool generateReturnValueOverload = ShouldGenerateReturnValueOverload(function);
+	string sqlName = function.UserData["SqlName"].ToString();
+	string executionParameters = GetExecutionParametersForFunction(function);	
+    string correctName = function.UserData["ValidSqlName"].ToString();
+	string functionName = string.Concat("GetReaderFor", correctName);
+	string clrParametersDeclaration = GetClrParametersDeclarationForFunction(function, true);	
+
+    string resultType= GetFunctionResultType(function);	
+
+	string outParamArrayDeclaration = string.Empty;
+	bool hasOutputParams = HasOutputParameters(function);
+	if(hasOutputParams)
+    {
+		outParamArrayDeclaration = "OAParameter[] inOutParameters;";
+		executionParameters = AppendClrParameters(executionParameters, "out inOutParameters"); 
+	}
+
+	string returnValueParamDeclaration = string.Empty;
+	if(generateReturnValueOverload)
+    {
+		returnValueParamDeclaration = "OAParameter returnValueParameter;";
+		executionParameters = AppendClrParameters(executionParameters, " out returnValueParameter");
+		GenerateFunctionOverload(function, resultType, ref clrParametersDeclaration);
+	}
+
+	#>
+	public <#=resultType#> <#= function.Name #>(<#= clrParametersDeclaration #>)
+	{
+		<#=resultType#> result;
+		<#= outParamArrayDeclaration #>
+		<#= returnValueParamDeclaration #>
+
+		using(OADataReader reader = this.<#=functionName#>(<#=executionParameters#>))
+		{
+<#+
+    if(function.UserData.Contains("ResultSetSequence"))
+    {
+        string seq = function.UserData["ResultSetSequence"].ToString();
+        int seqNumber = 0;    
+        int.TryParse(seq, out seqNumber);
+        if(seqNumber == 1)
+        {
+#>
+			reader.NextResult();
+<#+
+        }
+        else if(seqNumber>1)
+        {
+#>
+			for(int i=0;i<<#=seqNumber #>;i++)
+			{
+				reader.NextResult();
+			}
+<#+
+}
+}
+if(function.FunctionType == Telerik.Data.Dsl.DomainFunctionType.PrimitiveType)
+{
+#>
+			reader.Read();
+			result = (<#=function.ReturnType#>)reader.GetValue(0);
+<#+
+		}
+else if(function.FunctionType == Telerik.Data.Dsl.DomainFunctionType.Void)
+		{
+#>
+		reader.Read();
+		result = 0;
+<#+			
+		}
+else
+{
+#>
+			result = this.Translate<<#= function.ReturnType#>>(reader).ToList();
+<#+
+}
+
+#>
+		}
+
+<#+
+		if(hasOutputParams)
+        {
+			GenerateParameterAssigningForAdoApi(function, true);
+        }
+
+		if(generateReturnValueOverload)
+        {
+#>
+
+		returnValue = returnValueParameter.Value == DBNull.Value 
+				? -1
+				: (int)returnValueParameter.Value;
+<#+
+		}
+
+#>
+
+		return result;
+	}
+<#+ 
+} 
+
+private string GetFunctionResultType(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+    string resultType = "int"; //In case of void
+    switch(function.FunctionType)
+    {
+        case Telerik.Data.Dsl.DomainFunctionType.PrimitiveType:
+            resultType = function.ReturnType;
+            break;
+        case Telerik.Data.Dsl.DomainFunctionType.PersistentType:
+        case Telerik.Data.Dsl.DomainFunctionType.CustomShape:
+            resultType = string.Concat("IEnumerable<", function.ReturnType, ">");
+            break;
+    }
+    return resultType;
+}
+
+private bool HasOutputParameters(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+    for (int i = 0; i < function.Parameters.Count; i++)
+    {
+		if(IsCursor(function.Parameters[i]))
+        {
+			continue;
+		}
+
+        if(this.IsParameterOut(function.Parameters[i]))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+private bool IsCursor(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter)
+{
+	string type = parameter.UserData["OpenAccessType"] as string;
+	return string.Equals(type, "OpenAccessType.Cursor");
+}
+
+private bool IsParameterOut(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter)
+{        
+    if(parameter.UserData.Contains("Mode"))
+    {
+        if(!string.Equals(parameter.UserData["Mode"].ToString(), "in", StringComparison.InvariantCultureIgnoreCase))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+private string GenerateParameterAssigning(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+    StringBuilder parameterAssigning = new StringBuilder();
+    for (int i = 0; i < function.Parameters.Count; i++)
+    {
+        Telerik.OpenAccess.CodeGeneration.CodeParameter parameter = function.Parameters[i];
+        if(this.IsParameterOut(parameter))
+        {
+            string sqlParameterName= string.Concat("outParameterMap[\"", parameter.UserData["SqlName"], "\"];");
+            string type = string.Concat(" = (", GetTypeStringPresentation(parameter), ") ");
+            string tempOutput = string.Concat(parameter.Name, type, sqlParameterName);
+			parameterAssigning.AppendLine(tempOutput);
+        }
+    }
+
+	return parameterAssigning.ToString();
+}
+
+private void GenerateParameterAssigningForAdoApi(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	GenerateParameterAssigningForAdoApi(function, false);
+}
+
+
+
+private void GenerateParameterAssigningForAdoApi(Telerik.OpenAccess.CodeGeneration.CodeFunction function, bool fromOutputParamArray)
+{
+	int arrayIndex = 0;
+    for (int i = 0; i < function.Parameters.Count; i++)
+    {
+        Telerik.OpenAccess.CodeGeneration.CodeParameter parameter = function.Parameters[i];
+		if(IsCursor(parameter))
+		{
+			continue;
+		}
+		
+        if(this.IsParameterOut(parameter))
+        {
+			string adoParameterName= GetParameterName(parameter);
+			string typeStringPresentation = GetTypeStringPresentation(parameter);
+
+			if(fromOutputParamArray)
+            {
+				adoParameterName = string.Format("inOutParameters[{0}]", arrayIndex);
+				arrayIndex++;
+			}
+
+#>
+        <#= parameter.Name#> = <#=adoParameterName#>.Value == DBNull.Value 
+			? default(<#=typeStringPresentation#>) 
+			: (<#=typeStringPresentation#>)<#=adoParameterName#>.Value;
+<#+
+            
+        }
+    }
+}
+
+
+private string GetParameterName(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter)
+{
+	return string.Concat("parameter",Char.ToUpper(parameter.Name[0]),parameter.Name.Substring(1));
+}
+
+private void GenerateSqlParameterDeclaration(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter)
+{
+		 string name = parameter.UserData["SqlName"] as string;
+         string type = parameter.UserData["OpenAccessType"] as string;
+         string mode = string.Empty;
+		 string variableName = GetParameterName(parameter);
+		 if (parameter.UserData.Contains("Mode"))
+    	 {
+       	 	 mode = string.Concat(", ", parameter.UserData["Mode"] as string);
+    	 }
+#>
+		SqlParameter <#=variableName#> = new SqlParameter("<#= name #>", <#= string.Concat(type, mode) #>);
+<#+ 
+}
+
+private string GenerateSqlParameterDeclaration(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter, bool shouldAddToCommand, bool outDirection)
+{
+		 string name = parameter.UserData["SqlName"] as string;
+         string mode = string.Empty;
+		 // string variableName = string.Concat("parameter",Char.ToUpper(parameter.Name[0]),parameter.Name.Substring(1));
+		 string variableName = this.GetDBParameterName(parameter.Name);
+         bool isOutParameter = false;
+		 string parameterMode = string.Empty;
+		 if (parameter.UserData.Contains("Mode"))
+    	 {
+			parameterMode = parameter.UserData["Mode"].ToString();
+            if(!string.Equals(parameterMode, "in", StringComparison.InvariantCultureIgnoreCase))
+            {
+                isOutParameter = true;
+            }
+    	 }
+		
+		bool isCursor = IsCursor(parameter);
+		if(isCursor)
+		{
+			isOutParameter = true;
+			outDirection = true;
+#>
+		// Oracle.DataAccess assembly reference is required
+		Oracle.DataAccess.Client.OracleParameter <#=variableName#> = new Oracle.DataAccess.Client.OracleParameter();
+		<#=variableName#>.ParameterName = "<#=name#>";
+		<#=variableName#>.OracleDbType = Oracle.DataAccess.Client.OracleDbType.RefCursor;
+		<#=variableName#>.Direction = ParameterDirection.Output;
+<#+
+		}
+		else
+		{
+#>
+		OAParameter <#=variableName#> = new OAParameter();
+		<#=variableName#>.ParameterName = "<#=name#>";
+<#+
+if(outDirection && isOutParameter)
+{
+		string parameterDirection = string.Equals(parameterMode, "ParameterMode.Out", StringComparison.InvariantCultureIgnoreCase)
+			? "ParameterDirection.Output"
+			: "ParameterDirection.InputOutput";
+#>
+        <#= variableName #>.Direction = <#= parameterDirection #>;
+<#+
+}			
+			this.AssignParameterValue(parameter, variableName);
+		}
+		
+        if(shouldAddToCommand)
+{
+    #>
+		command.Parameters.Add(<#=variableName#>);        
+<#+ 
+}
+
+if(outDirection && (isOutParameter && isCursor == false))
+{
+	return variableName;
+}
+else
+{
+	return null;
+}
+}
+
+private void SetDBType(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter, string variableName)
+{
+	if (parameter.UserData.Contains("DbType"))
+	{
+		string dbType = parameter.UserData["DbType"] as string;
+		if (!string.IsNullOrEmpty(dbType))
+		{
+#>
+			<#=variableName#>.DbType = DbType.<#=dbType#>;		
+<#+
+		}
+	}
+}
+
+private void AssignParameterValue(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter, string variableName)
+{
+	bool isNullable = false;
+	if(parameter.UserData.Contains("IsNullable"))
+	{
+		isNullable = (bool)parameter.UserData["IsNullable"];
+	}
+
+	string dbType = parameter.UserData["DbType"] as string;
+	if(string.Equals(dbType, "String") || isNullable)
+	{
+		if(isNullable)
+		{
+#>
+		if(<#=parameter.Name#>.HasValue)
+		{
+			<#=variableName#>.Value = <#=parameter.Name#>.Value;
+		}
+<#+
+		}
+		else 
+		{
+			int stringSize = GetBackendStringSize();
+#>
+		<#=variableName#>.Size = <#=stringSize#>;
+		if(<#=parameter.Name#> != null)
+		{
+			<#=variableName#>.Value = <#=parameter.Name#>;
+		}	
+<#+
+		}
+#>
+		else
+		{
+<#+
+			this.SetDBType(parameter, variableName);
+#>
+			<#=variableName#>.Value = DBNull.Value;
+		}
+<#+		
+	}
+	else
+	{
+#>
+		<#=variableName#>.Value = <#=parameter.Name#>;
+<#+
+	}
+}
+
+private string GetDBParameterName(string parameterName)
+{
+	return string.Concat("parameter", Char.ToUpper(parameterName[0]), parameterName.Substring(1));
+}
+
+
+private string GetClrParametersDeclarationForFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function, bool generateRef)
+{    
+	Telerik.OpenAccess.CodeGeneration.CodeParameter parameter;
+	StringBuilder builder = new StringBuilder();
+	for (int i = 0; i < function.Parameters.Count; i++)
+    {
+        parameter = function.Parameters[i];
+		if(IsCursor(parameter))
+		{
+			continue;
+		}
+		
+		string parameterAttribute = string.Empty;
+		if(parameter.Attributes.Count > 0)
+		{
+			parameterAttribute = GenerateAttribute(parameter.Attributes[0]);
+		}
+        string type = GetTypeStringPresentation(parameter);
+        if(generateRef)
+        {
+            if(parameter.UserData.Contains("Mode"))
+            {
+                if(!string.IsNullOrEmpty(function.Parameters[i].UserData["Mode"].ToString()) && !function.Parameters[i].UserData["Mode"].ToString().ToLower().Equals("in"))
+                {
+                    type = string.Concat("ref ", type);
+                }
+            }
+        }
+        string name = parameter.Name;
+        string parameterExpression = string.Concat(parameterAttribute,type,' ', name);
+        if (i != 0)
+        {
+           builder.Append(", ");
+        }
+
+		builder.Append(parameterExpression);
+    }
+	return builder.ToString();
+}
+
+private string GetSqlParameterVariablesNames(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+    Telerik.OpenAccess.CodeGeneration.CodeParameter parameter;
+	StringBuilder builder = new StringBuilder();
+	for (int i = 0; i < function.Parameters.Count; i++)
+    {
+		 parameter = function.Parameters[i];
+		 string variableName = string.Concat("parameter",Char.ToUpper(parameter.Name[0]),parameter.Name.Substring(1));
+         builder.Append(variableName);
+         if (i < function.Parameters.Count - 1)
+         {
+            builder.Append(", ");
+         }
+    }
+	return builder.ToString();
+}
+private string GetQuestionMarkTokensForFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	StringBuilder builder = new StringBuilder();
+	for (int i = 0; i < function.Parameters.Count; i++)
+    {
+         builder.Append('?');
+         if (i < function.Parameters.Count - 1)
+         {
+            builder.Append(',');
+         }
+    }
+	return builder.ToString();
+}
+
+private string GetExecutionParametersForFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	return this.GetExecutionParametersForFunction(function, false);
+}
+
+private string GetExecutionParametersForFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function, bool usePrefix)
+{
+	return GetExecutionParametersForFunction(function, usePrefix, false);
+}
+
+private string GetExecutionParametersForFunction(Telerik.OpenAccess.CodeGeneration.CodeFunction function, bool usePrefix, bool generateRefs)
+{
+	string prefix = GetBackendParameterPrefix();
+	Telerik.OpenAccess.CodeGeneration.CodeParameter parameter;
+	StringBuilder builder = new StringBuilder();
+	for (int i = 0; i < function.Parameters.Count; i++)
+    {
+		parameter = function.Parameters[i];
+		if(IsCursor(parameter))
+		{
+			continue;
+		}
+		
+        if (i != 0)
+        {
+           builder.Append(", ");
+        }
+
+		if(generateRefs && IsParameterOut(parameter))
+        {
+			builder.Append("ref ");
+		}
+
+		if(usePrefix)
+		{
+			builder.Append(prefix);
+		}
+		
+		builder.Append(parameter.Name);
+    }
+	
+	return builder.ToString();
+}
+
+private string GetBackendParameterPrefix()
+{
+	if(IsOracle())
+		return ":";
+	else
+		return "@";
+}
+
+public bool IsOracle()
+{
+	return currentBackend.Equals("oracle", StringComparison.InvariantCultureIgnoreCase);
+}
+
+private bool ShouldGenerateReturnValueOverload(Telerik.OpenAccess.CodeGeneration.CodeFunction function)
+{
+	if(currentBackend.Equals("mssql", StringComparison.InvariantCultureIgnoreCase) == false)
+		return false;
+
+	bool isFunction = Telerik.OpenAccess.CodeGeneration.MetaModelCodeGenUtilities.IsFunction(function);
+
+	bool genOverloadForDomainMethod = false;
+	if(function.UserData.Contains("GenerateReturnValueOverload"))
+    {
+		genOverloadForDomainMethod = (bool)function.UserData["GenerateReturnValueOverload"];
+	}
+
+	return isFunction == false && genOverloadForDomainMethod;
+}
+
+private int GetBackendStringSize()
+{
+	if("oracle" == currentBackend.ToLower())
+		return 4000;
+	else
+		return -1;
+}
+
+private void GenerateBackendConfiguration(BackendConfiguration currentBackend)
+{
+	#>
+	public static BackendConfiguration GetBackendConfiguration()
+	{
+		BackendConfiguration backend = new BackendConfiguration();
+		<#+ 
+        PushIndent("\t\t"); 
+		WriteBackendConfiguratioin("backend", currentBackend, new BackendConfiguration());
+		HandleAdditionalBackendSettings(currentBackend);
+		PopIndent();
+		#>
+		return backend;
+	}
+<#+ 
+}
+
+private void WriteBackendConfiguratioin(string objectName, object newConfiguration, object defaultConfiguration)
+{
+    Type configurationType = newConfiguration.GetType();
+    object newValue = null;
+    object defaultValue = null;
+	//System.Diagnostics.Debugger.Break();
+    foreach (System.Reflection.PropertyInfo prop in configurationType.GetProperties())
+	{
+		if (ReflectionHelper.IsMarkedWithAttribute<ObsoleteAttribute>(prop))
+		{
+			continue;	 
+		}
+		
+        newValue = prop.GetValue(newConfiguration, null);
+        defaultValue = prop.GetValue(defaultConfiguration, null);
+		
+        if (prop.PropertyType.IsValueType || prop.PropertyType == typeof(string))
+        {
+            if (!object.Equals(newValue, defaultValue))
+            {
+				string valueString = GetValueString(prop.PropertyType, newValue.ToString());
+				WriteLine(string.Concat(objectName, '.', prop.Name, " = ", valueString,';')); 
+            }
+        }
+    	else if(typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
+		{
+			continue;
+		}
+        else
+        {
+			if(newValue != null && defaultValue != null)
+			{
+            	string newObjectName = string.Concat(objectName, '.', prop.Name);
+            	WriteBackendConfiguratioin(newObjectName, newValue, defaultValue);
+			}
+        }
+    }
+}
+
+private string GetValueString(Type objectType, string value)
+{
+	if(objectType == typeof(string))
+	{
+		return string.Concat(@"""",value,@"""");
+	}
+	else if(objectType == typeof(bool))
+	{
+		return value.ToLower();
+	}
+	else if(objectType.IsEnum)
+	{
+		return string.Concat(objectType.Name,'.',value);
+	}
+	return value;
+}
+
+
+private void HandleAdditionalBackendSettings(BackendConfiguration currentBackend)
+{
+	if(currentBackend.ConnectionPool.InitSQL.Count > 0)
+	{
+		foreach(string query in currentBackend.ConnectionPool.InitSQL )
+		{
+			WriteLine(string.Format(@"backend.ConnectionPool.InitSQL.Add(""{0}"");",query));
+		}
+	}
+}
+#>

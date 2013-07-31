@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sales>
+  <sale vendor="Nestle Sofia Corp.">
+    <expenses month="Jul-2013">30.00</expenses>
+    <expenses month="Aug-2013">40.00</expenses>
+  </sale>
+  <sale vendor="Targovishte Bottling Company Ltd.">
+    <expenses month="Jul-2013">200.00</expenses>
+    <expenses month="Aug-2013">180.00</expenses>
+  </sale>
+  <sale vendor="Zagorka Corp.">
+    <expenses month="Jul-2013">120.00</expenses>
+    <expenses month="Aug-2013">180.00</expenses>
+  </sale>
+</sales>

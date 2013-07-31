@@ -23,7 +23,7 @@ class SumOfCoins
         else
         {
             Console.WriteLine("Cannot have sum '{0}' with coins {1}", 
-                sumOfCoins, string.Join(", ", coins));
+                sumOfCoins, string.Join(", ", coinsTypes));
         }
     }
 

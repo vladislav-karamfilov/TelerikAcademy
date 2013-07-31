@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" ?>
+
+<review-queries>
+
+  <query type="by-period">
+    <start-date>9-Oct-2012</start-date>
+    <end-date>31-Dec-2012</end-date>
+  </query>
+
+  <query type="by-period">
+    <start-date>20-Jan-2012</start-date>
+    <end-date>31-Dec-2013</end-date>
+  </query>
+
+  <query type="by-author">
+    <author-name>Missing Author</author-name>
+  </query>
+
+  <query type="by-author">
+    <author-name>Test Author 1</author-name>
+  </query>
+
+  <query type="by-author">
+    <author-name>STevE IVANoV</author-name>
+  </query>
+
+  <query type="by-period">
+    <start-date>1-May-2013</start-date>
+    <end-date>12-Nov-2010</end-date>
+  </query>
+
+</review-queries>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QUnit Tests</title>
+<link rel="stylesheet" href="scripts/libs/qunit-1.11.0.css">
+<script src="scripts/libs/ProtoClass.js"></script>
+<script src="scripts/libs/jquery-1.10.1.js"></script>
+
+</head>
+<body>
+<div id="qunit">
+
+</div>
+<div id="qunit-fixture"></div>
+
+<script src="scripts/libs/qunit-1.11.0.js"></script>
+
+<script src="scripts/GameFieldNS.js"></script>
+<script src="scripts/ScoresNS.js"></script>
+<script src="scripts/GameObjectsNS.js"></script>
+<script src="scripts/Animation.js"></script>
+
+<script src="scripts/tests/GameFieldNSTest.js"></script>
+<script src="scripts/tests/ScoresNSTest.js"></script>
+<script src="scripts/tests/GameObjectsNSTests.js"></script>
+<script src="scripts/tests/AnimationTests.js"></script>
+
+</body>
+</html>

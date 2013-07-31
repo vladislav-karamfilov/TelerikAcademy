@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bulls and Cows Game</title>
+    <script src="scripts/jquery-2.0.2.js"></script>
+    <script src="scripts/jquery-center-plugin.js"></script>
+    <script src="scripts/class.js"></script>
+    <script src="scripts/cryptojs-sha1.js"></script>
+    <script src="scripts/http-requester.js"></script>
+    <script src="scripts/data-layer.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/controllers.js"></script>
+    <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+    <div id="game-container"></div>
+    
+     <script>
+        $(function () {
+            var controller = Controllers.getController(
+                DataLayer.getDataPersister("http://localhost:40643/api/"),
+                "#game-container");
+            controller.loadUI();
+        });
+    </script>
+</body>
+</html>

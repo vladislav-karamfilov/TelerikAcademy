@@ -1,0 +1,59 @@
+﻿<#+ 
+public class UsingsGenerator : Telerik.OpenAccess.CodeGeneration.TelerikTextTransformationBase
+{
+	protected List<string> DefaultUsings = new List<string>
+	{
+		    "System",
+		    "System.Data",
+		    "System.Linq",
+		    "System.Linq.Expressions",
+		    "System.Data.Common",		 
+		    "System.Collections.Generic",
+		    "Telerik.OpenAccess",
+		    "Telerik.OpenAccess.Metadata",
+		    "Telerik.OpenAccess.Data.Common",
+		    "Telerik.OpenAccess.Metadata.Fluent",
+		    "Telerik.OpenAccess.Metadata.Fluent.Advanced",
+	};
+
+	public UsingsGenerator(TextTransformation rootGenerator)
+		:base(rootGenerator)
+    {
+	}
+
+	/// <summary>
+	/// Generates usings block.
+	/// </summary>
+	/// <param name="interface">The interface/class containing the collection of namespaces.</param>
+	public void GenerateUsings(Telerik.OpenAccess.CodeGeneration.CodeInterface @interface)
+	{
+		this.GenerateUsings(@interface.ImportNamespaces.Namespaces);
+	}
+
+	/// <summary>
+	/// Generates usings block.
+	/// </summary>
+	/// <param name="usings">The collection of namespaces.</param>
+	public void GenerateUsings(IEnumerable<string> usings)
+	{
+		foreach (string @namespace in this.DefaultUsings)
+		{
+#>
+using <#= @namespace #>;
+<#+ 
+		}
+
+		foreach (string @namespace in usings)
+		{
+			if(this.DefaultUsings.Contains(@namespace) == false && string.IsNullOrEmpty(@namespace) == false)
+			{
+#>
+using <#= @namespace #>;
+<#+ 		
+			}
+		}
+
+		this.WriteLine(string.Empty);
+	}
+}
+#>

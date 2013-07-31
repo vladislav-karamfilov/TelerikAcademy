@@ -1,0 +1,441 @@
+﻿<#+
+
+const string classOpenToken = "{";
+const string classCloseToken = "}";
+
+private Dictionary<string, string> typeDefaultPresentation = GeneratedTextTransformation.InitializeLanguageDependentTypeMap();
+
+private static Dictionary<string, string> InitializeLanguageDependentTypeMap()
+{
+	Dictionary<string, string> defaultPresentation = new Dictionary<string, string>();
+	defaultPresentation.Add("System.Nullable`1","?");
+	defaultPresentation.Add("System.Int16", "short");
+	defaultPresentation.Add("System.Int32", "int");
+	defaultPresentation.Add("System.Int64", "long");
+	defaultPresentation.Add("System.UInt16", "ushort");
+	defaultPresentation.Add("System.UInt32", "uint");
+	defaultPresentation.Add("System.UInt64", "ulong");
+	defaultPresentation.Add("System.String", "string");
+	defaultPresentation.Add("System.Byte[]", "byte[]");
+	defaultPresentation.Add("System.Byte", "byte");
+	defaultPresentation.Add("System.SByte", "sbyte");
+	defaultPresentation.Add("System.DateTime", "DateTime");
+	defaultPresentation.Add("System.Decimal", "decimal");
+	defaultPresentation.Add("System.Double", "double");
+	defaultPresentation.Add("System.Single", "float");
+	defaultPresentation.Add("System.Boolean", "bool");
+	defaultPresentation.Add("System.Guid", "Guid");
+	defaultPresentation.Add("Int16", "short");
+	defaultPresentation.Add("Int32", "int");
+	defaultPresentation.Add("Int64", "long");
+	defaultPresentation.Add("UInt16", "ushort");
+	defaultPresentation.Add("UInt32", "uint");
+	defaultPresentation.Add("UInt64", "ulong");
+	defaultPresentation.Add("String", "string");
+	defaultPresentation.Add("Byte[]", "byte[]");
+	defaultPresentation.Add("Byte", "byte");
+	defaultPresentation.Add("SByte", "sbyte");
+	defaultPresentation.Add("DateTime", "DateTime");
+	defaultPresentation.Add("Decimal", "decimal");
+	defaultPresentation.Add("Double", "double");
+	defaultPresentation.Add("Single", "float");
+	defaultPresentation.Add("Boolean", "bool");
+	return defaultPresentation;
+}
+
+System.Collections.Generic.List<string> Usings = new System.Collections.Generic.List<string>(9);
+
+private void InitializeDefaultUsings()
+{
+	if (Usings.Count < 1)
+	{
+		Usings.Add("System");
+		Usings.Add("System.Data");
+		Usings.Add("System.Linq");
+		Usings.Add("System.Linq.Expressions");
+		Usings.Add("System.Data.Common");				 
+		Usings.Add("System.Collections.Generic");
+		Usings.Add("Telerik.OpenAccess");
+		Usings.Add("Telerik.OpenAccess.Metadata");
+        Usings.Add("Telerik.OpenAccess.Data.Common");
+        Usings.Add("Telerik.OpenAccess.Metadata.Fluent");
+        Usings.Add("Telerik.OpenAccess.Metadata.Fluent.Advanced");
+        Usings.Add("Frameworks");
+	}
+}
+
+private void GenerateUsings(Telerik.OpenAccess.CodeGeneration.CodeInterface @interface)
+{
+	//PushIndent("\t");
+	if (Usings.Count < 1)
+	{
+	  this.InitializeDefaultUsings();
+	}
+	foreach (string ns in Usings)
+	{
+#>
+using <#= ns #>;
+<#+ 
+	}
+	foreach( string ns in @interface.ImportNamespaces.Namespaces)
+	{
+		if(!Usings.Contains(ns) && /*ns != @interface.Namespace &&*/ !string.IsNullOrEmpty(ns))
+		{
+#>
+using <#= ns #>;
+<#+ 		
+		}
+	}
+	
+	this.WriteLine(string.Empty);
+}
+
+private void GenerateUsings(IEnumerable<string> usings)
+{
+	foreach (string ns in Usings)
+	{
+#>
+using <#= ns #>;
+<#+ 
+	}
+	foreach( string ns in usings)
+	{
+		if(!Usings.Contains(ns) && !string.IsNullOrEmpty(ns))
+		{
+#>
+using <#= ns #>;
+<#+ 		
+		}
+	}
+	this.WriteLine(string.Empty);
+}
+
+private void GenerateStandaloneUsings()
+{
+	if (!(this.shouldGenerateContext ||
+		this.generateMultipleFiles))
+	{
+		if (Usings.Count < 1)
+		{
+			this.InitializeDefaultUsings();
+		}
+		HashSet<string>	standaloneUsings = new HashSet<string>(this.Usings);
+		
+		foreach(Telerik.OpenAccess.CodeGeneration.CodeNamespace @namespace in this.codegenModel.Namespaces)
+		{
+			foreach(Telerik.OpenAccess.CodeGeneration.CodeClass @class in @namespace.Classes)
+			{
+				standaloneUsings.UnionWith(@class.ImportNamespaces.Namespaces);
+			}
+			foreach(Telerik.OpenAccess.CodeGeneration.CodeInterface @interface in @namespace.Interfaces)
+			{
+				if (@interface.IsInterface)
+				{
+					standaloneUsings.UnionWith(@interface.ImportNamespaces.Namespaces);
+				}
+			}
+		}
+		//standaloneUsings.Remove(this.GetDefaultNamespace());
+		
+		this.GenerateUsings(standaloneUsings);
+	}
+}
+
+
+
+private string GetSafeCodeGenPath()
+{
+	string rlinqFileDir = string.Empty;
+	
+	if (!string.IsNullOrEmpty(this.Host.TemplateFile))
+	{
+		string extension = Path.GetExtension(this.Host.TemplateFile);
+		if (!string.IsNullOrEmpty(extension))
+		{
+			rlinqFileDir = Path.GetDirectoryName(this.Host.TemplateFile);
+		}
+		else
+		{
+	    	rlinqFileDir = Path.GetFullPath(this.Host.TemplateFile);
+		}
+	}
+	return templateContext.GetSafeCodeGenPath(rlinqFileDir);
+}
+
+private string GetInterfaceSignature(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+{
+	string[] modifierParts = new string[4];
+	modifierParts[0] = codeInterface.AccessModifierString;
+	modifierParts[1] = codeInterface.InterfaceReservedWordString;
+	modifierParts[2] = codeInterface.Name;
+	modifierParts[3] = codeInterface.ImplementedInterfacesString;
+	string interfaceSignature = string.Empty;
+	
+	for (int i = 0; i < modifierParts.Length; i++)
+	{
+		modifierParts[i] = modifierParts[i].Trim();
+		if (string.IsNullOrEmpty(modifierParts[i]))
+			continue;
+		interfaceSignature = string.Concat(interfaceSignature, " ", modifierParts[i]);
+	}
+	
+	interfaceSignature = interfaceSignature.Trim();
+	return interfaceSignature;
+}
+
+const string BaseClassName = "NotificationObject";
+
+private string GetClassSignature(Telerik.OpenAccess.CodeGeneration.CodeClass codeClass)
+{
+	string[] modifierParts = new string[6];
+	modifierParts[0] = codeClass.AccessModifierString;
+	modifierParts[1] = codeClass.InheritanceModifierString;
+	modifierParts[2] = codeClass.PartialReservedWordString;
+	modifierParts[3] = codeClass.ClassReservedWordString;
+	modifierParts[4] = codeClass.Name;
+	modifierParts[5] = codeClass.ImplementedTypesString;
+	string classSignature = string.Empty;
+
+	if(this.GeneratedContext != codeClass && BaseClassName != null && CodeClass.Name != BaseClassName)
+	{
+		if( string.IsNullOrEmpty(modifierParts[5]))
+		{
+			modifierParts[5] = " : " + BaseClassName;
+		}
+	}
+	
+	for (int i = 0; i < modifierParts.Length; i++)
+	{
+		modifierParts[i] = modifierParts[i].Trim();
+		if (string.IsNullOrEmpty(modifierParts[i]))
+			continue;
+		classSignature = string.Concat(classSignature, " ", modifierParts[i]);
+	}
+			
+	classSignature = classSignature.Trim();
+	return classSignature;
+}
+
+private string GetBaseDerivationClassSignature(Telerik.OpenAccess.CodeGeneration.CodeClass codeClass)
+{
+	string[] baseModifierParts = new string[5];
+	baseModifierParts[0] = codeClass.AccessModifierString;
+	baseModifierParts[1] = codeClass.DoubleDerivationBaseClass.InheritanceModifierString;
+	baseModifierParts[2] = codeClass.ClassReservedWordString;
+	baseModifierParts[3] = codeClass.DoubleDerivationBaseClass.Name;
+	baseModifierParts[4] = codeClass.DoubleDerivationBaseClass.ImplementedTypesString;
+	string baseClassSignature = string.Empty;
+	
+	for (int i = 0; i < baseModifierParts.Length; i++)
+	{
+		baseModifierParts[i] = baseModifierParts[i].Trim();
+		if (string.IsNullOrEmpty(baseModifierParts[i]))
+			continue;
+		baseClassSignature = string.Concat(baseClassSignature, " ", baseModifierParts[i]);
+	}
+	
+	baseClassSignature = baseClassSignature.Trim();
+	return baseClassSignature;
+}
+
+protected string GetTypeStringPresentation(Telerik.OpenAccess.CodeGeneration.CodeTypeElement property)
+{
+  bool isGeneric = false;
+  if (property.UserData.Contains("IsGeneric"))
+  {
+      isGeneric = (bool) property.UserData["IsGeneric"];
+  }
+  if (isGeneric)
+   {
+      bool isNullable = (bool)property.UserData["IsNullable"];
+      if (isNullable)
+       {
+          string genericParameterConstraints = (string)property.UserData["GenericParameters"];
+          string[] parts = 
+              genericParameterConstraints.Split(new string[]{", "}, StringSplitOptions.RemoveEmptyEntries);
+          string underlyingSystemType = string.Empty;
+          if (parts.Length > 0)
+          {
+              if (typeDefaultPresentation != null && 
+				typeDefaultPresentation.TryGetValue(parts[0], out underlyingSystemType))
+              {
+                  return string.Format("{0}?", underlyingSystemType);
+              }
+              return string.Format("System.Nullable<{0}>", parts[0]);     
+          }
+       }
+      return string.Empty;
+  }
+  else if (property.IsIEnumerable)
+  {
+	if(property.IsIQueryable)
+	{
+		return string.Format("IQueryable<{0}>",property.Type);
+	}
+      return string.Format("IList<{0}>", property.Type);
+  }
+
+  string mappedType = string.Empty;
+  if (typeDefaultPresentation.TryGetValue(property.Type, out mappedType))
+  {
+      return mappedType;
+  }
+  return property.Type;
+}
+
+/// <summary>
+/// Generates the custom attributes definition.
+/// </summary>
+/// <param name="attributes">The list of custom attributes.</param>
+private void GenerateCustomAttributes(System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeAttribute> attributes)
+{
+	//System.Diagnostics.Debugger.Break();
+	if(attributes == null || attributes.Count() == 0)
+	{
+		return;
+	}
+	string attributeString = string.Empty;
+	attributes.ForEach
+	(
+		attribute => 
+		{
+			attributeString = GenerateAttribute(attribute);
+			if(!string.IsNullOrEmpty(attributeString))
+			{
+				this.WriteLine(attributeString);
+			}
+		}
+	);
+}
+
+private string GenerateAttribute(Telerik.OpenAccess.CodeGeneration.CodeAttribute attribute)
+{
+	StringBuilder builder = new StringBuilder();
+    builder.Append("[");
+    builder.Append(attribute.Name);
+    builder.Append("(");
+    CodeAttributeDeclaration attributeDeclaration = this.utilities.GetCustomAttributeDeclaration(attribute);
+    CodePrimitiveExpression argumentExpression = null;
+    for (int i = 0; i < attributeDeclaration.Arguments.Count; i++)
+    {
+         argumentExpression = attributeDeclaration.Arguments[i].Value as CodePrimitiveExpression;
+         if (argumentExpression != null)
+         {
+            string constructorParameterValue = GetParameterValue(attribute, attributeDeclaration.Arguments[i]);
+            builder.Append(constructorParameterValue);
+         }
+         if (i < attribute.Parameters.Count - 1)
+         {
+            builder.Append(", ");
+         }
+    }
+	IList<Telerik.OpenAccess.CodeGeneration.CodeParameter> nonConstructorParameters = GetNonConstructorParameters(attribute);
+    Telerik.OpenAccess.CodeGeneration.CodeParameter argumentParameter = null;
+    for (int i = 0; i < nonConstructorParameters.Count; i++)
+    {
+         argumentParameter = nonConstructorParameters[i];
+         if (!(argumentParameter is CodeConstructorParameter))
+         {
+            string name = argumentParameter.Name;
+            string value = GetParameterValue(argumentParameter);
+            string parameterExpression = string.Concat(name, " = ", value);
+            builder.Append(parameterExpression);
+		 	if (i < nonConstructorParameters.Count - 1)
+         	{
+            	builder.Append(", ");
+         	}
+         }
+    }
+    builder.Append(")]");
+    return builder.ToString();
+}
+
+private IList<Telerik.OpenAccess.CodeGeneration.CodeParameter> GetNonConstructorParameters(Telerik.OpenAccess.CodeGeneration.CodeAttribute attribute)
+{
+	List<Telerik.OpenAccess.CodeGeneration.CodeParameter> parameters = new List<Telerik.OpenAccess.CodeGeneration.CodeParameter>();
+	for (int i = 0; i < attribute.Parameters.Count; i++)
+    {
+         if (!(attribute.Parameters[i] is CodeConstructorParameter))
+		 {
+			 parameters.Add(attribute.Parameters[i]);		
+		 }
+	}
+	return parameters;
+}
+
+private string GetParameterValue(Telerik.OpenAccess.CodeGeneration.CodeParameter parameter)
+{
+    if (parameter.Type == "System.String")
+    {
+        return string.Format(@"""{0}""", parameter.Value);
+    }
+    return parameter.Value;
+}
+
+private string GetParameterValue(Telerik.OpenAccess.CodeGeneration.CodeAttribute attribute, System.CodeDom.CodeAttributeArgument codeAttributeArgument)
+{
+    foreach (Telerik.OpenAccess.CodeGeneration.CodeParameter parameter in attribute.Parameters)
+    {
+        if (parameter.Name == codeAttributeArgument.Name)
+        {
+            return this.GetParameterValue(parameter);
+        }
+    }
+    return string.Empty;
+}
+
+/// <summary>
+/// Generates summary for classes, interfaces and methods.
+/// </summary>
+/// <param name="summary">The summary content.</param>
+private void GenerateSummary(string summary)
+{
+	if(!string.IsNullOrEmpty(summary))
+	{
+		this.PushIndent("/// ");
+		this.WriteLine("<summary>");
+		if (!string.IsNullOrEmpty(summary))
+		{
+			this.WriteLine(summary);			 
+		}
+		else
+		{
+			this.WriteLine("No Metadata Documentation available.");
+		}
+		this.WriteLine("</summary>");
+		this.PopIndent();
+	}
+}
+
+/// <summary>
+/// Generates a line of comment.
+/// </summary>
+/// <param name="comment">The comment content.</param>
+private void GenerateComment(string comment)
+{
+	if(!string.IsNullOrEmpty(comment))
+	{
+		this.PushIndent("// ");
+		this.WriteLine(comment);
+		this.PopIndent();
+	}
+}
+
+/// <summary>
+/// Generates the comments definition.
+/// </summary>
+/// <param name="comments">The comments.</param>
+private void GenerateComments(IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeComment> comments)
+{
+	comments.ForEach(
+		comment => GenerateComment(comment.Text));
+}
+
+private string GetDefaultNamespace()
+{
+	// data.ContextNamespace = (new string[] { templateContext.GetCustomToolNamespace(data.DbmlFileName), data.SpecifiedContextNamespace, templateContext.DefaultProjectNamespace }).FirstOrDefault(s => !String.IsNullOrEmpty(s));
+	// data.EntityNamespace = (new string[] { templateContext.GetCustomToolNamespace(data.DbmlFileName), data.SpecifiedEntityNamespace, templateContext.DefaultProjectNamespace }).FirstOrDefault(s => !String.IsNullOrEmpty(s));
+	return (new string[] { templateContext.GetCustomToolNamespace(this.Host.TemplateFile), this.metaModel.DefaultNamespace, templateContext.DefaultProjectNamespace, this.defaultContextName + "NS" }).FirstOrDefault(s => !String.IsNullOrEmpty(s));
+}
+
+#>

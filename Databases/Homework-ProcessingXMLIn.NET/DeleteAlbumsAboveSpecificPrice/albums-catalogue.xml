@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<catalogue>
+  <album>
+    <name>Kill 'Em All</name>
+    <artist>Metallica</artist>
+    <year>1983</year>
+    <producer>Paul Curcio</producer>
+    <price>17</price>
+    <songs>
+      <song>
+        <title>Hit the Lights</title>
+        <duration>4:16</duration>
+      </song>
+      <song>
+        <title>The Four Horsemen</title>
+        <duration>7:13</duration>
+      </song>
+      <song>
+        <title>Motorbreath</title>
+        <duration>3:08</duration>
+      </song>
+      <song>
+        <title>Jump in the Fire</title>
+        <duration>4:41</duration>
+      </song>
+    </songs>
+  </album>
+  <album>
+    <name>Master of Puppets</name>
+    <artist>Metallica</artist>
+    <year>1986</year>
+    <producer>Flemming Rasmussen</producer>
+    <price>20</price>
+    <songs>
+      <song>
+        <title>Battery</title>
+        <duration>5:12</duration>
+      </song>
+      <song>
+        <title>Master of Puppets</title>
+        <duration>8:36</duration>
+      </song>
+      <song>
+        <title>The Thing That Should Not Be</title>
+        <duration>6:37</duration>
+      </song>
+      <song>
+        <title>Damage, Inc.</title>
+        <duration>5:29</duration>
+      </song>
+    </songs>
+  </album>
+</catalogue>

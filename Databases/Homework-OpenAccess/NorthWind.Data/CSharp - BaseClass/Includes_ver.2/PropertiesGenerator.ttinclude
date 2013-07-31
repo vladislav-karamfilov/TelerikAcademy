@@ -1,0 +1,286 @@
+﻿<#+ 
+public class PropertiesGenerator : Telerik.OpenAccess.CodeGeneration.TelerikTextTransformationBase
+{
+	protected DocumentationGenerator documentationGenerator;
+	protected AttributesGenerator attributesGenerator;
+	protected string templateFile;
+
+	public PropertiesGenerator(TextTransformation rootGenerator, DocumentationGenerator documentationGenerator, 
+		AttributesGenerator attributesGenerator, string templateFile)
+		:base(rootGenerator)
+    {
+		this.documentationGenerator = documentationGenerator;
+		this.attributesGenerator = attributesGenerator;
+		this.templateFile = templateFile;
+	}
+
+	/// <summary>
+	/// Generates properties.
+	/// </summary>
+	/// <param name="codeInterface">The interface containing the properties collection.</param>
+	public void GenerateProperties(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+	{
+		IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = codeInterface.Properties;
+		foreach (var property in properties)
+		{
+            if (codeInterface.IsInterface)
+            {
+				this.GenerateInterfaceProperty(property);
+            }
+            else
+            {
+				this.GenerateClassProperty(property, codeInterface as Telerik.OpenAccess.CodeGeneration.CodeClass);
+            }
+		}
+	}		
+
+	/// <summary>
+	/// Generates a property declaration for an interfaces.
+	/// </summary>
+	/// <param name="property">The property model.</param>
+	public void GenerateInterfaceProperty(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+	{
+		this.documentationGenerator.GenerateComments(property.Comments);	
+		this.documentationGenerator.GenerateSummary(property.Summary);	
+		this.attributesGenerator.GenerateAttributes(property.Attributes);
+		this.GenerateInterfacePropertySignature(property);
+		this.GenerateInterfacePropertyBody(property);
+	}
+
+	protected void GenerateInterfacePropertySignature(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+    {
+		string propertyType = property.ToTypeString();
+#>
+<#= propertyType #> <#= property.Name #>
+<#+
+    }
+
+	protected void GenerateInterfacePropertyBody(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+    {
+#>
+{
+<#+
+		if(property.HasGetter)
+		{
+#>
+	get;
+<#+
+		}
+		if(property.HasSetter)
+		{
+#>
+	set;
+<#+			 
+		}
+#>
+}
+<#+
+    }
+
+	/// <summary>
+	/// Generates a property definition for a class.
+	/// </summary>
+	/// <param name="property">The property model.</param>
+	public void GenerateClassProperty(Telerik.OpenAccess.CodeGeneration.CodeProperty property, Telerik.OpenAccess.CodeGeneration.CodeClass codeClass)
+	{
+		bool hasField = true;
+        if ((string.IsNullOrEmpty(property.FieldName) || property.IsAbstract))
+        {
+			hasField = false;
+        }
+
+		if (hasField)
+		{
+			this.GenerateFieldForProperty(property);
+        }
+
+		bool hasIncompatibleModifiers = (property.IsAbstract && property.IsPrivate);
+		if (hasIncompatibleModifiers)
+		{
+			this.GenerateIncompatibleModifiersError(property);
+		}		
+
+		this.documentationGenerator.GenerateComments(property.Comments);	
+		this.documentationGenerator.GenerateSummary(property.Summary);	
+		this.attributesGenerator.GenerateAttributes(property.Attributes);
+		bool implementINotifyPropertyChangedOrChanging = codeClass.ImplementINotifyPropertyChanging || codeClass.ImplementINotifyPropertyChanged;
+        if (hasField == false && implementINotifyPropertyChangedOrChanging && property.IsAbstract == false)
+        {
+			this.GenerateMissingFieldComment(property);
+        }
+
+		this.GenerateClassPropertySignature(property);
+        if (hasField == false)
+        {
+			this.GenerateAutoImplementedBody(property);
+        }
+        else
+        {
+	         this.GenerateManualImplementedBody(property, codeClass);
+        }	
+	}
+
+	protected void GenerateFieldForProperty(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+    {
+		string fieldModifier = "private";
+		if(property.IsFieldProtected)
+		{
+			fieldModifier = "protected";
+		}
+
+		string propertyType = property.ToTypeString();
+		string initialValue = string.Empty;
+		if (property.IsIEnumerable)
+		{
+			initialValue = " = new List<"+ property.Type +">()";
+		}
+#>
+<#= fieldModifier #> <#= propertyType #> <#= property.FieldName #><#= initialValue #>;
+<#+	
+    }
+
+	protected void GenerateClassPropertySignature(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+    {
+		string accessModifier = property.PropertyAccessModifier.ToCode();
+		string inheritanceModifier =  string.Empty;
+		string propertyType = property.ToTypeString();
+		bool shouldGenerateInheritanceModifier = true;
+        if (property.IsPrivate && property.IsVirtual)
+        {
+			shouldGenerateInheritanceModifier = false;
+        }
+
+		if (shouldGenerateInheritanceModifier)
+		{
+			 inheritanceModifier = property.PropertyInheritanceModifier.ToCode();
+		}
+
+		string modifiers = string.Empty;
+		if(property.IsExplicitInterfaceMember == false) 
+		{
+			modifiers = string.Concat(accessModifier, inheritanceModifier).TrimEnd();
+		}
+#>
+<#= modifiers #> <#= propertyType #> <#= property.Name #>
+<#+
+    }
+
+	protected void GenerateAutoImplementedBody(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+    {
+#>
+{
+<#+
+		if(property.HasGetter)
+		{
+#>
+	get;
+<#+
+		}
+        else if(property.IsAbstract == false)
+        {
+#>
+	private get;
+<#+	         
+        }
+		if(property.HasSetter)
+		{
+#>
+	set;
+<#+			 
+		}
+        else if(property.IsAbstract == false)
+        {
+#>
+	private set;
+<#+	         
+        }
+#>
+}
+
+<#+
+    }
+
+	protected void GenerateManualImplementedBody(Telerik.OpenAccess.CodeGeneration.CodeProperty property, Telerik.OpenAccess.CodeGeneration.CodeClass codeClass)
+    {
+#>
+{
+<#+
+		if(property.HasGetter)
+		{
+#>
+	get
+	{
+		return this.<#= property.FieldName #>;
+	}
+<#+	
+		}
+
+		if(property.HasSetter)
+		{
+#>
+	set
+	{
+<#+	
+            if (codeClass.ImplementINotifyPropertyChanging || codeClass.ImplementINotifyPropertyChanged)
+            {
+#>
+		if(this.<#=property.FieldName#> != value)
+		{
+<#+
+                if (codeClass.ImplementINotifyPropertyChanging)
+                {
+#>
+			this.OnPropertyChanging("<#=property.Name#>");
+<#+	
+                }
+#>
+			this.<#= property.FieldName #> = value;
+<#+		         
+				if (codeClass.ImplementINotifyPropertyChanged)
+				{
+#>
+			this.OnPropertyChanged("<#=property.Name#>");
+<#+	
+				}
+#>
+		}
+	}
+<#+
+            }
+            else
+            {
+#>
+		this.<#= property.FieldName #> = value;
+	}
+<#+
+			}
+		}
+#>
+}
+
+<#+
+    }
+
+	protected void GenerateIncompatibleModifiersError(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+    {
+		string errorMessage =  
+			string.Format(
+				@"Invalid access modifiers (inheritance and scope) for property '{0}' of class '{1}.{2}' generated. 
+				Please check property definition in your domain model, file '{3}'.", 
+				property.Name, property.DefinedIn.Namespace,property.DefinedIn.Name, this.templateFile);
+
+		string propertyErrorMessage = string.Format("property '{0}' cannot be 'private' and 'abstract' at the same time.", property.Name);		
+				
+		this.documentationGenerator.GenerateComments("TODO: Please, resolve the following error: " + propertyErrorMessage);
+		this.Error(errorMessage);
+    }
+
+	protected void GenerateMissingFieldComment(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+    {
+		string warningMessage = string.Format("The '{0}' property cannot fire the events of the INotifyPropertyChanged or INotifyPropertyChanging interfaces because it is auto-implemented.", property.Name);	
+		string possibleSolution = "If you want to take advantage of these interfaces, please set a valid field name for the property in the Visual Designer";	
+				
+		this.documentationGenerator.GenerateComments(warningMessage, possibleSolution);
+    }
+}
+#>

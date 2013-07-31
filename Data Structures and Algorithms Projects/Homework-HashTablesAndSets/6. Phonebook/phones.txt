@@ -1,0 +1,30 @@
+Mimi 			          		| Sofia  			| 0888 12 34 56
+Kireto Beya	               		| Varna    			| 052 23 45 67
+Daniela Ivanova Petrova 		| Karnobat 			| 0899 999 888
+Bat Gancho              		| Sofia    			| 02 946 946 946
+Pesho Kirkata					| Asenovgrad    	| 0829 999 882
+Gosho Goshov Goshov Smeshoto    | Veliko Tyrnovo    | 0819 999 882 
+Kiril Dimitrov					| Ruse		    	| 052 25 45 67 
+Pesho Smyrfa					| Smolqn	    	| 0809 999 882 
+Gosho Goshov Lilov				| Bistrica  	  	| 0899 959 882 
+Angelinka Petrova Ivanova  		| Pleven			| 0899 955 882 
+Andreya Silikonkata				| Botevgrad			| 0899 994 882 
+Pesho Goshov Vodkata			| Sofia				| 055 23 45 67
+Gosho Peshov Mastikata			| Plovdiv			| 0899 991 882 
+Gabi Ilieva Ilieva Dreshkata	| Sliven			| 051 22 42 27 
+Pesho Lilov Bliznaka			| Asenovgrad    	| 0899 111 882 
+Stamat Stamatov Stoikata		| Kazanlyk			| 052 26 65 66
+Pesho Drelkata					| Asenovgrad    	| 0899 921 882 
+Penka Ilieva Petrova			| Sliven			| 02 946 946 926
+Gloria							| Varna				| 011 23 42 67
+Mitko Mitkov Krika				| Sliven			| 0899 555 882 
+Kiril Plamenov Tyrnov Chashata	| Burgas			| 02 946 946 916
+Lili Butilkata					| Asenovgrad    	| 0899 666 882 
+Robin Stamatova					| Varna				| 059 23 45 67 
+Stefan Zikov Levaka				| Burgas			| 02 946 946 646
+Ivan Petrov Petrov Kintite      | Ruse				| 02 946 946 846
+Kolyo Kolyov Koloyov			| Sofia		    	| 0888 999 882 
+Kiril Goshov Bliznaka			| Aleko		    	| 02 926 246 946
+Stamat Stamatov Stamatov		| Bansko	    	| 077 23 45 67
+Dido Birata						| Vratsa	    	| 0811 999 882 
+Koko Dimitrov Sokcheto			| Ruse	    		| 052 23 45 89

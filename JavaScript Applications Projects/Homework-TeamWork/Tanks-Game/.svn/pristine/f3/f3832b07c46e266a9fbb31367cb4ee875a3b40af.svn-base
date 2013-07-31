@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Tanks Game by Dragonfruit Team</title>
+    <script src="scripts/libs/ProtoClass.js"></script>
+    <script src="scripts/libs/jquery-1.10.1.js"></script>
+    <script src="scripts/gameFramework.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrapper{
+            float: left;
+            width: 680px;
+            height: 510px;
+            background: #123456;
+            color: #ffffff;
+            font-size: 30px;
+            text-align:center;
+            /*line-height: 110px;*/
+            /*vertical-align: bottom;*/
+        }
+        #inner-text {
+            padding-top: 200px;
+        }
+        button {
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="myGame"></div>
+    <div id="Div1"></div>
+    <script src="scripts/GameObjectsNS.js"></script>
+    <script src="scripts/GameFieldNS.js"></script>
+    <script src="scripts/ScoresNS.js"></script>
+    <script src="scripts/start.js"></script>
+    <script src="scripts/myGame.js"></script>
+    <script>
+        var scores = new scoresNS.ScoreBoard("#Div1");
+        scores.add(new scoresNS.Score("Pesho1", 22));
+        scores.add(new scoresNS.Score("Pesho2", 2));
+        scores.add(new scoresNS.Score("Pesho3", 1));
+        scores.add(new scoresNS.Score("Pesho4", 11));
+        scores.render();
+    </script>
+</body>
+</html>

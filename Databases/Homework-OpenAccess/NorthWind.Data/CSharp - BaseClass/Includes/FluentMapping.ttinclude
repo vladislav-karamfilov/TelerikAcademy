@@ -1,0 +1,1101 @@
+﻿<#+
+const string FluentMetadataSourceToken = "FluentMetadataSource";
+const string MappingConfigurationToken = "MappingConfiguration";
+const string ClassConfigurationToken = "ClassConfiguration";
+const string PropertyConfigurationsToken = "PropertyConfigurations";
+const string AssociationConfigurationsToken = "AssociationConfigurations";
+
+private void GenerateFluentMetadataSource(Telerik.OpenAccess.CodeGeneration.CodeClass fluentCodeClass, MetadataContainer metadataContainer, bool generateMultipleFiles, bool shouldGenerateContext)
+{
+	string metadataSourceName = fluentCodeClass.Name;
+	
+	string @namespace = fluentCodeClass.Namespace;
+	if(string.IsNullOrEmpty(@namespace))
+	{
+		@namespace = this.GetDefaultNamespace();
+		if(string.IsNullOrEmpty(@namespace))
+		{
+			@namespace = string.Concat(metadataSourceName,"NS");
+		}
+	}	
+
+	if(generateMultipleFiles)
+	{
+		this.GenerateUsings(fluentCodeClass);
+	}
+#>
+namespace <#= @namespace #>
+{
+
+	public partial class <#= metadataSourceName #> : <#= FluentMetadataSourceToken #>
+	{
+		
+		protected override IList<MappingConfiguration> PrepareMapping()
+		{
+			List<MappingConfiguration> mappingConfigurations = new List<MappingConfiguration>();
+			
+<#+ 
+			foreach(MetaPersistentType persistentType in metadataContainer.PersistentTypes)
+			{
+				string methodNameToken = this.GetMappingConfigurationMethodName(persistentType); //TODO: make sure it is unique
+				string typeToken = GetGenericMappingConfigurationTypeToken(persistentType);
+				string variableToken = string.Concat(persistentType.Name.ToLower(), "Configuration");//TODO: make sure it is unique!
+#>
+			<#= typeToken #> <#= variableToken #> = this.<#= methodNameToken #>();
+			mappingConfigurations.Add(<#= variableToken #>);
+			
+<#+ 
+			}
+#>
+			return mappingConfigurations;
+		}
+		
+<#+
+	this.GenerateNameSettingsMethod(metadataContainer, shouldGenerateContext);	
+	this.GenerateMappingConfigurations(metadataContainer);
+#>
+	}
+}
+<#+ 
+}
+
+private void GenerateMappingConfigurations(MetadataContainer metadataContainer)
+{
+	foreach(MetaPersistentType persistentType in metadataContainer.PersistentTypes)
+	{
+		this.GeneratePersistentClassConfiguration(persistentType);
+		this.GenerateClassLevelMappingConfiguration(persistentType);
+		this.GeneratePreparePropertyConfigurationsMethod(persistentType);
+		this.GeneratePrepareAssociationsConfigurationsMethod(persistentType);
+	}
+}
+
+private void GenerateNameSettingsMethod(MetadataContainer metadataContainer, bool shouldGenerateContext)
+{
+	IList<string> parameterAssignment = new List<string>();
+	this.AddContainerModelNameAssignments(parameterAssignment, metadataContainer, shouldGenerateContext);
+	MetaNameGenerator nameGeneratorSettings = metadataContainer.NameGenerator;
+	ICollection<IMetaItemAttribute> metaItemAttributes = nameGeneratorSettings.MetaDataProperties;
+	foreach (IMetaItemAttribute attribute in metaItemAttributes)
+	{
+		MetadataConstants key = attribute.Key;
+		
+		if (attribute.Value != null && (!object.Equals(attribute.Value, attribute.DefaultValue)))
+        {
+			string property = key.ToString();
+			if(property.Equals("NamingSourceStrategy"))
+			{
+				property = "SourceStrategy";
+			}
+			string nameOfParameterAssignemt = string.Concat("container.NameGenerator.",property," = ", this.GetValueAttributeStringRepresentation(attribute), ";");
+			parameterAssignment.Add(nameOfParameterAssignemt);
+		}		
+	}
+	if(metadataContainer.DefaultMapping.UseDelimitedSQL == false)
+    {
+		parameterAssignment.Add(string.Concat("container.DefaultMapping.UseDelimitedSQL = false;"));
+    }
+	if(parameterAssignment.Count > 0)
+    {
+		this.GenerateNameSettingsMethod(parameterAssignment);
+    }
+}
+
+private void AddContainerModelNameAssignments(IList<string> assignments, MetadataContainer container, bool shouldGenerateContext)
+{
+    if (shouldGenerateContext == false)
+    {
+		 return;
+    }
+
+    if (string.IsNullOrEmpty(container.Name) == false)
+    {
+		assignments.Add(string.Format("container.Name = \"{0}\";", container.Name));
+    }
+
+	if (string.IsNullOrEmpty(container.DefaultNamespace) == false)
+    {
+		assignments.Add(string.Format("container.DefaultNamespace = \"{0}\";", container.DefaultNamespace));
+    }
+}
+
+private void GenerateNameSettingsMethod(IList<string> assignments)
+{
+	#>
+		protected override void SetContainerSettings(MetadataContainer container)
+		{
+<#+
+	this.PushIndent("\t\t\t");
+	foreach(string singleAssignment in assignments)
+    {
+		this.WriteLine(singleAssignment);
+	}
+	this.PopIndent();
+#>
+		}
+<#+
+}
+
+private string GetValueAttributeStringRepresentation(IMetaItemAttribute attribute)
+{
+	if(attribute == null || attribute.Value == null)
+    {
+		return "null";
+    }
+
+	Type attributeType = attribute.Value.GetType();
+
+	if(attributeType == typeof(string))
+    {
+		return string.Concat("\"",attribute.Value,"\"");
+	}
+
+	if(attributeType == typeof(Telerik.OpenAccess.Metadata.NamingSourceStrategy))
+    {
+		return string.Concat("Telerik.OpenAccess.Metadata.NamingSourceStrategy.", attribute.Value);
+    }
+
+	return attribute.Value.ToString().ToLower();
+}
+
+private void GeneratePersistentClassConfiguration(MetaPersistentType persistentType)
+{
+	string methodNameToken = this.GetMappingConfigurationMethodName(persistentType);
+	string typeToken = this.GetGenericMappingConfigurationTypeToken(persistentType);
+	
+	string classConfigurationMethodName = this.GetClassConfigurationMethodName(persistentType);
+	string propertyConfigurationsMethodName = this.GetPropertyConfigurationsMethodName(persistentType);
+	string associationsConfigurationsMethodName = this.GetAssociationConfigurationsMethodName(persistentType);
+	
+	IList<MetaPrimitiveMember> primitiveMembers = MetadataWorker.GetPrimitiveMembers(persistentType);
+	IList<MetaNavigationMember> navigationMembers = MetadataWorker.GetNavigationMembers(persistentType);
+	bool hasPrimitiveMembers = primitiveMembers.Count > 0;
+	bool hasAssociations = navigationMembers.Count > 0;
+	
+#>
+		public <#= typeToken #> <#= methodNameToken #>()
+		{
+			<#= typeToken #> configuration = this.<#= classConfigurationMethodName #>();
+<#+ 
+	if(hasPrimitiveMembers)
+	{
+#>
+			this.<#= propertyConfigurationsMethodName #>(configuration);
+<#+ 
+	}
+	if(hasAssociations)
+	{
+#>
+			this.<#= associationsConfigurationsMethodName #>(configuration);
+<#+ 
+	}
+			this.WriteLine(string.Empty);
+#>
+			return configuration;
+		}
+<#+
+	this.WriteLine(string.Empty);
+}
+
+private void GenerateClassLevelMappingConfiguration(MetaPersistentType persistentType)
+{
+	string typeToken = this.GetGenericMappingConfigurationTypeToken(persistentType);
+	string classConfigurationMethodName = this.GetClassConfigurationMethodName(persistentType);
+	string inheritanceToken = this.GetInheritanceToken(persistentType);
+	string discriminatorColumnToken = this.GetDiscriminatorColumnToken(persistentType);
+	string discriminatorValueToken = this.GetDiscriminatorValueToken(persistentType);
+	string dataAccessKindToken = this.GetDataAccessKindToken(persistentType.DataAccessKind);
+	string concurencyControlToken = this.GetConcurencyControlToken(persistentType.OptimisticConcurrencyControlStrategy);
+	string cacheStrategyToken = this.GetCacheStrategyToken(persistentType.CacheStrategy);
+	string tableToken = this.GetTableToken(persistentType);
+	#>
+		public <#= typeToken #> <#= classConfigurationMethodName #>()
+		{
+			<#= typeToken #> configuration = new <#= typeToken #>();
+			configuration.MapType(x => new { })<#= dataAccessKindToken #><#= concurencyControlToken #><#= cacheStrategyToken #><#= inheritanceToken #><#= discriminatorColumnToken #><#= discriminatorValueToken #><#= tableToken #>;
+		
+			return configuration;
+		}
+<#+ 
+}
+
+private void GeneratePreparePropertyConfigurationsMethod(MetaPersistentType persistentType)
+{
+	string propertyConfigurationsMethodName = this.GetPropertyConfigurationsMethodName(persistentType);
+	string typeToken = this.GetGenericMappingConfigurationTypeToken(persistentType);
+	IList<MetaPrimitiveMember> primitiveMembers = MetadataWorker.GetPrimitiveMembers(persistentType);
+	
+	if(primitiveMembers == null || primitiveMembers.Count == 0)
+	{
+		return;
+	}	
+	#>	
+		public void <#= propertyConfigurationsMethodName #>(<#= typeToken #> configuration)
+		{
+<#+
+			foreach(MetaPrimitiveMember primitiveMember in primitiveMembers)
+			{
+				this.GeneratePropertyConfiguration(primitiveMember);
+			}
+			#>
+		}
+<#+
+}
+
+private void GeneratePrepareAssociationsConfigurationsMethod(MetaPersistentType persistentType)
+{
+	string methodNameToken = this.GetAssociationConfigurationsMethodName(persistentType);
+	string typeToken = this.GetGenericMappingConfigurationTypeToken(persistentType); 
+	
+	IList<MetaNavigationMember> navigationMembers = MetadataWorker.GetNavigationMembers(persistentType);
+	if(navigationMembers == null || navigationMembers.Count == 0)
+	{
+		return;
+	}
+	
+	#>	
+		public void <#= methodNameToken #>(<#= typeToken #> configuration)
+		{
+<#+
+			foreach(MetaNavigationMember navigationMember in navigationMembers)
+			{
+				this.GenerateAssociationConfiguration(navigationMember);
+			}
+			#>
+		}
+		
+<#+
+}
+
+private void GeneratePropertyConfiguration(MetaPrimitiveMember primitiveMember)
+{
+	if(!primitiveMember.IsVisible)
+	{
+		return;
+	}
+	string propertyName = primitiveMember.PropertyName;
+	if (string.IsNullOrEmpty(propertyName))
+	{
+		return;
+	}
+	
+	string hasPropertyToken = this.GetHasPropertyToken(primitiveMember);
+	string isIdentity = this.GetIsIdentityToken(primitiveMember);
+	string hasFieldNameToken = this.GetHasFieldNameToken(primitiveMember.Name);
+	string isNullableToken = string.Empty;
+	string isVersionToken = this.GetIsVersionToken(primitiveMember.IsVersion);
+	string dataAccessKindToken = this.GetDataAccessKindToken(primitiveMember.DataAccessKind);
+	string hasColumnTypeToken = string.Empty;
+	string hasPrecisionToken = string.Empty;
+	string hasScaleToken = string.Empty;
+	string toColumnToken = string.Empty;
+	string converterToken = string.Empty;
+	MetaColumn column = primitiveMember.Column;
+	if (column != null)
+	{
+		hasColumnTypeToken = this.GetHasColumnTypeToken(column.SqlType);
+		hasPrecisionToken = this.GetHasPrecisionToken(primitiveMember);
+		hasScaleToken = this.GetHasScaleToken(primitiveMember);
+		toColumnToken = this.GetToColumnToken(column.Name);
+		isNullableToken = this.GetIsNullableToken(primitiveMember);
+		converterToken = this.GetConverterToken(column.Converter);
+	}
+	
+#>
+			configuration<#= hasPropertyToken #><#= isIdentity #><#= hasFieldNameToken #><#= isVersionToken #><#= dataAccessKindToken #><#= toColumnToken #><#= isNullableToken #><#= hasColumnTypeToken #><#= hasPrecisionToken #><#= hasScaleToken #><#= converterToken #>;
+<#+
+}
+
+private void GenerateAssociationConfiguration(MetaNavigationMember navigationMember)
+{
+	if(!navigationMember.IsVisible)
+	{
+		return;
+	}
+	
+	string propertyName = navigationMember.PropertyName;
+	if (string.IsNullOrEmpty(propertyName))
+	{
+		return;
+		 //throw new ArgumentException("Property name cannot be null.");
+	}
+
+	string hasAssociationToken = this.GetHasAssociationToken(navigationMember.PropertyName);
+	string hasFieldNameToken = this.GetHasFieldNameToken(navigationMember.Name);
+	string loadingBehaviorToken = this.GetLoadingBehaviorToken(navigationMember.LoadingBehavior);
+	string withOppositeToken = this.GetWithOppositeToken(navigationMember);
+	//string hasFieldNameOpposite = this.GetHasFieldNameOppositeToken(navigationMember);
+	string isManagedToken = this.GetIsManagedToken(navigationMember.IsManaged);
+	string isDependentToken = this.GetIsDependentToken(navigationMember.IsDependent);
+	string dataAccessKindToken = this.GetDataAccessKindToken(navigationMember.DataAccessKind);
+	string hasConstraintToken = this.GetHasConstraintToken(navigationMember);
+	string toColumnToken = this.GetToColumnToken(navigationMember);
+	string orderByToken = this.GetOrderByToken(navigationMember.OrderBy);
+	string mapJoinTableToken = this.GetMapJoinTableToken(navigationMember);
+	string isRequiredToken = this.GetIsRequiredToken(navigationMember);
+	//if (!string.IsNullOrEmpty(mapJoinTableToken))
+	//{
+	//	 hasFieldNameToken = string.Empty;
+	//}
+	
+#>
+			configuration<#= hasAssociationToken #><#= hasFieldNameToken #><#= loadingBehaviorToken #><#= withOppositeToken #><#= toColumnToken #><#= hasConstraintToken #><#= orderByToken #><#= isManagedToken #><#= isDependentToken #><#= isRequiredToken #><#= dataAccessKindToken #><#= mapJoinTableToken #>;
+<#+
+}
+
+private string GetHasAssociationToken(string propertyName)
+{
+	string hasAssociationToken = string.Format(@".HasAssociation(x => x.{0})", propertyName);
+	
+	return hasAssociationToken;
+}
+
+private string GetLoadingBehaviorToken(Telerik.OpenAccess.LoadBehavior loadingBehavior)
+{
+	if (loadingBehavior == Telerik.OpenAccess.LoadBehavior.Eager)
+	{
+		 return string.Format(@".WithLoadBehavior(LoadBehavior.Eager)");
+	}
+	
+	return string.Empty;
+}
+
+private string GetWithOppositeToken(MetaNavigationMember navigationMember)
+{
+	MetaAssociation association = navigationMember.Association;
+	if(association == null)
+	{
+		throw new ArgumentException("navigationMember");
+	}
+	
+	MetaNavigationMember opositeMember = navigationMember.GetOppositeMember();
+
+	string withOpositeToken = string.Empty;
+	if(opositeMember != null && opositeMember.IsVisible)
+	{
+		string opositeMemberPropertyName = opositeMember.PropertyName;
+		if(!string.IsNullOrEmpty(opositeMemberPropertyName))
+		{
+			withOpositeToken = string.Format(".WithOpposite(x => x.{0})",opositeMemberPropertyName);
+		}
+	}
+	
+	return withOpositeToken;
+}
+
+
+private string GetHasFieldNameOppositeToken(MetaNavigationMember navigationMember)
+{
+	MetaAssociation association = navigationMember.Association;
+	if(association == null)
+	{
+		throw new ArgumentException("navigationMember");
+	}
+	
+	MetaNavigationMember opositeMember = navigationMember.GetOppositeMember();
+
+	string hasFieldNameOpositeToken = string.Empty;
+	if(opositeMember != null && opositeMember.IsVisible)
+	{
+		string oppositeMemberFieldName = opositeMember.Name;
+		if(!string.IsNullOrEmpty(oppositeMemberFieldName))
+		{
+			hasFieldNameOpositeToken = this.GetHasFieldNameToken(oppositeMemberFieldName);
+		}
+	}
+	
+	return hasFieldNameOpositeToken;
+}
+
+
+private string GetIsDependentToken(bool isDependent)
+{
+	string isDependentToken = string.Empty;
+	if(isDependent)
+	{
+		isDependentToken = ".IsDependent()";
+	}
+	
+	return isDependentToken;
+}
+
+private string GetIsManagedToken(bool isManaged)
+{
+	string isManagedToken = string.Empty;
+	if(isManaged)
+	{
+		isManagedToken = ".IsManaged()";
+	}
+	
+	return isManagedToken;
+}
+
+private string GetHasConstraintToken(MetaNavigationMember navigationMember)
+{
+	MetaForeignKeyAssociation association = navigationMember.Association as MetaForeignKeyAssociation;
+	if(association == null)
+	{
+		return string.Empty;
+	}
+	IList<MetaAssociationPart> parts = MetadataWorker.GetAssociationPartsForAssociation(association, AssociationPartType.ForeignKey);
+	if(association.Constraint == null && parts.Count == 1)
+	{
+		return string.Empty;
+	}
+	string hasConstraintToken = string.Empty;
+	List<string> constraintDefinitionTokens = new List<string>();
+	
+	IList<MetaPrimitiveMember> primitiveMembers = association.GetSourceConceptualKeys();
+	if(primitiveMembers.Count == 0)
+	{
+		foreach(MetaColumn column in association.GetSourceRelationalKeys())
+		{
+			MetaPrimitiveMember sourceMember = MetadataWorker.FindMetaPrimitiveMemberMappedToColumn(column, navigationMember.DeclaringType);
+			primitiveMembers.Add(sourceMember);
+		}
+	}
+	
+	IList<MetaPrimitiveMember> targetMembers = association.GetTargetConceptualKeys();
+
+	if(primitiveMembers.Count == targetMembers.Count)
+	{
+		for( int i = 0; i < primitiveMembers.Count; i++)
+		{
+			MetaPrimitiveMember sourceMember = primitiveMembers[i];
+			MetaPrimitiveMember targetMember = targetMembers[i];
+			
+			if(sourceMember != null && targetMember != null && sourceMember.IsVisible && targetMember.IsVisible)
+			{
+				string constraintToken = string.Format(" x.{0} == y.{1} ", sourceMember.PropertyName, targetMember.PropertyName);
+				constraintDefinitionTokens.Add(constraintToken);
+			}
+		}
+	}
+	
+	if(constraintDefinitionTokens.Count > 0)
+	{
+		string parametersToken = association.SourceEnd == navigationMember ? "(x, y)" : "(y, x)";
+		string joinedTokens = String.Join("&&", constraintDefinitionTokens.ToArray());
+		hasConstraintToken = string.Format(".HasConstraint({0} => {1})",parametersToken, joinedTokens);
+	}
+	
+    if (string.IsNullOrEmpty(hasConstraintToken) == true)
+    {
+		 return ".HasConstraint()";
+    }
+
+	return hasConstraintToken;
+}
+
+private string GetToColumnToken(MetaNavigationMember navigationMember)
+{
+	MetaForeignKeyAssociation association = navigationMember.Association as MetaForeignKeyAssociation;
+	if(association == null)
+	{
+		return string.Empty;
+	}
+	IList<MetaAssociationPart> parts = MetadataWorker.GetAssociationPartsForAssociation(association, AssociationPartType.ForeignKey);
+	if(parts.Count != 1)
+	{
+		return string.Empty;
+	}
+	
+	MetaAssociationPart part = parts[0];
+	
+	MetaColumn column = part.ForeignKeyColumn;
+	if(column == null)
+	{
+		MetaPrimitiveMember member = part.ForeignKeyMember;
+		if(member != null)
+		{
+			column = member.Column;
+		}
+	}
+	
+	if(column == null)
+	{
+		return string.Empty;
+	}
+	
+	return this.GetToColumnToken(column.Name);
+}
+	
+private string GetMapJoinTableToken(MetaNavigationMember navigationMember)
+{
+       	MetaJoinTableAssociation joinTableAssociation = navigationMember.Association as MetaJoinTableAssociation;
+       	if (joinTableAssociation == null)
+       	{
+            return string.Empty;
+       	}
+
+		if (joinTableAssociation.HasBothEnds() && joinTableAssociation.TargetEnd == navigationMember)
+		{
+			return string.Empty;
+		}
+       
+       	MetaTable joinTable = joinTableAssociation.JoinTable;
+       	if (joinTable == null || string.IsNullOrEmpty(joinTable.Name))
+        {
+            return ".MapJoinTable()";
+        }
+       
+    	string joinTableName = joinTable.Name;
+       	string columnExpressionsToken = this.GetColumnExpressionsToken(joinTableAssociation);
+		string parametersToken = this.GetParametersTokenForJoinTableAssociation(joinTableAssociation, navigationMember);
+        string mapJoinTableToken = string.Format(@".MapJoinTable(""{0}"", {1} => new{{{2}}}).CreatePrimaryKeyFromForeignKeys()", joinTableName, parametersToken, columnExpressionsToken);
+		if(string.IsNullOrEmpty(columnExpressionsToken))
+		{
+			mapJoinTableToken = ".MapJoinTable()";
+		}	    
+
+		string sequenceColumnToken = this.GetSequenceColumnToken(joinTableAssociation.SequenceColumn);
+		if (string.IsNullOrEmpty(sequenceColumnToken))
+		{
+			 return	string.Concat(mapJoinTableToken, sequenceColumnToken);
+		}
+		
+        return mapJoinTableToken;
+}
+
+private string GetSequenceColumnToken(MetaColumn sequenceColumn)
+{
+	if (sequenceColumn == null)
+	{
+		return string.Empty;	 
+	}
+	
+	return string.Format(@".HasSequenceColumn(""{0}"", ""{1}"")", sequenceColumn.Name, sequenceColumn.SqlType);
+}
+
+//private string GetParametersTokenForJoinTableAssociation(MetaJoinTableAssociation joinTableAssociation, MetaNavigationMember navigationMember)
+//{
+//	string parametersToken = "(x, y)";
+//	MetaColumn fromColumn = joinTableAssociation.FromColumns.FirstOrDefault();
+//	if(fromColumn != null)
+//	{
+//		MetaPrimitiveMember targetMember = fromColumn.TargetField;
+//		if(targetMember != null)
+//		{
+//			if(targetMember.DeclaringType != navigationMember.DeclaringType)
+//			{
+//				parametersToken = "(y, x)";
+//			}
+//		}
+//	}
+//	
+//	return parametersToken;
+//}
+
+private string GetParametersTokenForJoinTableAssociation(MetaJoinTableAssociation joinTableAssociation, MetaNavigationMember navigationMember)
+{
+	string parametersToken = "(x, y)";
+	
+	if(joinTableAssociation.TargetEnd == navigationMember)
+	{
+		parametersToken = "(y, x)";
+	}
+	
+	return parametersToken;
+}
+
+private string GetColumnExpressionsToken(MetaJoinTableAssociation joinTableAssociation)
+{
+       IList<string> columnExpressionList = new List<string>();
+	
+	   IList<MetaAssociationPart> sourceParts = MetadataWorker.GetAssociationPartsForAssociation(joinTableAssociation, AssociationPartType.JoinTableSource);
+       foreach (MetaAssociationPart part in sourceParts)
+       {
+          string columnExpression = this.GetColumnExpression(joinTableAssociation.Source as MetaPersistentType, part, "x");
+          if (!string.IsNullOrEmpty(columnExpression))
+          {
+                 columnExpressionList.Add(columnExpression);
+          }
+       }
+       
+	   IList<MetaAssociationPart> targetParts = MetadataWorker.GetAssociationPartsForAssociation(joinTableAssociation, AssociationPartType.JoinTableTarget);
+       foreach (MetaAssociationPart part in targetParts)
+       {
+          string columnExpression = this.GetColumnExpression(joinTableAssociation.Target as MetaPersistentType, part, "y");
+          if (!string.IsNullOrEmpty(columnExpression))
+          {
+                 columnExpressionList.Add(columnExpression);
+          }
+       }
+       
+       return string.Join(", ", columnExpressionList.ToArray());
+}
+
+private string GetColumnExpression(MetaPersistentType ownerType, MetaAssociationPart associationPart, string lambdaArgument)
+{
+	if(ownerType == null || associationPart == null)
+	{
+		return string.Empty;
+	}
+	
+    string columnExpression = string.Empty;
+	
+   	MetaColumn column = associationPart.ForeignKeyColumn;
+  	if(column != null)
+	{
+       	MetaPrimitiveMember targetField = associationPart.IdentityMember;
+		if(targetField == null)
+		{
+   			MetaColumn targetColumn = associationPart.IdentityColumn;
+			targetField = MetadataWorker.FindMetaPrimitiveMemberMappedToColumn(targetColumn, ownerType);
+		}
+       	if (targetField != null && targetField.IsVisible && !string.IsNullOrEmpty(column.Name) && !string.IsNullOrEmpty(targetField.PropertyName))
+       	{
+        	 columnExpression = string.Format("{0} = {1}.{2}", column.Name, lambdaArgument, targetField.PropertyName);
+       	}
+ 	}  
+   	return columnExpression;
+}
+
+
+
+private string GetInheritanceToken(MetaPersistentType persistentType)
+{
+	string inheritanceStrategy = string.Empty;
+	string inheritanceToken = string.Empty;
+	
+    if(persistentType.BaseType != null || persistentType.DerivedTypes.Count > 0)
+	{
+		switch (persistentType.InheritanceStrategy)
+        {
+                case InheritanceStrategy.Vertical:
+					inheritanceStrategy = @"InheritanceStrategy.Vertical";
+                    break;
+                case InheritanceStrategy.Horizontal:
+					inheritanceStrategy = @"InheritanceStrategy.Horizontal";
+                    break;
+                case InheritanceStrategy.Flat:
+					inheritanceStrategy = @"InheritanceStrategy.Flat";
+                    break;
+                default:
+					inheritanceStrategy = @"InheritanceStrategy.Default";
+                    break;
+        }
+	}
+	if(!string.IsNullOrEmpty(inheritanceStrategy))
+	{
+		inheritanceToken = string.Format(@".Inheritance({0})",inheritanceStrategy);
+	}
+	
+	return inheritanceToken;
+}
+
+private string GetDiscriminatorValueToken(MetaPersistentType persistentType)
+{
+	string discriminatorValue = string.Empty;
+	string discriminatorValueToken = string.Empty;
+	
+	if(persistentType.BaseType != null || persistentType.DerivedTypes.Count > 0)
+	{
+		if(!string.IsNullOrEmpty(persistentType.DiscriminatorValue))
+		{
+			discriminatorValue = persistentType.DiscriminatorValue;	
+		}
+		if(!string.IsNullOrEmpty(discriminatorValue))
+		{
+			discriminatorValueToken = string.Format(@".HasDiscriminatorValue(""{0}"")",discriminatorValue);
+		}
+	}
+	
+	return discriminatorValueToken;
+}
+
+private string GetDiscriminatorColumnToken(MetaPersistentType persistentType)
+{
+	string discriminatorColumnName = string.Empty;
+	string discriminatorColumnToken = string.Empty;
+	
+	if(persistentType.DiscriminatorColumn != null)
+	{
+		discriminatorColumnName = persistentType.DiscriminatorColumn.Name;	
+	}
+	
+	if(!string.IsNullOrEmpty(discriminatorColumnName))
+	{
+		string sqlType = persistentType.DiscriminatorColumn.SqlType;
+		if(string.IsNullOrEmpty(sqlType))
+		{
+			discriminatorColumnToken = string.Format(@".HasDiscriminatorColumn(""{0}"")",discriminatorColumnName);
+		}
+		else
+		{
+			discriminatorColumnToken = string.Format(@".HasDiscriminatorColumn(""{0}"", ""{1}"")",discriminatorColumnName, sqlType);
+		}
+	}
+	
+	return discriminatorColumnToken;
+}
+
+private string GetTableToken(MetaPersistentType persistentType)
+{
+	string tableName = "null";
+	string tableToken = string.Empty;
+	
+	MetaTable table = persistentType.Table;
+
+	if(table != null)
+	{
+		if(string.IsNullOrEmpty(table.SchemaName))
+		{
+			tableName = string.Format(@"""{0}""", table.Name);
+		}
+		else
+		{
+			tableName = string.Format(@"""{0}.{1}""", table.SchemaName, table.Name);
+		}
+	
+		tableToken = string.Format(@".ToTable({0})",tableName);
+	}
+
+	return tableToken;
+}
+
+
+private string GetHasPropertyToken(MetaPrimitiveMember primitiveMember)
+{
+	if(primitiveMember == null)
+	{
+		return null;
+	}
+	
+	string propertyName = primitiveMember.PropertyName;
+	string castToken = string.Empty;
+	
+	MetaPrimitiveType primitiveType = primitiveMember.MemberType as MetaPrimitiveType;
+	if(primitiveType != null)
+	{
+		Type clrType = primitiveType.ClrType;
+		clrType = this.GetUnderlyingClrType(clrType);
+		if(clrType != null && (clrType == typeof(ulong)))
+		{
+			castToken = "(long)";
+		}
+	}
+	
+	return string.Format(".HasProperty(x => {0}x.{1})",castToken, propertyName);
+}
+
+private string GetIsIdentityToken(MetaPrimitiveMember member)
+{
+	if(member == null)
+	{
+		return string.Empty;
+	}
+	
+	if (member.IsIdentity)
+	{
+		string keyGenerator = string.Empty;
+
+		if(member.DeclaringType != null)
+		{
+			KeyGenerator generator = member.DeclaringType.KeyGeneratorName;
+			if(generator != KeyGenerator.Default)
+			{
+				keyGenerator = string.Format("{0}.{1}","KeyGenerator", Enum.GetName(typeof(KeyGenerator), generator));
+			}
+		}
+		
+		return string.Format(".IsIdentity({0})",keyGenerator);
+	}
+	
+	return string.Empty;
+}
+
+private string GetHasFieldNameToken(string fieldName)
+{
+	if (!(string.IsNullOrEmpty(fieldName) || fieldName.Contains("<")))
+	{
+		return string.Format(@".HasFieldName(""{0}"")", fieldName);
+	}
+	
+	return string.Empty;
+}
+
+private string GetIsNullableToken(MetaPrimitiveMember primitiveMember)
+{
+	MetaPrimitiveType primitiveType = primitiveMember.MemberType as MetaPrimitiveType;
+	Type clrType = primitiveType.ClrType;
+	
+	if(primitiveMember.Column == null)
+	{
+		return string.Empty;
+	}
+	
+	bool? isNullable = primitiveMember.Column.IsNullable;
+	if (!isNullable.HasValue)
+	{
+		return string.Empty;
+	}
+		
+	if(isNullable.Value)
+	{
+		return ".IsNullable()";
+	}
+	else
+	{
+		return ".IsNotNullable()";
+	}
+}
+
+private string GetIsVersionToken(bool isVersion)
+{
+	if (isVersion)
+	{
+		return ".IsVersion()";
+	}
+	
+	return string.Empty;
+}
+
+private string GetHasColumnTypeToken(string columnType)
+{
+	if (!string.IsNullOrEmpty(columnType))
+	{
+		return string.Format(@".HasColumnType(""{0}"")", columnType);
+	}
+	
+	return string.Empty;
+}
+
+private string GetHasPrecisionToken(MetaPrimitiveMember primitiveMember)
+{
+	MetaPrimitiveType primitiveType = primitiveMember.MemberType as MetaPrimitiveType;
+	Type clrType = primitiveType.ClrType;
+	clrType = this.GetUnderlyingClrType(clrType);
+	string formatToken = string.Empty;
+	if(clrType.IsValueType)
+	{
+		bool isSqlHierarchyId = string.Equals(clrType.FullName, "Microsoft.SqlServer.Types.SqlHierarchyId");
+		if(!(clrType == typeof(DateTime) || clrType == typeof(TimeSpan) || clrType == typeof(DateTimeOffset) || isSqlHierarchyId))
+		{
+	 		formatToken = ".HasPrecision({0})";
+		}
+	}
+	else if(clrType == typeof(string))
+	{
+		formatToken = ".HasLength({0})";
+	}
+	
+	int? precision = primitiveMember.Column.Length;
+	if (!string.IsNullOrEmpty(formatToken) && precision.HasValue)
+	{
+		return string.Format(formatToken, precision.Value);
+	}
+
+	return string.Empty;
+}
+
+private string GetHasScaleToken(MetaPrimitiveMember primitiveMember)
+{
+	MetaPrimitiveType primitiveType = primitiveMember.MemberType as MetaPrimitiveType;
+	Type clrType = primitiveType.ClrType;
+	clrType = this.GetUnderlyingClrType(clrType);
+	bool isSqlHierarchyId = string.Equals(clrType.FullName, "Microsoft.SqlServer.Types.SqlHierarchyId");
+	if(clrType == typeof(DateTime) || clrType == typeof(string) || clrType == typeof(char) || clrType == typeof(TimeSpan) || clrType == typeof(DateTimeOffset) || isSqlHierarchyId)
+	{
+		return string.Empty;
+	}
+	
+	if(clrType.IsValueType)
+	{
+		int? scale = primitiveMember.Column.Scale;
+		if (scale.HasValue)
+		{
+			return string.Format(".HasScale({0})", scale.Value);
+		}
+	}
+	return string.Empty;
+}
+
+private Type GetUnderlyingClrType(Type clrType)
+{
+	if(clrType == null)
+	{
+		return null;
+	}
+
+	if(clrType is ComposableType)
+	{
+		return clrType;
+	}
+
+	if (clrType.IsGenericType && clrType.GetGenericTypeDefinition() == typeof(Nullable<>))
+    {
+        clrType = clrType.GetGenericArguments()[0];
+    }
+	
+	return clrType;
+}
+
+private string GetToColumnToken(string name)
+{
+	if (!string.IsNullOrEmpty(name))
+	{
+		return string.Format(@".ToColumn(""{0}"")", name);
+	}
+	
+	return string.Empty;
+}
+
+private string GetIsRequiredToken(MetaNavigationMember member)
+{
+	string token = string.Empty;
+	if(member != null)
+	{
+		if(member.Multiplicity == Telerik.OpenAccess.Metadata.Multiplicity.One)
+		{
+			token = ".IsRequired()";
+		}
+		else if(member.Association.AssociationType == AssociationType.OneToOne && (member == member.Association.SourceEnd || member.Association.HasSingleEnd()))
+		{
+			token = ".IsRequired()";
+		}
+	}
+	
+	return token;
+}
+
+private string GetOrderByToken(string orderBy)
+{
+	if (!string.IsNullOrEmpty(orderBy))
+	{
+		return string.Format(@".OrderBy(""{0}"")", orderBy);
+	}
+	
+	return string.Empty;
+}
+
+private string GetDataAccessKindToken(DataAccessKind dataAccessKind)
+{
+	string dataAccessKindToken = string.Empty;
+	switch (dataAccessKind)
+    {
+        case DataAccessKind.ReadWrite:
+			dataAccessKindToken = "DataAccessKind.ReadWrite";
+            break;
+        case DataAccessKind.InsertOnly:
+			dataAccessKindToken = "DataAccessKind.InsertOnly";
+            break;
+        case DataAccessKind.ReadOnly:
+			dataAccessKindToken = "DataAccessKind.ReadOnly";
+            break;
+        default:
+			dataAccessKindToken = string.Empty;
+            break;
+    }
+	
+	if (string.IsNullOrEmpty(dataAccessKindToken))
+	{
+		 return string.Empty;
+	}
+	
+	return string.Format(@".WithDataAccessKind({0})", dataAccessKindToken);
+}
+
+private string GetConcurencyControlToken(OptimisticConcurrencyControlStrategy optimisticConcurrencyControlStrategy)
+{
+	string optimisticConcurrencyControlStrategyToken = string.Empty;
+	switch (optimisticConcurrencyControlStrategy)
+    {
+        case OptimisticConcurrencyControlStrategy.None:
+			optimisticConcurrencyControlStrategyToken = "OptimisticConcurrencyControlStrategy.None";
+            break;
+        case OptimisticConcurrencyControlStrategy.Version:
+			optimisticConcurrencyControlStrategyToken = "OptimisticConcurrencyControlStrategy.Version";
+            break;
+        case OptimisticConcurrencyControlStrategy.Timestamp:
+			optimisticConcurrencyControlStrategyToken = "OptimisticConcurrencyControlStrategy.Timestamp";
+            break;
+		case OptimisticConcurrencyControlStrategy.Changed:
+			optimisticConcurrencyControlStrategyToken = "OptimisticConcurrencyControlStrategy.Changed";
+            break;
+		case OptimisticConcurrencyControlStrategy.Backend:
+			optimisticConcurrencyControlStrategyToken = "OptimisticConcurrencyControlStrategy.Backend";
+            break;
+		case OptimisticConcurrencyControlStrategy.All:
+			optimisticConcurrencyControlStrategyToken = "OptimisticConcurrencyControlStrategy.All";
+            break;
+        default:
+			optimisticConcurrencyControlStrategyToken = string.Empty;
+            break;
+    }
+	
+	if (string.IsNullOrEmpty(optimisticConcurrencyControlStrategyToken))
+	{
+		 return string.Empty;
+	}
+	
+	return string.Format(@".WithConcurencyControl({0})", optimisticConcurrencyControlStrategyToken);
+}
+
+private string GetCacheStrategyToken(CacheStrategy cacheStrategy)
+{
+	string cacheStrategyToken = string.Empty;
+	switch (cacheStrategy)
+    {
+        case CacheStrategy.No:
+			cacheStrategyToken = "CacheStrategy.No";
+            break;
+        case CacheStrategy.Yes:
+			cacheStrategyToken = "CacheStrategy.Yes";
+            break;
+        case CacheStrategy.All:
+			cacheStrategyToken = "CacheStrategy.All";
+            break;
+        default:
+			cacheStrategyToken = string.Empty;
+            break;
+    }
+	
+	if (string.IsNullOrEmpty(cacheStrategyToken))
+	{
+		 return string.Empty;
+	}
+	
+	return string.Format(@".WithCacheStrategy({0})", cacheStrategyToken);
+}
+
+private string GetConverterToken(string converter)
+{
+	if (string.IsNullOrEmpty(converter))
+	{
+		 return string.Empty;
+	}	
+	
+	return string.Format(@".WithConverter(""{0}"")", converter);
+}
+
+private string GetGenericMappingConfigurationTypeToken(MetaPersistentType persistentType)
+{
+	string typeName = persistentType.Name;
+	if(string.Equals(persistentType.Namespace, persistentType.Name))
+	{
+		typeName = string.Concat(persistentType.Namespace, ".", persistentType.Name);
+	}
+	return string.Concat(MappingConfigurationToken,'<',typeName,'>');
+}
+
+private string GetMappingConfigurationMethodName(MetaPersistentType persistentType)
+{
+	return string.Concat("Get",persistentType.Name, MappingConfigurationToken);
+}
+
+private string GetClassConfigurationMethodName(MetaPersistentType persistentType)
+{
+	return string.Concat("Get",persistentType.Name, ClassConfigurationToken);
+}
+
+private string GetPropertyConfigurationsMethodName(MetaPersistentType persistentType)
+{
+	return string.Concat("Prepare",persistentType.Name, PropertyConfigurationsToken);
+}
+
+private string GetAssociationConfigurationsMethodName(MetaPersistentType persistentType)
+{
+	return string.Concat("Prepare",persistentType.Name, AssociationConfigurationsToken);
+}
+#>

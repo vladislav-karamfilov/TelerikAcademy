@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryPasswords", "BinaryPasswords\BinaryPasswords.csproj", "{63EFC5AE-CDC3-4429-B2D8-E0B1319E1E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divisors", "Divisors\Divisors.csproj", "{DAC79FFC-3D58-4427-9D40-399E4ECB0285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigZagSequences", "ZigZagSequences\ZigZagSequences.csproj", "{C44C751A-7CF4-4BCB-9679-70998D4700AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SumOfSubsequences", "SumOfSubsequences\SumOfSubsequences.csproj", "{B0CC991A-FC72-475C-8AA4-F63C76DED6FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequencesOfColoredBalls", "SequencesOfColoredBalls\SequencesOfColoredBalls.csproj", "{2C8A7893-E03A-4BB2-9C28-870F00CE2BDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColouredRabbits", "ColouredRabbits\ColouredRabbits.csproj", "{D8BCDB00-7866-424E-886A-C6E2575DDE87}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63EFC5AE-CDC3-4429-B2D8-E0B1319E1E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63EFC5AE-CDC3-4429-B2D8-E0B1319E1E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63EFC5AE-CDC3-4429-B2D8-E0B1319E1E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63EFC5AE-CDC3-4429-B2D8-E0B1319E1E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC79FFC-3D58-4427-9D40-399E4ECB0285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC79FFC-3D58-4427-9D40-399E4ECB0285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC79FFC-3D58-4427-9D40-399E4ECB0285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC79FFC-3D58-4427-9D40-399E4ECB0285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C44C751A-7CF4-4BCB-9679-70998D4700AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C44C751A-7CF4-4BCB-9679-70998D4700AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C44C751A-7CF4-4BCB-9679-70998D4700AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C44C751A-7CF4-4BCB-9679-70998D4700AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0CC991A-FC72-475C-8AA4-F63C76DED6FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0CC991A-FC72-475C-8AA4-F63C76DED6FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0CC991A-FC72-475C-8AA4-F63C76DED6FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0CC991A-FC72-475C-8AA4-F63C76DED6FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C8A7893-E03A-4BB2-9C28-870F00CE2BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C8A7893-E03A-4BB2-9C28-870F00CE2BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C8A7893-E03A-4BB2-9C28-870F00CE2BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C8A7893-E03A-4BB2-9C28-870F00CE2BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BCDB00-7866-424E-886A-C6E2575DDE87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BCDB00-7866-424E-886A-C6E2575DDE87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BCDB00-7866-424E-886A-C6E2575DDE87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BCDB00-7866-424E-886A-C6E2575DDE87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

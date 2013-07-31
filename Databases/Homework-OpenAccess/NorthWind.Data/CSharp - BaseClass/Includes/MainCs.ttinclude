@@ -1,0 +1,97 @@
+﻿<# //System.Diagnostics.Debugger.Break();
+	
+	this.InitializeTemplateGeneration();		
+	//if(this.templateContext.ShouldRunCodeGen)
+    //{
+	this.templateContext.StartHeader();#>
+#pragma warning disable 1591
+<#
+	//string defaultExtension = ".generated$LanguageSpecifficExtension$";
+	this.GenerateFileBlockHeader();
+	this.templateContext.EndBlock(); 
+	
+	this.GenerateStandaloneUsings();
+	
+	MappingDefinitionType mappingDefinitionType = this.modelSettings.CodeGenerationSettings.MappingDefinitionType;
+	//string fluentSourceName = string.Concat(this.generatedContext.Name, "FluentMetadataSource");
+	if (this.shouldGenerateContext)
+	{
+		string connectionId = this.modelSettings.AppConfigConnectionPropertyName;
+		this.fluentMetadataSourceName = this.fluentMappingClass.Name;
+		this.GenerateContextFileBlock(this.generatedContext, this.generatedContext.Namespace, connectionId, this.backendConfiguration, mappingDefinitionType);
+	}
+
+	foreach(Telerik.OpenAccess.CodeGeneration.CodeNamespace @namespace in this.codegenModel.Namespaces)
+	{
+		foreach(Telerik.OpenAccess.CodeGeneration.CodeClass @class in @namespace.Classes)
+		{
+			this.GeneratePerEntityFileBlock(@class as Telerik.OpenAccess.CodeGeneration.CodeElement, @namespace, defaultExtension);
+		}
+		
+		foreach(Telerik.OpenAccess.CodeGeneration.CodeInterface @interface in @namespace.Interfaces)
+		{
+			if (@interface.IsInterface)
+			{
+				this.GeneratePerEntityFileBlock(@interface as Telerik.OpenAccess.CodeGeneration.CodeElement, @namespace, defaultExtension);
+			}
+		}
+	}
+	
+	if((mappingDefinitionType & MappingDefinitionType.Fluent) == MappingDefinitionType.Fluent)
+	{
+		this.templateContext.StartNewFileBlock(Path.ChangeExtension(this.fluentMappingClass.Name, "cs"), this.generatedContext.Namespace); 
+		this.GenerateFluentMetadataSource(this.fluentMappingClass, this.metaModel, this.generateMultipleFiles, this.shouldGenerateContext);
+		this.templateContext.EndBlock();
+	}
+	
+	this.templateContext.StartFooter();
+	this.templateContext.EndBlock(); 
+	this.templateContext.Process(this.generateMultipleFiles, this.GetSafeCodeGenPath());
+	//}
+	
+	// generating the context with a default namespace
+	// TODO: use actual namespace in the real app
+#>
+#pragma warning restore 1591
+<#+ 
+//MetaModelCodeGenUtilities utilities = new MetaModelCodeGenUtilities(LanguageContext.CreateCSharpContext());
+//CodeDom codegenModel = utilities.GetCodeGenModel(this.Model);
+MetaModelCodeGenUtilities utilities = null;
+Telerik.OpenAccess.CodeGeneration.CodeDom codegenModel = null;
+Telerik.OpenAccess.CodeGeneration.CodeClass generatedContext = null;
+Telerik.OpenAccess.CodeGeneration.CodeClass fluentMappingClass = null;
+TemplateContext templateContext = null;
+bool generateMultipleFiles = true;
+bool shouldGenerateContext = true;
+string defaultNamespace = string.Empty;
+string defaultContextName = string.Empty;
+MetadataContainer metaModel = null;
+BackendConfiguration backendConfiguration = null;
+ModelSettings modelSettings = null;
+	
+private void InitializeTemplateGeneration()
+{
+	this.metaModel = this.DomainModel.Bridge.MetaModel;
+	this.modelSettings = this.DomainModel.Bridge.ModelSettings;
+    this.backendConfiguration = this.modelSettings.BackendConfigurationSettings.BackendConfiguration;
+	this.generateMultipleFiles = this.modelSettings.CodeGenerationSettings.GenerateMultipleFiles;
+	this.shouldGenerateContext = this.modelSettings.CodeGenerationSettings.ShouldGenerateContext;
+	if((this.modelSettings.CodeGenerationSettings.MappingDefinitionType & MappingDefinitionType.Attributes) == MappingDefinitionType.Attributes)
+	{
+		MetaModelCodeGenUtilities.ApplyCustomAttributes(this.metaModel); 
+	}
+	
+	this.utilities = new MetaModelCodeGenUtilities(LanguageContext.CreateCSharpContext());
+	this.codegenModel = utilities.GetCodeGenModel(this.metaModel);
+    utilities.AddCodeGenArtifactsForStoredProcedurePocos(this.DomainModel.DomainMethodReturnShapes , this.codegenModel);
+	this.generatedContext = utilities.GetModelContextCodeClass(this.metaModel, this.DomainModel);
+	this.fluentMappingClass = this.utilities.GetFluentMappingCodeClass(this.metaModel);
+	this.templateContext = TemplateContextFactory.Create(this.Host, this.GenerationEnvironment, modelSettings.CodeGenerationSettings);
+	this.templateContext.NewItemFullPath = this.newItemFullName;
+	this.defaultContextName = this.GetContextName();
+	this.defaultNamespace = this.GetDefaultNamespace();
+	
+	//this.Warning("Is CodeGen model available:" +  (codegenModel != null));
+}
+
+#>

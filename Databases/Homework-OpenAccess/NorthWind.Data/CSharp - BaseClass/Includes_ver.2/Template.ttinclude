@@ -1,0 +1,87 @@
+﻿<#+
+public class Template
+{
+	protected readonly string templateFile;
+
+	public readonly TextTransformation RootGenerator;
+	public readonly bool GenerateMultipleFiles;
+	public readonly bool ShouldGenerateContext;
+	public readonly MetadataContainer MetaModel;
+	public string DefaultExtension = ".generated.cs";
+	public readonly ModelContext Model;
+	public readonly TemplateContext TemplateContext;
+	public readonly ContextGenerator ContextGenerator;
+	public readonly AttributesGenerator AttributesGenerator;
+	public readonly DocumentationGenerator DocumentationGenerator;
+	public readonly ClassGenerator ClassGenerator;
+	public readonly InterfacesGenerator InterfacesGenerator;
+	public readonly UsingsGenerator UsingsGenerator;
+	public readonly NamespacesGenerator NamespaceGenerator;
+	public readonly PropertiesGenerator PropertiesGenerator;
+	public readonly DomainMethodsGenerator DomainMethodGenerator;
+	public readonly FluentMappingGenerator FluentMappingGenerator;
+
+	public Template(TextTransformation RootGenerator, 
+		ModelContext model,
+		MetadataContainer metaModel,
+		TemplateContext templateContext,
+		string templateFile)
+    {
+		this.RootGenerator = RootGenerator;
+		this.Model = model;
+		this.MetaModel = metaModel;
+		this.TemplateContext = templateContext;
+		this.templateFile = templateFile;
+
+		this.GenerateMultipleFiles = this.Model.ModelSettings.CodeGenerationSettings.GenerateMultipleFiles;
+		this.ShouldGenerateContext = this.Model.ModelSettings.CodeGenerationSettings.ShouldGenerateContext;
+
+		this.UsingsGenerator = new UsingsGenerator(this.RootGenerator);
+		this.NamespaceGenerator = new NamespacesGenerator(this.RootGenerator);
+		this.AttributesGenerator = new AttributesGenerator(this.RootGenerator);
+		this.DocumentationGenerator = new DocumentationGenerator(this.RootGenerator);
+		this.FluentMappingGenerator = new FluentMappingGenerator(this.RootGenerator, this.UsingsGenerator, this.Model.DefaultNamespace, this.ShouldGenerateContext);
+		this.DomainMethodGenerator = new DomainMethodsGenerator(this.RootGenerator, this.AttributesGenerator, this.Model.BackendType);
+		this.PropertiesGenerator = new PropertiesGenerator(this.RootGenerator, this.DocumentationGenerator, this.AttributesGenerator, this.templateFile);
+		this.ClassGenerator = new ClassGenerator(this.RootGenerator, this.AttributesGenerator, this.DocumentationGenerator, this.PropertiesGenerator, this.Model.ModelSettings.CodeGenerationSettings.MappingDefinitionType);
+		this.InterfacesGenerator = new InterfacesGenerator(this.RootGenerator, this.DocumentationGenerator, this.AttributesGenerator, this.PropertiesGenerator);
+		this.ContextGenerator = new ContextGenerator(this.RootGenerator, this.AttributesGenerator, this.DocumentationGenerator, this.InterfacesGenerator, this.DomainMethodGenerator, this.templateFile);
+	}
+
+	protected string codeGenerationPath;
+	public string CodeGenerationPath
+	{
+		get
+        {
+            if (this.codeGenerationPath == null)
+            {
+				string rlinqFileDir = string.Empty;
+				if (!string.IsNullOrEmpty(this.templateFile))
+				{
+					string extension = Path.GetExtension(this.templateFile);
+					if (!string.IsNullOrEmpty(extension))
+					{
+						rlinqFileDir = Path.GetDirectoryName(this.templateFile);
+					}
+					else
+					{
+	    				rlinqFileDir = Path.GetFullPath(this.templateFile);
+					}
+				}
+
+				this.codeGenerationPath = this.TemplateContext.GetSafeCodeGenPath(rlinqFileDir);
+            }
+			
+			return this.codeGenerationPath;
+        }
+		set
+		{
+			this.codeGenerationPath = value;
+		}
+	}
+
+	public bool? OverwriteExistingFiles {get; set;} 
+
+	public string ContextFileName {get; set;}
+}
+#>

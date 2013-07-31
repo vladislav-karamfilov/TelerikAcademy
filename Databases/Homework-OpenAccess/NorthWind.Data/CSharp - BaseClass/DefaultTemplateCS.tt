@@ -1,0 +1,58 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".generated$LanguageSpecificExtension$" #>
+<#@ EntityDiagrams processor="EntityDiagramsDirectiveProcessor" requires="fileName='$ModelFile$'"  #>
+<#@ assembly name="EnvDTE"#>
+<#@ assembly name="System.Core"#>
+<#@ assembly name="System.Xml"#>
+<#@ assembly name="System.Data"#>
+<#@ assembly Name="$DslAssemblyPath$Telerik.OpenAccess.CodeGeneration.dll" #>
+<#@ assembly Name="$DslAssemblyPath$Telerik.OpenAccess.Dsl.Design.dll" #>
+<#@ assembly Name="Telerik.OpenAccess, Version=$ProductVersion$, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342" #>
+<#@ import namespace="EnvDTE"#>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating"#>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO"#>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text"#>
+<#@ import namespace="Telerik.OpenAccess"#>
+<#@ import namespace="Telerik.OpenAccess.CodeGeneration" #>
+<#@ import namespace="Telerik.OpenAccess.CodeGeneration.CSharp" #>
+<#@ import namespace="Telerik.OpenAccess.Metadata" #>
+<#@ import namespace="Telerik.OpenAccess.Metadata.Relational" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\AttributesGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\ClassGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\ContextGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\DocumentationGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\DomainMethodsGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\Engine.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\FluentMappingGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\InterfacesGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\NamespacesGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\PropertiesGenerator.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\Template.ttinclude" #>
+<#@ include file="$TemplatesRootPath$Includes_ver.2\UsingsGenerator.ttinclude" #>
+<#@ parameter type="System.String" name="newItemFullName" #>
+<#
+	this.RunCodeGeneration();
+#>
+<#+
+protected void RunCodeGeneration()
+{
+	TemplateContext templateContext = TemplateContextFactory.Create(this.Host, this.GenerationEnvironment, this.DomainModel.Bridge.ModelSettings.CodeGenerationSettings);
+	templateContext.NewItemFullPath = this.newItemFullName;
+	
+	ModelContext model = new Telerik.OpenAccess.CodeGeneration.ModelContext(
+		this.DomainModel,
+		ProjectLanguage.CSharp,
+		new ContextClassTranslator(),
+		new EntityClassesTranslator(),
+		new AttributesTranslator()
+	);
+
+	Template template = new Template(this, model, this.DomainModel.Bridge.MetaModel, templateContext, this.Host.TemplateFile);
+	Engine engine = new Engine(template);
+	engine.RunCodeGeneration();
+}
+#>

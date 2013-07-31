@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GeneratingNorthwindTwinDatabase" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConnectionStringForCreatingTwinDB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=localhost;Database=master;Integrated Security=true;</Value>
+    </Setting>
+    <Setting Name="ConnectionStringForCloningDB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=localhost;Database=NorthwindTwin;Integrated Security=true;</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

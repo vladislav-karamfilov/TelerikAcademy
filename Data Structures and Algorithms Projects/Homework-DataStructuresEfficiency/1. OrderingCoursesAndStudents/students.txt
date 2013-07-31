@@ -1,0 +1,14 @@
+Kiril  | Ivanov   | C#
+Stefka | Nikolova | SQL
+Stela  | Mineva   | Java
+Milena | Petrova  | C#
+Ivan   | Grigorov | C#
+Ivan   | Kolev    | SQL
+Petar  | Petrov   | JavaScript
+Georgi | Georgiev | Python
+Stamat | Stamatov | Java
+Milen  | Ivanov   | C#
+Lili   | Marinova | OOP
+Ani    | Petkova  | JavaScript
+Marin  | Georgiev | OOP
+Stefan | Petrov   | OOP

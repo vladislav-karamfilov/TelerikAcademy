@@ -27,14 +27,14 @@ var gridViewControls = (function () {
             var table, tbody, i, rowsCount, currentRow;
             table = $("<table></table>");
             if (this.header) {
-                table.append(this.header._getRendered());
+                table.append(this.header.getRendered());
             }
 
             tbody = $("<tbody></tbody>");
             rowsCount = this.rows.length;
             for (i = 0; i < rowsCount; i++) {
                 currentRow = this.rows[i];
-                tbody.append(currentRow._getRendered());
+                tbody.append(currentRow.getRendered());
 
                 if (currentRow.nestedGridView) {
                     tbody.append($("<tr></tr>")
@@ -61,7 +61,7 @@ var gridViewControls = (function () {
             this.nestedGridView = nestedGridView;
             return nestedGridView;
         },
-        _getRendered: function () {
+        getRendered: function () {
             var row, i, columnsCount;
             row = $("<tr></tr>");
             row.attr("id", ("row" + currentRow));
@@ -81,7 +81,7 @@ var gridViewControls = (function () {
         initialize: function ($super, columnsContents) {
             $super(columnsContents);
         },
-        _getRendered: function () {
+        getRendered: function () {
             var header, headerRow, innerHtml, i, columnsCount;
             header = $("<thead></thead>");
             headerRow = $("<tr></tr>");

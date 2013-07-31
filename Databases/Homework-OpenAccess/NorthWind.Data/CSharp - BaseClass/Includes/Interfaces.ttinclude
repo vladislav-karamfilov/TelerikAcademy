@@ -1,0 +1,74 @@
+<#+
+/// <summary>
+/// Generates the operations signatures and bodies.
+/// </summary>
+/// <param name="functions">The list of functions.</param>
+private void GenerateInterfaceOperations(IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeFunction> functions)
+{
+	functions.ForEach(
+		function =>
+		{
+			this.PushIndent("\t");
+			this.GenerateSummary(function.Summary);
+			this.WriteLine(utilities.GetInterfaceOperationSignature(function));
+			this.PopIndent();
+		});
+}
+
+/// <summary>
+/// Generates an interface definition.
+/// </summary>
+/// <param name="interface">The interface object.</param>
+private void GenerateInterface(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+{
+	this.PushIndent("\t");
+	//GenerateSummary(codeInterface.Summary);
+	this.GenerateComments(codeInterface.Comments);	
+	string interfaceSignature = GetInterfaceSignature(codeInterface);
+	this.WriteLine(interfaceSignature);
+	this.WriteLine(classOpenToken);
+	GenerateInterfaceMembers(codeInterface);
+	//GenerateInterfaceOperations(codeInterface.Functions);
+	this.WriteLine(classCloseToken);
+	PopIndent();
+}
+
+private void GenerateInterfaceMembers(Telerik.OpenAccess.CodeGeneration.CodeInterface codeInterface)
+{
+	System.Collections.Generic.IEnumerable<Telerik.OpenAccess.CodeGeneration.CodeProperty> properties = codeInterface.Properties;
+	PushIndent("\t");
+	properties.ForEach(
+		property => 
+		{
+			GenerateInterfaceMember(property);
+		});
+
+	PopIndent();
+}
+
+private void GenerateInterfaceMember(Telerik.OpenAccess.CodeGeneration.CodeProperty property)
+{
+	string propertyType = this.GetTypeStringPresentation(property);
+
+#>
+<#= propertyType #> <#= property.Name #> 
+{ 
+<#+
+	if(property.HasGetter)
+	{
+	#>
+	get;
+<#+	
+	}
+	if(property.HasSetter)
+	{
+#>
+	set;
+<#+			 
+	}
+#>
+}
+<#+
+}
+
+#>

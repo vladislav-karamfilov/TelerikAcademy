@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #555;
+}
+
+#wrapper {
+    width: 640px;
+    margin: 25px auto;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 1px 1px 20px #000;
+}
+
+    #wrapper #authOps {
+        display: inline-block;
+        width: 580px;
+    }
+
+    #wrapper #disconnect {
+        height: 25px;
+        padding: 3px;
+    }
+
+    #wrapper #profile {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 3px;
+        clear: both;
+        float: right;
+    }
+
+    #wrapper #YouTube {
+        margin-top: 25px;
+    }
+
+    #wrapper #load-video {
+        width: 100px;
+    }
+
+    #wrapper #playlist {
+        margin-top: 20px;
+    }
+
+    #wrapper #gplus {
+        display: inline-block;
+        float: right;
+        margin-top: 25px;
+    }

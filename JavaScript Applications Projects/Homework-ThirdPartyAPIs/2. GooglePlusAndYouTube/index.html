@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Google+ and YouTube APIs</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script');
+            po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://plus.google.com/js/client:plusone.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="google.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="gConnect">
+            <button class="g-signin"
+                data-scope="https://www.googleapis.com/auth/plus.login"
+                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                data-clientid="338906064189-50dj794d7si5ooqcib9l53btdtoc76j1.apps.googleusercontent.com"
+                data-callback="onSignInCallback"
+                data-theme="dark"
+                data-cookiepolicy="single_host_origin">
+            </button>
+        </div>
+        <div id="profile"></div>
+        <div id="authOps" style="display: none">
+            <h2>User is now signed in to the app using Google+</h2>
+            <p>
+                If the user chooses to disconnect, the app must delete all stored
+                information retrieved from Google for the given user.
+            </p>
+            <button id="disconnect">Disconnect your Google account from this app</button>
+        </div>
+
+        <div id="loaderror">
+            This section will be hidden by JQuery. If you can see this message, you
+            may be viewing the file rather than running a web server.<br />
+            The sample must be run from http or https. See instructions at
+   
+        <a href="https://developers.google.com/+/quickstart/javascript">https://developers.google.com/+/quickstart/javascript
+        </a>
+        </div>
+        <div id="YouTube" style="display: none">
+            <div id="player"></div>
+            <br />
+            <span>ID: </span>
+            <input type="text" id="load-video" value="xBeMQ2V3yuk" />
+            <button id="single-video">Load video</button>
+            <button id="pause">Pause video</button>
+            <button id="play">Play video</button>
+            <button id="mute">Mute video</button>
+            <button id="unmute">Unmute video</button>
+            <input type="range" id="volume" min="0" max="100" value="100" />
+            <br />
+            <span>Playlist: </span>
+            <textarea id="playlist">aqmdG7dIzR0,fNddo-xLoL8,L2o5dnVuxiI</textarea>
+            <button id="load-playlist">Load playlist</button>
+            <button id="previous">Previous</button>
+            <button id="next">Next</button>
+
+            <div id="gplus">
+                <div class="g-plusone" data-href="http://www.youtube.com/watch?feature=player_embedded&v=xBeMQ2V3yuk"></div>
+            </div>
+        </div>
+    </div>
+    <script src="youtube-player.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#disconnect').click(helper.disconnect);
+            $('#loaderror').hide();
+            if ($('[data-clientid="YOUR_CLIENT_ID"]').length > 0) {
+                alert('This sample requires your OAuth credentials (client ID) ' +
+                    'from the Google APIs console:\n' +
+                    ' https://code.google.com/apis/console/#:access\n\n' +
+                    'Find and replace YOUR_CLIENT_ID with your client ID.'
+                );
+            }
+        });
+
+        function onSignInCallback(authResult) {
+            helper.onSignInCallback(authResult);
+        }
+    </script>
+</body>
+</html>

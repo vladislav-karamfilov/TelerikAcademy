@@ -1,0 +1,86 @@
+body * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #555;
+}
+
+#wrapper {
+    width: 640px;
+    margin: 25px auto;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 1px 1px 20px #000;
+}
+
+    #wrapper #fbSend {
+        padding: 3px;
+        margin-bottom: 5px;
+        clear: both;
+        float: right;
+    }
+
+    #wrapper #fbLogout {
+        margin-bottom: 5px;
+        clear: both;
+        float: right;
+        background-color: #ECEEF5;
+        color: #5872C6;
+        border: 1px solid #CAD4E7;
+        border-radius: 5px;
+        padding: 2px 8px;
+        margin-right: 3px;
+        display: none;
+        cursor: pointer;
+        font-family: Arial;
+        font-size: 11px;
+    }
+
+    #wrapper #profile {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 3px;
+        clear: both;
+        float: right;
+    }
+
+    #wrapper img {
+        border: none;
+    }
+
+    #wrapper #friends {
+        width: 560px;
+    }
+
+        #wrapper #friends img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+    #wrapper #large {
+        display: none;
+        position: absolute;
+        background: #FFFFFF;
+        padding: 5px;
+        z-index: 10;
+        min-height: 200px;
+        max-width: 200px;
+        min-width: 200px;
+        max-height: 200px;
+        color: #336699;
+    }
+
+    #wrapper #background {
+        display: none;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: #000000;
+        z-index: 1;
+    }

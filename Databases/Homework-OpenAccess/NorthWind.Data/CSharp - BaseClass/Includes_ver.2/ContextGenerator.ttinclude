@@ -1,0 +1,183 @@
+﻿<#+
+public class ContextGenerator: TelerikTextTransformationBase
+{
+	protected AttributesGenerator attributesGenerator;
+	protected DocumentationGenerator documentationGenerator;
+	protected InterfacesGenerator interfacesGenerator;
+	protected DomainMethodsGenerator domainMethodGenerator;
+	protected string templateFile;
+
+	public ContextGenerator(TextTransformation rootGenerator, 
+		AttributesGenerator attributesGenerator,
+		DocumentationGenerator documentationGenerator,
+		InterfacesGenerator interfacesGenerator,
+		DomainMethodsGenerator domainMethodGenerator,
+		string templateFile)
+		:base(rootGenerator)
+    {
+		this.attributesGenerator = attributesGenerator;
+		this.documentationGenerator = documentationGenerator;
+		this.domainMethodGenerator = domainMethodGenerator;
+		this.interfacesGenerator = interfacesGenerator;
+		this.templateFile = templateFile;
+    }
+
+	/// <summary>
+	/// Generates a context class.
+	/// </summary>
+	/// <param name="contextClass">The context class model.</param>
+	public void GenerateContextClass(Telerik.OpenAccess.CodeGeneration.ContextClass contextClass)
+	{
+		this.documentationGenerator.GenerateComments(contextClass.Comments);	
+		this.documentationGenerator.GenerateSummary(contextClass.Summary);
+		this.attributesGenerator.GenerateAttributes(contextClass.Attributes);
+		this.GenerateContextClassSignature(contextClass);
+#>
+{
+<#+
+		this.PushIndent("\t");
+		this.GenerateConstructorsAndMappingSource(contextClass);
+		this.GenerateEndpoints(contextClass);
+		this.domainMethodGenerator.GenerateDomainMethods(contextClass);
+		this.GenerateBackendConfiguration(contextClass);
+		this.PopIndent();
+#>
+}
+
+<#+
+	}
+
+	protected void GenerateContextClassSignature(Telerik.OpenAccess.CodeGeneration.ContextClass contextClass)
+	{
+#>
+<#= contextClass.TypeAccessModifier.ToCode() #><#= contextClass.TypeInheritanceModifier.ToCode() #> partial class <#= contextClass.Name #> : <#= contextClass.BaseClass.Name #>, <#= contextClass.IUnitOfWorkInterface.Name #>
+<#+
+	}
+
+	protected void GenerateConstructorsAndMappingSource(Telerik.OpenAccess.CodeGeneration.ContextClass contextClass)
+	{
+#>
+private static string connectionStringName = @"<#= contextClass.ConnectionStringId #>";
+	
+private static BackendConfiguration backend = GetBackendConfiguration();
+<#+ 
+		this.GenerateMappingSourceDefinition(contextClass);
+#>
+
+public <#= contextClass.Name #>()
+	:base(connectionStringName, backend, metadataSource)
+{ }
+
+public <#= contextClass.Name #>(string connection)
+	:base(connection, backend, metadataSource)
+{ }
+
+public <#= contextClass.Name #>(BackendConfiguration backendConfiguration)
+	:base(connectionStringName, backendConfiguration, metadataSource)
+{ }
+	
+public <#= contextClass.Name #>(string connection, MetadataSource metadataSource)
+	:base(connection, backend, metadataSource)
+{ }
+
+public <#= contextClass.Name #>(string connection, BackendConfiguration backendConfiguration, MetadataSource metadataSource)
+	:base(connection, backendConfiguration, metadataSource)
+{ }
+	
+<#+
+	}
+
+	protected void GenerateMappingSourceDefinition(Telerik.OpenAccess.CodeGeneration.ContextClass contextClass)
+	{
+		if(contextClass.MappingType.HasFlag(MappingDefinitionType.Xml))
+		{
+			string xmlFileName = contextClass.RlinqResourceName;
+			if(string.IsNullOrEmpty(xmlFileName))
+			{
+				xmlFileName = Path.GetFileName(templateFile);
+#>		
+private static MetadataSource metadataSource = XmlMetadataSource.FromAssemblyResource("<#= xmlFileName #>");
+<#+
+			}
+			else
+			{
+#>		
+private static System.Reflection.AssemblyName assemblyName = new System.Reflection.AssemblyName("<#= contextClass.RlinqAssemblyName #>");
+private static System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(assemblyName);
+
+private static MetadataSource metadataSource = XmlMetadataSource.FromAssemblyResource(assembly, "<#= xmlFileName #>");
+<#+
+			}
+		}
+		else if(contextClass.MappingType.HasFlag(MappingDefinitionType.Attributes))
+		{
+#>		
+private static MetadataSource metadataSource = AttributesMetadataSource.FromContext(typeof(<#= contextClass.Name #>));
+<#+
+		}
+		else if(contextClass.MappingType.HasFlag(MappingDefinitionType.Fluent))
+		{
+#>		
+private static MetadataSource metadataSource = new <#= contextClass.FluentMetadataSourceName #>();
+<#+
+		}
+	}
+
+	protected void GenerateEndpoints(Telerik.OpenAccess.CodeGeneration.ContextClass contextClass)
+	{
+		foreach(Telerik.OpenAccess.CodeGeneration.CodeProperty property in contextClass.Properties)
+		{
+			if(contextClass.AllowedEndpoints.Contains(property.Type))
+            {
+#>
+public <#= property.ToTypeString() #> <#= property.Name #> 
+{
+	get
+	{
+		return this.GetAll<<#= property.Type #>>();
+	}
+}
+
+<#+
+            }
+		}
+	}
+
+	protected void GenerateBackendConfiguration(ContextClass contextClass)
+	{
+#>
+public static BackendConfiguration GetBackendConfiguration()
+{
+	BackendConfiguration backend = new BackendConfiguration();
+<#+ 
+		this.PushIndent("\t");
+		this.GenerateBackendConfiguratioin(contextClass);
+		this.GenerateAdditionalBackendSettings(contextClass.BackendConfiguration);
+		this.PopIndent();
+#>
+	return backend;
+}
+<#+ 
+	}
+
+	protected void GenerateBackendConfiguratioin(ContextClass contextClass)
+	{
+        foreach (var setting in contextClass.BackendConfigurationSettings)
+        {
+#>
+<#= setting.Key #> = <#= setting.Value #>;
+<#+ 	
+        }
+	}
+
+	protected void GenerateAdditionalBackendSettings(BackendConfiguration currentBackend)
+	{
+		foreach (string query in currentBackend.ConnectionPool.InitSQL)
+		{
+#>
+backend.ConnectionPool.InitSQL.Add("<#= query #>");
+<#+ 
+		}
+	}
+}
+#>

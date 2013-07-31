@@ -1,0 +1,5 @@
+Pesho Pehov | bul. "Boulevard 1" | 0888888888
+Ivan Ivanov | bul. "Boulevard 2" | 0899999999
+Lili Marinova | bul. "Boulevard 2" | 0877777777
+Gosho Goshov | bul. "Boulevard 3" | 0886666666
+Penka Pencheva | bul. "Boulevard 1" | 0855555555

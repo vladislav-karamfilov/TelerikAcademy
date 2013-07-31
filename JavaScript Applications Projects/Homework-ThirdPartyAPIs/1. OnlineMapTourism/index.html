@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Online Map Tourism</title>
+    <script src="scripts/jquery-1.10.1.js"></script>
+    <script src="scripts/proto-class.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&language=en"></script>
+    <script src="scripts/online-map-tourism.js"></script>
+    <style>
+        h1 {
+            color: #00ff21;
+            text-align: center;
+        }
+
+        button#next-button {
+            padding: 5px 10px;
+            float: right;
+            border-radius: 8px;
+            border-color: #0ff;
+        }
+
+        button#prev-button {
+            padding: 5px 10px;
+            float: left;
+            border-radius: 8px;
+            border-color: #0ff;
+            margin-bottom: 10px;
+        }
+
+        div#map-container {
+            clear: both;
+            border-radius: 5px;
+            height: 480px;
+            width: 640px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Presenting the functionality of the Online Map Tourism Application</h1>
+    <div id="map-container"></div>
+    <script>
+        var capitals = [
+            new Capital(42.699595, 23.319855, "Sofia", "Capital of Bulgaria."),
+            new Capital(55.764213, 37.622223, "Moscow", "Capital of Russia."),
+            new Capital(51.512161, -0.125198, "London", "Capital of England."),
+            new Capital(40.726446, -74.006882, "New York", "The most populous city in the United States."),
+            new Capital(42.37072, -71.062546, "Boston", "Capital and the largest city in the U.S. state of Massachusetts."),
+            new Capital(52.537108, 13.401718, "Berlin", "Capital of Germany"),
+            new Capital(52.37518, 4.892921, "Amsterdam", "Capital of Netherlands."),
+            new Capital(53.550099, 9.991837, "Hamburg", "The second largest city in Germany"),
+            new Capital(59.915795, 10.751266, "Oslo", "Capital of Norway"),
+            new Capital(48.859068, 2.35239, "Paris", "Capital of France")];
+
+        var capitalsMap = new CapitalsMap("map-container", capitals);
+        capitalsMap.render();
+    </script>
+</body>
+</html>

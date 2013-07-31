@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" ?>
+<catalog>
+  <book>
+    <author>Another Author</author>
+    <title>Another Empty Book</title>
+  </book>
+  <book>
+    <web-site>http://www.nakov.com</web-site>
+    <title>Svetlin Nakov's Blog</title>
+    <author>Svetlin Nakov</author>
+  </book>
+  <book>
+    <author>Allen G. Taylor</author>
+    <title>SQL for Dummies</title>
+    <price>29.99</price>
+  </book>
+  <book>
+    <author>Allen G. Taylor</author>
+    <title>SQL for Dummies</title>
+    <price>29.99</price>
+    <web-site>http://www.dummies.com/store/product/SQL-For-Dummies-7th-Edition.productCd-0470557419.html</web-site>
+  </book>
+  <book>
+    <web-site>http://www.amazon.com/Learning-SQL-Alan-Beaulieu/dp/0596520832</web-site>
+    <isbn>9780596520830</isbn>
+    <title>Learning SQL</title>
+    <price>23.76</price>
+    <author>Alan Beaulieu</author>
+  </book>
+</catalog>

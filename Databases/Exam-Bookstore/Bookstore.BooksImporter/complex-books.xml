@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" ?>
+<catalog>
+  <book>
+    <title>NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence</title>
+    <authors>
+      <author>Martin Fowler</author>
+      <author>Pramod J. Sadalage</author>
+    </authors>
+    <reviews>
+      <review>The section about Redis neeeds some updates, but good book though...</review>
+      <review author="Visitor">Nice NoSQL databases overview</review>
+      <review>Martin Fowler is the best!</review>
+      <review date="18-Feb-2012">A must read</review>
+      <review author="Peter Jameson" date="12-Apr-2012">Great book</review>
+      <review date="3-Dec-2012" author="Steve Ivanov">Highly recommended</review>
+      <review author="Peter Jameson" date="17-Apr-2012">Please add more about MongoDB</review>
+      <review date="2-Dec-2012" author="Steve Ivanov">I recommend this book</review>
+    </reviews>
+    <web-site>http://www.amazon.com/NoSQL-Distilled-Emerging-Persistence-ebook/dp/B0090J3SYW/</web-site>
+    <price>19.89</price>
+  </book>
+  <book>
+    <title>Just a Title - No Author, ISBN, Price, ...</title>
+  </book>
+  <book>
+    <title>SQL Server Tutorial</title>
+    <web-site>http://www.quackit.com/sql_server/tutorial/</web-site>
+    <reviews>
+      <review date="18-Oct-2012">A good start</review>
+      <review author="Pramod J. Sadalage" date="2-Aug-2012">Outdated, but still a good starting point</review>
+      <review date="31-Dec-2012" author="Steve Ivanov">Not recommended</review>
+    </reviews>
+  </book>
+  <book>
+    <reviews>
+      <review date="8-Oct-2012">Testing review</review>
+      <review author="Pramod J. Sadalage" date="12-Sep-2012">Another testing review</review>
+      <review>Yet another testing review</review>
+      <review>Yet another testing review</review>
+      <review>Yet another testing review</review>
+      <review date="9-Oct-2012">Testing review</review>
+    </reviews>
+    <title>Just a Test</title>
+    <authors>
+      <author>Test Author 5</author>
+      <author>Test Author 4</author>
+      <author>Test Author 3</author>
+      <author>Test Author 2</author>
+      <author>Test Author 1</author>
+    </authors>
+    <isbn>3344556677889</isbn>
+    <price>46.00</price>
+  </book>
+  <book>
+    <title>Empty Book, Just a Title</title>
+    <authors />
+    <reviews />
+  </book>
+  <book>
+    <title>Empty Book, Just a Title</title>
+    <authors />
+    <reviews />
+  </book>
+</catalog>

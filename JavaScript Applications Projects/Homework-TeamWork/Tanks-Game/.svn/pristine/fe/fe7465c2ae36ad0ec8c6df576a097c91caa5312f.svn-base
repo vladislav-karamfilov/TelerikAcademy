@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tanks-Game", "Tanks-Game.csproj", "{5F98CF34-ABDD-42BE-9E47-D3E7454E67FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{60698B2E-3EEF-4B9E-91BB-660B1D130117}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F98CF34-ABDD-42BE-9E47-D3E7454E67FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F98CF34-ABDD-42BE-9E47-D3E7454E67FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F98CF34-ABDD-42BE-9E47-D3E7454E67FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F98CF34-ABDD-42BE-9E47-D3E7454E67FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60698B2E-3EEF-4B9E-91BB-660B1D130117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60698B2E-3EEF-4B9E-91BB-660B1D130117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60698B2E-3EEF-4B9E-91BB-660B1D130117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60698B2E-3EEF-4B9E-91BB-660B1D130117}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
