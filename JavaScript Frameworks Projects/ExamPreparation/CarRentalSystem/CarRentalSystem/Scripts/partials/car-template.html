@@ -1,0 +1,20 @@
+﻿<h2>Car</h2>
+<div data-template="car-template" data-bind="source: car"></div>
+
+<script type="text/kendo-x-template" id="car-template">
+    <div>
+        <div><strong>Make: <span data-bind="text: make"></span></strong></div>
+        <div><strong>Model: <span data-bind="text: model"></span></strong></div>
+        <div><strong>Year: <span data-bind="text: year"></span></strong></div>
+        <div><strong>Engine: <span data-bind="text: engine"></span></strong></div>
+        <div><strong>Power: <span data-bind="text: power"></span></strong></div>
+        <div>
+            <strong>
+                Renter:
+                <span data-bind="text: renter"></span>
+            </strong>
+        </div>
+        <button class="btn rent-return-button" data-bind="events: { click: rentCar }">Rent</button>
+        <button class="btn rent-return-button" data-bind="events: { click: returnCar }">Return</button>
+    </div>
+</script>

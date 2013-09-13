@@ -1,0 +1,3 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" 
+    Service="DayOfWeekInBulgarianService.DayOfWeekInBulgarianService" 
+    CodeBehind="DayOfWeekInBulgarianService.svc.cs" %>

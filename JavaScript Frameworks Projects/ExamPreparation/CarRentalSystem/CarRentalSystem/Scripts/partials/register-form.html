@@ -1,0 +1,11 @@
+﻿<script type="text/x-kendo-template" id="register-form-template">
+    <form class="form-register" method="post" action="">
+        <div><i class="icon-check"></i> <a href="#/login" id="login-form">Sign In</a></div>
+        <h3>Registration</h3>
+        <input id="username-input" data-bind="value: username" type="text" class="input-block-level" placeholder="Username" />
+        <input id="nickname-input" data-bind="value: displayName" type="text" class="input-block-level" placeholder="Nickname" />
+        <input id="password-input" data-bind="value: password" type="password" class="input-block-level" placeholder="Password" />
+        <div id="error-container" style="display: none" data-bind="text: errorMessage"></div>
+        <a href="#/register" id="register" class="btn btn-primary" data-bind="events: { click: register }">Register</a>
+    </form>
+</script>

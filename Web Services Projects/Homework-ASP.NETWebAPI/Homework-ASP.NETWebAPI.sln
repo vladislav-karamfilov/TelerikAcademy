@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Models", "MusicCatalogue.Models\MusicCatalogue.Models.csproj", "{A3C3F586-1006-4C60-8DF1-4B48E479C617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Data", "MusicCatalogue.Data\MusicCatalogue.Data.csproj", "{1E4D1581-8072-4342-B30F-41DC8AE96553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Services", "MusicCatalogue.Services\MusicCatalogue.Services.csproj", "{293367EB-130F-4ECA-BD7F-7EFF77051EAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.DataTransferObjects", "MusicCatalogue.DataTransferObjects\MusicCatalogue.DataTransferObjects.csproj", "{1DF0265D-9BD3-47B1-8CB9-FE0B19B458D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Client", "MusicCatalogue.Client\MusicCatalogue.Client.csproj", "{451C043C-48A1-4DE8-AAE2-AE6E43466358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Repositories", "MusicCatalogue.Repositories\MusicCatalogue.Repositories.csproj", "{FE74A24C-0E16-4130-88E5-2E1EAECA8BDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.DataMappers", "MusicCatalogue.DataMappers\MusicCatalogue.DataMappers.csproj", "{F1AA6F79-3578-4AEE-BD7F-AF1A5643A24E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3C3F586-1006-4C60-8DF1-4B48E479C617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C3F586-1006-4C60-8DF1-4B48E479C617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C3F586-1006-4C60-8DF1-4B48E479C617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C3F586-1006-4C60-8DF1-4B48E479C617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E4D1581-8072-4342-B30F-41DC8AE96553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E4D1581-8072-4342-B30F-41DC8AE96553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E4D1581-8072-4342-B30F-41DC8AE96553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E4D1581-8072-4342-B30F-41DC8AE96553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{293367EB-130F-4ECA-BD7F-7EFF77051EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293367EB-130F-4ECA-BD7F-7EFF77051EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293367EB-130F-4ECA-BD7F-7EFF77051EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293367EB-130F-4ECA-BD7F-7EFF77051EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF0265D-9BD3-47B1-8CB9-FE0B19B458D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF0265D-9BD3-47B1-8CB9-FE0B19B458D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF0265D-9BD3-47B1-8CB9-FE0B19B458D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF0265D-9BD3-47B1-8CB9-FE0B19B458D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451C043C-48A1-4DE8-AAE2-AE6E43466358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451C043C-48A1-4DE8-AAE2-AE6E43466358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451C043C-48A1-4DE8-AAE2-AE6E43466358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451C043C-48A1-4DE8-AAE2-AE6E43466358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE74A24C-0E16-4130-88E5-2E1EAECA8BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE74A24C-0E16-4130-88E5-2E1EAECA8BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE74A24C-0E16-4130-88E5-2E1EAECA8BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE74A24C-0E16-4130-88E5-2E1EAECA8BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1AA6F79-3578-4AEE-BD7F-AF1A5643A24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1AA6F79-3578-4AEE-BD7F-AF1A5643A24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1AA6F79-3578-4AEE-BD7F-AF1A5643A24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1AA6F79-3578-4AEE-BD7F-AF1A5643A24E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

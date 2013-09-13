@@ -1,0 +1,12 @@
+﻿<h2>Cars</h2>
+<ul data-template="cars-list" data-bind="source: cars"></ul>
+
+<script type="text/x-kendo-template" id="cars-list">
+    <li>
+        <a href="\#/cars/#= id #">
+            <span data-bind="text: make"></span>
+            <span data-bind="text: model"></span>
+        </a>
+    </li>
+</script>
+<!-- TODO: List the cars in a list-view!!! -->

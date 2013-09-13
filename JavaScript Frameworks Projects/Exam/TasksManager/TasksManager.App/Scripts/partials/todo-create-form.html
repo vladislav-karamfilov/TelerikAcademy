@@ -1,0 +1,11 @@
+﻿<script type="text/x-kendo-template" id="todo-create-form">
+    <button id="btn-back" class="btn" onclick="history.back();">Back</button>
+
+    <fieldset>
+        <legend>New appointment</legend>
+        <label for="tb-subject">Subject: </label>
+        <input data-bind="value: text" type="text" id="tb-subject" />
+        <button class="btn" data-bind="click: create">Create</button>
+    </fieldset>
+    <a class="btn" href="#/logout">Logout</a>
+</script>

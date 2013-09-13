@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.Models", "TelerikAcademyForum.Models\TelerikAcademyForum.Models.csproj", "{21CABBC6-5A9B-405D-A649-E9F745327141}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.Data", "TelerikAcademyForum.Data\TelerikAcademyForum.Data.csproj", "{DAED4089-BAA1-4B84-A26F-39070C34A7F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.DataTransferObjects", "TelerikAcademyForum.DataTransferObjects\TelerikAcademyForum.DataTransferObjects.csproj", "{62A73D44-929C-4901-8A2E-DF84013E9386}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.Services", "TelerikAcademyForum.Services\TelerikAcademyForum.Services.csproj", "{D22632D6-1B1A-4CEA-91AA-441E07659F6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21CABBC6-5A9B-405D-A649-E9F745327141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CABBC6-5A9B-405D-A649-E9F745327141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CABBC6-5A9B-405D-A649-E9F745327141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CABBC6-5A9B-405D-A649-E9F745327141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAED4089-BAA1-4B84-A26F-39070C34A7F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAED4089-BAA1-4B84-A26F-39070C34A7F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAED4089-BAA1-4B84-A26F-39070C34A7F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAED4089-BAA1-4B84-A26F-39070C34A7F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62A73D44-929C-4901-8A2E-DF84013E9386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62A73D44-929C-4901-8A2E-DF84013E9386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62A73D44-929C-4901-8A2E-DF84013E9386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62A73D44-929C-4901-8A2E-DF84013E9386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D22632D6-1B1A-4CEA-91AA-441E07659F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D22632D6-1B1A-4CEA-91AA-441E07659F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D22632D6-1B1A-4CEA-91AA-441E07659F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D22632D6-1B1A-4CEA-91AA-441E07659F6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

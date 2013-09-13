@@ -1,0 +1,15 @@
+﻿<button id="btn-back" class="btn" onclick="history.back();">Back</button>
+<ul data-template="appointments-template" data-bind="source: appointments"></ul>
+<a id="btn-new-appointment" class="btn" href="#/appointments/create">Create new</a>
+<a id="logout" class="btn" href="#/logout">Logout</a>
+
+<script type="text/x-kendo-template" id="appointments-template">
+    <li>
+        <div><strong>Subject: </strong><span data-bind="text: subject"></span></div>
+        <div><strong>Description: </strong><span data-bind="text: description"></span></div>
+        <div><strong>Creation Date: </strong><span data-bind="text: createdAt"></span></div>
+        <div><strong>Appointment Date: </strong><span data-bind="text: appointmentDate"></span></div>
+        <div><strong>Duration: </strong><span data-bind="text: duration"></span></div>
+        <div><strong>State: </strong><span data-bind="text: state"></span></div>
+    </li>
+</script>

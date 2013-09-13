@@ -1,0 +1,13 @@
+﻿<h2>Car Stores</h2>
+<ul data-template="car-stores-list" data-bind="source: carStores"></ul>
+<button id="btn-back" class="btn" onclick="history.back();">Back</button>
+
+<script type="text/x-kendo-template" id="car-stores-list">
+    <li>
+        <a href="\#/car-stores/#= id #">
+            <span data-bind="text: name"></span>
+        </a>
+    </li>
+</script>
+
+<!-- TODO: List the cars in a list-view!!! -->

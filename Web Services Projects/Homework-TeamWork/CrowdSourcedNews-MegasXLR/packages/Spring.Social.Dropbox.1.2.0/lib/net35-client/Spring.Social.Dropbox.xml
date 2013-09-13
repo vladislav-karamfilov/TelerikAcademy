@@ -1,0 +1,2127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Spring.Social.Dropbox</name>
+    </assembly>
+    <members>
+        <member name="T:Spring.Social.Dropbox.Api.AccessLevel">
+            <summary>
+            Defines the Dropbox API access levels.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.AccessLevel.AppFolder">
+            <summary>
+            Application only needs access to a single folder within the user's Dropbox (recommended).
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.AccessLevel.Full">
+            <summary>
+            Application needs access to the user's entire Dropbox.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.DeltaEntry">
+            <summary>
+            Represents a single entry in a <see cref="T:Spring.Social.Dropbox.Api.DeltaPage">delta page</see>.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DeltaEntry.Path">
+            <summary>
+            Gets or sets the lower-cased path of the entry. 
+            <para/>
+            Value is lower-cased because Dropbox treats file names in a case-insensitive but case-preserving way. 
+            The Metadata property has the original case-preserved path.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DeltaEntry.Metadata">
+            <summary>
+            Gets or sets the <see cref="T:Spring.Social.Dropbox.Api.Entry">metadata information</see> for the entry to update your local state.
+            <para/>
+            If <see langword="null"/>, it means that this path should not exist on your Dropbox's copy of the file system.
+            Otherwise, it means that Dropbox has a file/folder at this path with the given metadata.
+            </summary>
+            <remarks>
+            <para>
+            If <see langword="null"/>, indicates that there is no file/folder at the given path. 
+            To update your local state to match, anything at path and all its children should be deleted. 
+            Deleting a folder in your Dropbox will sometimes send down a single deleted entry for that folder, 
+            and sometimes separate entries for the folder and all child paths. 
+            If your local state doesn't have anything at path, ignore this entry.
+            </para>
+            <para>
+            If not <see langword="null"/>, indicates that there is a file/folder at the given path.
+            You should add the entry to your local path. To correctly process delta entries:
+            <list type="bullet">
+            <item>
+            If the new entry includes parent folders that don't yet exist in your local state, 
+            create those parent folders in your local state.
+            </item>
+            <item>
+            If the new entry is a file, replace whatever your local state has at path with the new entry.
+            </item>
+            <item>
+            If the new entry is a folder, check what your local state has at path. 
+            If it's a file, replace it with the new entry. 
+            If it's a folder, apply the new entry to the folder, but do not modify the folder's children.
+            </item>
+            </list>
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.DeltaPage">
+            <summary>
+            Represents a page of delta entries returned by 'Delta(string cursor)' method.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DeltaPage.Cursor">
+            <summary>
+            Gets or sets a value that encodes the latest information that has been returned.
+            It is used to keep track of your current state. 
+            <para/>
+            On the next call to 'Delta(string cursor)' method, pass in this value 
+            to return delta entries that have been recorded since this cursor was returned.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DeltaPage.HasMore">
+            <summary>
+            Gets or sets a value indicating whether or not more entries are available.
+            <para/>
+            If <see langword="true"/> you can call 'Delta(string cursor)' method again immediately to retrieve those entries. 
+            If <see langword="false"/>, then wait for at least five minutes (preferably longer) before checking again.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DeltaPage.Reset">
+            <summary>
+            Gets or sets a value indicating whether or not to clear your local state before processing the delta entries.
+            <para/>
+            Always <see langword="true"/> on the initial call to 'Delta(string cursor)' method (i.e. when no cursor is passed in). 
+            Otherwise, it is <see langword="true"/> in rare situations, such as after server or account maintenance, 
+            or if a user deletes their app folder.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DeltaPage.Entries">
+            <summary>
+            Gets or sets the list of <see cref="T:Spring.Social.Dropbox.Api.DeltaEntry">delta entries</see>.
+            <para/>
+            Apply these entries to your local state to catch up with the Dropbox server's state.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.DropboxApiError">
+            <summary>
+            The <see cref="T:Spring.Social.Dropbox.Api.DropboxApiError"/> enumeration is used by the <see cref="T:Spring.Social.Dropbox.Api.DropboxApiException"/> class 
+            to indicate what kind of error caused the exception.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.Unknown">
+            <summary>
+            Unknown.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.BadParameter">
+            <summary>
+            Bad request parameter.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.NotAuthorized">
+            <summary>
+            Bad or expired OAuth token. 
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.OperationNotPermitted">
+            <summary>
+            Invalid operation attempted.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.PathNotFound">
+            <summary>
+            File or folder path not found.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.TooManyEntries">
+            <summary>
+            Too many metadata entries to return.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.ChunkedEncodingNotSupported">
+            <summary>
+            Chunked encoding not supported.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.ThumbnailNotSupported">
+            <summary>
+            Thumbnail cannot be created for the input file.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.Server">
+            <summary>
+            Internal server error.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.ServerDown">
+            <summary>
+            Server is down or is being upgraded.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.ServerOverloadedOrRateLimitExceeded">
+            <summary>
+            Server is overloaded with request or the rate limit has been exceeded.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.DropboxApiError.StorageQuotaExceeded">
+            <summary>
+            User is over quota.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.DropboxApiException">
+            <summary>
+            The exception that is thrown when a error occurs while consuming Dropbox REST API.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.DropboxApiException.#ctor(System.String,Spring.Social.Dropbox.Api.DropboxApiError)">
+            <summary>
+            Creates a new instance of the <see cref="T:Spring.Social.Dropbox.Api.DropboxApiException"/> class.
+            </summary>
+            <param name="message">A message about the exception.</param>
+            <param name="error">The Dropbox error.</param>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.DropboxApiException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new instance of the <see cref="T:Spring.Social.Dropbox.Api.DropboxApiException"/> class.
+            </summary>
+            <param name="message">A message about the exception.</param>
+            <param name="innerException">The inner exception that is the cause of the current exception.</param>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.DropboxApiException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Creates a new instance of the <see cref="T:Spring.Social.Dropbox.Api.DropboxApiException"/> class.
+            </summary>
+            <param name="info">
+            The <see cref="T:System.Runtime.Serialization.SerializationInfo"/>
+            that holds the serialized object data about the exception being thrown.
+            </param>
+            <param name="context">
+            The <see cref="T:System.Runtime.Serialization.StreamingContext"/>
+            that contains contextual information about the source or destination.
+            </param>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.DropboxApiException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the <see cref="T:System.Runtime.Serialization.SerializationInfo"/> with 
+            information about the exception.
+            </summary>
+            <param name="info">
+            The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds 
+            the serialized object data about the exception being thrown.
+            </param>
+            <param name="context">
+            The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual 
+            information about the source or destination.
+            </param>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxApiException.Error">
+            <summary>
+            Gets the Dropbox error.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.DropboxFile">
+            <summary>
+            Represents a Dropbox downloaded file with content and metadata information.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxFile.Metadata">
+            <summary>
+            Gets or sets the metadata information about the file.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxFile.Content">
+            <summary>
+            Gets or sets the array of bytes containing the file's content.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.DropboxLink">
+            <summary>
+            Represents a Dropbox shareable link to files or folders.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxLink.Url">
+            <summary>
+            Gets or sets the link url.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxLink.ExpireDate">
+            <summary>
+            Gets or sets the link's expiration date.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.DropboxProfile">
+            <summary>
+            Represents a Dropbox user's profile information.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.ID">
+            <summary>
+            Gets or sets the user's unique Dropbox ID
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.DisplayName">
+            <summary>
+            Gets or sets the user's display name.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.Email">
+            <summary>
+            Gets or sets the user's email address.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.ReferralLink">
+            <summary>
+            Gets or sets the user's referral link.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.Country">
+            <summary>
+            Gets or sets the user's ISO country code, if available.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.Quota">
+            <summary>
+            Gets or sets the user's quota (in bytes).
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.QuotaNormal">
+            <summary>
+            Gets or sets the user's used quota outside of shared folders (in bytes).
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.DropboxProfile.QuotaShared">
+            <summary>
+            Gets or sets the user's used quota in shared folders (in bytes).
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Entry">
+            <summary>
+            Represents metadata information about a file or folder.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Size">
+            <summary>
+            Gets or sets a human-readable description of the file size (translated by locale).
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Bytes">
+            <summary>
+            Gets or sets the file size in bytes.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.IsDirectory">
+            <summary>
+            Gets or sets a value indicating whether or not the given entry is a folder or not.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.IsDeleted">
+            <summary>
+            Gets or sets a value indicating whether or not the given entry is deleted 
+            (only included if deleted files are being returned).
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Revision">
+            <summary>
+            Gets or sets a unique identifier for the current revision of a file. 
+            <para/>
+            This field can be used to detect changes and avoid conflicts.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Hash">
+            <summary>
+            Gets or sets the hash of a folder's metadata useful in later calls to GetMetadata(). May be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.ThumbExists">
+            <summary>
+            Gets or sets a value indicating whether or not the file is an image 
+            and can be converted to a thumbnail via the GetThumbnails() method.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Icon">
+            <summary>
+            Gets or sets the name of the icon used to illustrate the file type in Dropbox's icon library.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.ModifiedDate">
+            <summary>
+            Gets or sets the last time the file was modified on Dropbox, 
+            in the standard date format (<see langword="null"/> for the root folder).
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Root">
+            <summary>
+            Gets or sets the root or top-level folder depending on your access level (Folder or Full access). 
+            <para/>
+            All paths returned are relative to this root level. Permitted values are either 'dropbox' or 'app_folder'.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.MimeType">
+            <summary>
+            Gets or sets the file's MIME type. May be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Path">
+            <summary>
+            Gets or sets the file or folder's path relative to root.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Entry.Contents">
+            <summary>
+            Gets or sets the list of children entries if this is a directory. May be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.FileRef">
+            <summary>
+            Represents a Dropbox reference to another user's Dropbox file.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.FileRef.Value">
+            <summary>
+            Gets or sets the reference value.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.FileRef.ExpireDate">
+            <summary>
+            Gets or sets the reference's expiration date.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.IDropbox">
+            <summary>
+            Interface specifying a basic set of operations for interacting with Dropbox.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetUserProfile">
+            <summary>
+            Retrieves the authenticated user's Dropbox profile details.
+            </summary>
+            <returns>A <see cref="T:Spring.Social.Dropbox.Api.DropboxProfile"/> object representing the user's profile.</returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.CreateFolder(System.String)">
+            <summary>
+            Creates a folder.
+            </summary>
+            <param name="path">The Dropbox path to the new folder to create relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the new folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.Delete(System.String)">
+            <summary>
+            Deletes a file or folder.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder to be deleted relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the deleted file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.Move(System.String,System.String)">
+            <summary>
+            Moves a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.CreateFileRef(System.String)">
+            <summary>
+            Creates a reference to another user's Dropbox file that can be used to 
+            copy files directly between two Dropbox accounts (with permission from both users) 
+            using the <see cref="M:CopyFileRef"/> method.
+            No need to download and re-upload files.
+            </summary>
+            <param name="path">The path to the file you want a reference.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.FileRef">reference to another user's Dropbox file</see>.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CopyFileRef"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.Copy(System.String,System.String)">
+            <summary>
+            Copies a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.CopyFileRef(System.String,System.String)">
+            <summary>
+            Copies another user's Dropbox file without the need to download and re-upload the file.
+            </summary>
+            <param name="fromFileRef">
+            The reference to another user's Dropbox file to be copied from, 
+            obtained by calling the <see cref="M:CreateFileRef"/> method.
+            </param>
+            <param name="toPath">The destination file path, including the new name for the file, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the copied file.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CreateFileRef"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.UploadFile(Spring.IO.IResource,System.String)">
+            <summary>
+            Uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <returns>A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.</returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.UploadFile(Spring.IO.IResource,System.String,System.Boolean,System.String)">
+            <summary>
+            Uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <param name="overwrite">
+            If <see langword="true"/>, the existing file will be overwritten by the new one. 
+            If <see langword="false"/>, the new file will be automatically renamed. 
+            The new name can be obtained from the returned metadata.
+            </param>
+            <param name="revision">
+            The revision of the file you're editing or null if this is a new upload. 
+            If <paramref name="revision"/> matches the latest version of the file on the user's Dropbox, that file will be replaced.
+            </param>
+            <returns>A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.</returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadFile(System.String)">
+            <summary>
+            Downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadFile(System.String,System.String)">
+            <summary>
+            Downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadPartialFile(System.String,System.Int64,System.Int64)">
+            <summary>
+            Downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadPartialFile(System.String,System.Int64,System.Int64,System.String)">
+            <summary>
+            Downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.Delta(System.String)">
+            <summary>
+            Keeps up with changes to files and folders in a user's Dropbox. 
+            <para/>
+            You can periodically call this method to get a list of metadatas, 
+            which are instructions on how to update your local state to match the server's state.
+            </summary>
+            <param name="cursor">
+            A value that is used to keep track of your current state. 
+            <para/>
+            On the first call, you should pass in <see langword="null"/>. 
+            On subsequent calls, pass in the cursor value returned by the previous call.
+            </param>
+            <returns>
+            A single <see cref="T:Spring.Social.Dropbox.Api.DeltaPage">delta page</see> of results. 
+            <para/>
+            The <see cref="T:Spring.Social.Dropbox.Api.DeltaPage"/>'s HasMore property will tell you whether the server has more pages of results to return. 
+            If the server doesn't have more results, wait for at least five minutes (preferably longer) and poll again.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetMetadata(System.String)">
+            <summary>
+            Retrieves file or folder metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetMetadata(System.String,Spring.Social.Dropbox.Api.MetadataParameters)">
+            <summary>
+            Retrieves file or folder metadata. 
+            May return <see langword="null"/> if an hash is provided through parameters.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <param name="parameters">The parameters for retrieving file and folder metadata.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetRevisions(System.String)">
+            <summary>
+            Obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetRevisions(System.String,System.Int32)">
+            <summary>
+            Obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revLimit">
+            The maximum numbers of revisions to retrieve. Default is 10, Max is 1,000.
+            </param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.Restore(System.String,System.String)">
+            <summary>
+            Restores a file path to a previous revision.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revision">The revision of the file to restore.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the restored file. 
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.Search(System.String,System.String)">
+            <summary>
+            Searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.Search(System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <param name="fileLimit">
+            The maximum numbers of file entries to retrieve. The maximum and default value is 1000.
+            </param>
+            <param name="includeDeleted">
+            If <see langword="true"/>, then files and folders that have been deleted will also be included in the search.
+            </param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetShareableLink(System.String)">
+            <summary>
+            Creates and returns a shareable link to files or folders.
+            </summary>
+            <param name="path">
+            The Dropbox path to the file or folder you want a sharable link to, relative to root.
+            </param>
+            <returns>
+            A shareable link to the file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetMediaLink(System.String)">
+            <summary>
+            Returns a link for streaming media files.
+            </summary>
+            <param name="path">
+            The Dropbox path to the media file you want a direct link to, relative to root.
+            </param>
+            <returns>
+            A direct link to the media file.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadThumbnail(System.String,Spring.Social.Dropbox.Api.ThumbnailFormat,Spring.Social.Dropbox.Api.ThumbnailSize)">
+            <summary>
+            Downloads a thumbnail for an image and its metadata.
+            </summary>
+            <param name="path">
+            The Dropbox path to the image file you want to thumbnail, relative to root.
+            </param>
+            <param name="format">The image format of the thumbnail to download.</param>
+            <param name="size">The size of the thumbnail to download.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the thumbnail's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetUserProfileAsync(System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxProfile}})">
+            <summary>
+            Asynchronously retrieves the authenticated user's Dropbox profile details.
+            </summary>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxProfile"/>object representing the user's profile.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.CreateFolderAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously creates a folder.
+            </summary>
+            <param name="path">The Dropbox path to the new folder to create relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the new folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DeleteAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously deletes a file or folder.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder to be deleted relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the deleted file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.MoveAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously moves a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.CreateFileRefAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.FileRef}})">
+            <summary>
+            Asynchronously creates a reference to another user's Dropbox file that can be used to 
+            copy files directly between two Dropbox accounts (with permission from both users) 
+            using the <see cref="M:CopyFileRefAsync"/> method.
+            No need to download and re-upload files.
+            </summary>
+            <param name="path">The path to the file you want a reference.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.FileRef">reference to another user's Dropbox file</see>.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CopyFileRefAsync"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.CopyAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously copies a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.CopyFileRefAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously copies another user's Dropbox file without the need to download and re-upload the file.
+            </summary>
+            <param name="fromFileRef">
+            The reference to another user's Dropbox file to be copied from, 
+            obtained by calling the <see cref="M:CreateFileRefAsync"/> method.
+            </param>
+            <param name="toPath">The destination file path, including the new name for the file, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the copied file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CreateFileRefAsync"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.UploadFileAsync(Spring.IO.IResource,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.UploadFileAsync(Spring.IO.IResource,System.String,System.Boolean,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <param name="overwrite">
+            If <see langword="true"/>, the existing file will be overwritten by the new one. 
+            If <see langword="false"/>, the new file will be automatically renamed. 
+            The new name can be obtained from the returned metadata.
+            </param>
+            <param name="revision">
+            The revision of the file you're editing or null if this is a new upload.  
+            If <paramref name="revision"/> matches the latest version of the file on the user's Dropbox, that file will be replaced.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadFileAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadFileAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadPartialFileAsync(System.String,System.Int64,System.Int64,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadPartialFileAsync(System.String,System.Int64,System.Int64,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DeltaAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DeltaPage}})">
+            <summary>
+            Asynchronously keeps up with changes to files and folders in a user's Dropbox. 
+            <para/>
+            You can periodically call this method to get a list of metadatas, 
+            which are instructions on how to update your local state to match the server's state.
+            </summary>
+            <param name="cursor">
+            A value that is used to keep track of your current state. 
+            <para/>
+            On the first call, you should pass in <see langword="null"/>. 
+            On subsequent calls, pass in the cursor value returned by the previous call.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a single <see cref="T:Spring.Social.Dropbox.Api.DeltaPage">delta page</see> of results. 
+            <para/>
+            The <see cref="T:Spring.Social.Dropbox.Api.DeltaPage"/>'s HasMore property will tell you whether the server has more pages of results to return. 
+            If the server doesn't have more results, wait for at least five minutes (preferably longer) and poll again.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetMetadataAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously retrieves file or folder metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetMetadataAsync(System.String,Spring.Social.Dropbox.Api.MetadataParameters,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously retrieves file or folder metadata. 
+            May return <see langword="null"/> if an hash is provided through parameters.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <param name="parameters">The parameters for retrieving file and folder metadata.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetRevisionsAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetRevisionsAsync(System.String,System.Int32,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revLimit">
+            The maximum numbers of revisions to retrieve. Default is 10, Max is 1,000.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.RestoreAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously restores a file path to a previous revision.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revision">The revision of the file to restore.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the restored file. 
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.SearchAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.SearchAsync(System.String,System.String,System.Int32,System.Boolean,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <param name="fileLimit">
+            The maximum numbers of file entries to retrieve. The maximum and default value is 1000.
+            </param>
+            <param name="includeDeleted">
+            If <see langword="true"/>, then files and folders that have been deleted will also be included in the search.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetShareableLinkAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxLink}})">
+            <summary>
+            Asynchronously creates and returns a shareable link to files or folders.
+            </summary>
+            <param name="path">
+            The Dropbox path to the file or folder you want a sharable link to, relative to root.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a shareable link to the file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.GetMediaLinkAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxLink}})">
+            <summary>
+            Asynchronously returns a link for streaming media files.
+            </summary>
+            <param name="path">
+            The Dropbox path to the media file you want a direct link to, relative to root.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a direct link to the media file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.IDropbox.DownloadThumbnailAsync(System.String,Spring.Social.Dropbox.Api.ThumbnailFormat,Spring.Social.Dropbox.Api.ThumbnailSize,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads a thumbnail for an image and its metadata.
+            </summary>
+            <param name="path">
+            The Dropbox path to the image file you want to thumbnail, relative to root.
+            </param>
+            <param name="format">The image format of the thumbnail to download.</param>
+            <param name="size">The size of the thumbnail to download.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the thumbnail's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.IDropbox.AccessLevel">
+            <summary>
+            Gets the application access level. 
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.IDropbox.Locale">
+            <summary>
+            Gets or sets the locale parameter to specify language settings of content responses. 
+            <para/>
+            Uses IETF language tag (ex: "pt-BR" for Brazilian Portuguese).
+            <para/>
+            Default is <see langword="null"/> for Dropbox server's locale.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.IDropbox.RestOperations">
+            <summary>
+            Gets the underlying <see cref="T:Spring.Rest.Client.IRestOperations"/> object allowing for consumption of Dropbox endpoints 
+            that may not be otherwise covered by the API binding. 
+            </summary>
+            <remarks>
+            The <see cref="T:Spring.Rest.Client.IRestOperations"/> object returned is configured to include an OAuth "Authorization" header on all requests.
+            </remarks>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.DropboxErrorHandler">
+            <summary>
+            Implementation of the <see cref="T:Spring.Rest.Client.IResponseErrorHandler"/> that handles errors from Dropbox's REST API, 
+            interpreting them into appropriate exceptions.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxErrorHandler.HandleError(System.Uri,Spring.Http.HttpMethod,Spring.Http.HttpResponseMessage{System.Byte[]})">
+            <summary>
+            Handles the error in the given response. 
+            <para/>
+            This method is only called when HasError() method has returned <see langword="true"/>.
+            </summary>
+            <remarks>
+            This implementation throws appropriate exception if the response status code 
+            is a client code error (4xx) or a server code error (5xx). 
+            </remarks>
+            <param name="requestUri">The request URI.</param>
+            <param name="requestMethod">The request method.</param>
+            <param name="response">The response message with the error.</param>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.DropboxFileHttpMessageConverter">
+            <summary>
+            Implementation of <see cref="T:Spring.Http.Converters.IHttpMessageConverter"/> that can read <see cref="T:Spring.Social.Dropbox.Api.DropboxFile">Dropbox file's content and metadata</see>.
+            <para/>
+            Reads file's content from message body and file's metadata from HTTP header 'x-dropbox-metadata'.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxFileHttpMessageConverter.#ctor(Spring.Json.JsonMapper)">
+            <summary>
+            Creates a new instance of the <see cref="T:Spring.Social.Dropbox.Api.Impl.DropboxFileHttpMessageConverter"/>.
+            </summary>
+            <param name="jsonMapper">A <see cref="T:Spring.Json.JsonMapper"/> to use for converting custom types.</param>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxFileHttpMessageConverter.Supports(System.Type)">
+            <summary>
+            Indicates whether the given class is supported by this converter.
+            </summary>
+            <param name="type">The type to test for support.</param>
+            <returns><see langword="true"/> if supported; otherwise <see langword="false"/></returns>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxFileHttpMessageConverter.ReadInternal``1(Spring.Http.IHttpInputMessage)">
+            <summary>
+            Abstract template method that reads the actualy object. Invoked from <see cref="M:Read"/>.
+            </summary>
+            <typeparam name="T">The type of object to return.</typeparam>
+            <param name="message">The HTTP message to read from.</param>
+            <returns>The converted object.</returns>
+            <exception cref="T:Spring.Http.Converters.HttpMessageNotReadableException">In case of conversion errors</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxFileHttpMessageConverter.WriteInternal(System.Object,Spring.Http.IHttpOutputMessage)">
+            <summary>
+            Abstract template method that writes the actual body. Invoked from <see cref="M:Write"/>.
+            </summary>
+            <param name="content">The object to write to the HTTP message.</param>
+            <param name="message">The HTTP message to write to.</param>
+            <exception cref="T:Spring.Http.Converters.HttpMessageNotWritableException">In case of conversion errors</exception>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.DropboxTemplate">
+            <summary>
+            This is the central class for interacting with Dropbox.
+            </summary>
+            <remarks>
+            All Dropbox operations require OAuth authentication.
+            </remarks>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.#ctor(System.String,System.String,System.String,System.String,Spring.Social.Dropbox.Api.AccessLevel)">
+            <summary>
+            Creates a new instance of <see cref="T:Spring.Social.Dropbox.Api.Impl.DropboxTemplate"/>.
+            </summary>
+            <param name="consumerKey">The application's API key.</param>
+            <param name="consumerSecret">The application's API secret.</param>
+            <param name="accessToken">An access token acquired through OAuth authentication with Dropbox.</param>
+            <param name="accessTokenSecret">An access token secret acquired through OAuth authentication with Dropbox.</param>
+            <param name="accessLevel">The application access level.</param>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetUserProfile">
+            <summary>
+            Retrieves the authenticated user's Dropbox profile details.
+            </summary>
+            <returns>A <see cref="T:Spring.Social.Dropbox.Api.DropboxProfile"/> object representing the user's profile.</returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.CreateFolder(System.String)">
+            <summary>
+            Creates a folder.
+            </summary>
+            <param name="path">The Dropbox path to the new folder to create relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the new folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Delete(System.String)">
+            <summary>
+            Deletes a file or folder.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder to be deleted relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the deleted file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Move(System.String,System.String)">
+            <summary>
+            Moves a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.CreateFileRef(System.String)">
+            <summary>
+            Creates a reference to another user's Dropbox file that can be used to 
+            copy files directly between two Dropbox accounts (with permission from both users) 
+            using the <see cref="M:CopyFileRef"/> method.
+            No need to download and re-upload files.
+            </summary>
+            <param name="path">The path to the file you want a reference.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.FileRef">reference to another user's Dropbox file</see>.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CopyFileRef"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Copy(System.String,System.String)">
+            <summary>
+            Copies a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.CopyFileRef(System.String,System.String)">
+            <summary>
+            Copies another user's Dropbox file without the need to download and re-upload the file.
+            </summary>
+            <param name="fromFileRef">
+            The reference to another user's Dropbox file to be copied from, 
+            obtained by calling the <see cref="M:CreateFileRef"/> method.
+            </param>
+            <param name="toPath">The destination file path, including the new name for the file, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the copied file.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CreateFileRef"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.UploadFile(Spring.IO.IResource,System.String)">
+            <summary>
+            Uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <returns>A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.</returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.UploadFile(Spring.IO.IResource,System.String,System.Boolean,System.String)">
+            <summary>
+            Uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <param name="overwrite">
+            If <see langword="true"/>, the existing file will be overwritten by the new one. 
+            If <see langword="false"/>, the new file will be automatically renamed. 
+            The new name can be obtained from the returned metadata.
+            </param>
+            <param name="revision">
+            The revision of the file you're editing. 
+            If <paramref name="revision"/> matches the latest version of the file on the user's Dropbox, that file will be replaced.
+            </param>
+            <returns>A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.</returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadFile(System.String)">
+            <summary>
+            Downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadFile(System.String,System.String)">
+            <summary>
+            Downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadPartialFile(System.String,System.Int64,System.Int64)">
+            <summary>
+            Downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadPartialFile(System.String,System.Int64,System.Int64,System.String)">
+            <summary>
+            Downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Delta(System.String)">
+            <summary>
+            Keeps up with changes to files and folders in a user's Dropbox. 
+            <para/>
+            You can periodically call this method to get a list of metadatas, 
+            which are instructions on how to update your local state to match the server's state.
+            </summary>
+            <param name="cursor">
+            A value that is used to keep track of your current state. 
+            <para/>
+            On the first call, you should pass in <see langword="null"/>. 
+            On subsequent calls, pass in the cursor value returned by the previous call.
+            </param>
+            <returns>
+            A single <see cref="T:Spring.Social.Dropbox.Api.DeltaPage">delta page</see> of results. 
+            <para/>
+            The <see cref="T:Spring.Social.Dropbox.Api.DeltaPage"/>'s HasMore property will tell you whether the server has more pages of results to return. 
+            If the server doesn't have more results, wait for at least five minutes (preferably longer) and poll again.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetMetadata(System.String)">
+            <summary>
+            Retrieves file or folder metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetMetadata(System.String,Spring.Social.Dropbox.Api.MetadataParameters)">
+            <summary>
+            Retrieves file or folder metadata. 
+            May return <see langword="null"/> if an hash is provided through parameters.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <param name="parameters">The parameters for retrieving file and folder metadata.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetRevisions(System.String)">
+            <summary>
+            Obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetRevisions(System.String,System.Int32)">
+            <summary>
+            Obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revLimit">
+            The maximum numbers of revisions to retrieve. Default is 10, Max is 1,000.
+            </param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Restore(System.String,System.String)">
+            <summary>
+            Restores a file path to a previous revision.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revision">The revision of the file to restore.</param>
+            <returns>
+            A metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the restored file. 
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Search(System.String,System.String)">
+            <summary>
+            Searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Search(System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <param name="fileLimit">
+            The maximum numbers of file entries to retrieve. The maximum and default value is 1000.
+            </param>
+            <param name="includeDeleted">
+            If <see langword="true"/>, then files and folders that have been deleted will also be included in the search.
+            </param>
+            <returns>
+            A list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetShareableLink(System.String)">
+            <summary>
+            Creates and returns a shareable link to files or folders.
+            </summary>
+            <param name="path">
+            The Dropbox path to the file or folder you want a sharable link to, relative to root.
+            </param>
+            <returns>
+            A shareable link to the file or folder.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetMediaLink(System.String)">
+            <summary>
+            Returns a link for streaming media files.
+            </summary>
+            <param name="path">
+            The Dropbox path to the media file you want a direct link to, relative to root.
+            </param>
+            <returns>
+            A direct link to the media file.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadThumbnail(System.String,Spring.Social.Dropbox.Api.ThumbnailFormat,Spring.Social.Dropbox.Api.ThumbnailSize)">
+            <summary>
+            Downloads a thumbnail for an image and its metadata.
+            </summary>
+            <param name="path">
+            The Dropbox path to the image file you want to thumbnail, relative to root.
+            </param>
+            <param name="format">The image format of the thumbnail to download.</param>
+            <param name="size">The size of the thumbnail to download.</param>
+            <returns>
+            A <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the thumbnail's content and metadata.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetUserProfileAsync(System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxProfile}})">
+            <summary>
+            Asynchronously retrieves the authenticated user's Dropbox profile details.
+            </summary>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxProfile"/>object representing the user's profile.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.CreateFolderAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously creates a folder.
+            </summary>
+            <param name="path">The Dropbox path to the new folder to create relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the new folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DeleteAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously deletes a file or folder.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder to be deleted relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the deleted file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.MoveAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously moves a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.CreateFileRefAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.FileRef}})">
+            <summary>
+            Asynchronously creates a reference to another user's Dropbox file that can be used to 
+            copy files directly between two Dropbox accounts (with permission from both users) 
+            using the <see cref="M:CopyFileRefAsync"/> method.
+            No need to download and re-upload files.
+            </summary>
+            <param name="path">The path to the file you want a reference.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.FileRef">reference to another user's Dropbox file</see>.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CopyFileRefAsync"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.CopyAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously copies a file or folder to a new location.
+            </summary>
+            <param name="fromPath">The path to the file or folder to be copied from, relative to root.</param>
+            <param name="toPath">The destination path, including the new name for the file or folder, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the moved file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.CopyFileRefAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously copies another user's Dropbox file without the need to download and re-upload the file.
+            </summary>
+            <param name="fromFileRef">
+            The reference to another user's Dropbox file to be copied from, 
+            obtained by calling the <see cref="M:CreateFileRefAsync"/> method.
+            </param>
+            <param name="toPath">The destination file path, including the new name for the file, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the copied file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+            <seealso cref="M:CreateFileRefAsync"/>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.UploadFileAsync(Spring.IO.IResource,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.UploadFileAsync(Spring.IO.IResource,System.String,System.Boolean,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously uploads a file.
+            </summary>
+            <param name="file">The file resource to be uploaded.</param>
+            <param name="path">
+            The path to the file you want to write to, relative to root. 
+            This parameter should not point to a folder.
+            </param>
+            <param name="overwrite">
+            If <see langword="true"/>, the existing file will be overwritten by the new one. 
+            If <see langword="false"/>, the new file will be automatically renamed. 
+            The new name can be obtained from the returned metadata.
+            </param>
+            <param name="revision">
+            The revision of the file you're editing. 
+            If <paramref name="revision"/> matches the latest version of the file on the user's Dropbox, that file will be replaced.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the uploaded file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadFileAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadFileAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadPartialFileAsync(System.String,System.Int64,System.Int64,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadPartialFileAsync(System.String,System.Int64,System.Int64,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads part of a file and its metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file you want to retrieve, relative to root.</param>
+            <param name="startOffset">The zero-based starting position of the part file.</param>
+            <param name="length">The number of bytes of the part file.</param>
+            <param name="revision">
+            The revision of the file to retrieve, or <see langword="null"/> for the latest version.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the part of file's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DeltaAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DeltaPage}})">
+            <summary>
+            Asynchronously keeps up with changes to files and folders in a user's Dropbox. 
+            <para/>
+            You can periodically call this method to get a list of metadatas, 
+            which are instructions on how to update your local state to match the server's state.
+            </summary>
+            <param name="cursor">
+            A value that is used to keep track of your current state. 
+            <para/>
+            On the first call, you should pass in <see langword="null"/>. 
+            On subsequent calls, pass in the cursor value returned by the previous call.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a single <see cref="T:Spring.Social.Dropbox.Api.DeltaPage">delta page</see> of results. 
+            <para/>
+            The <see cref="T:Spring.Social.Dropbox.Api.DeltaPage"/>'s HasMore property will tell you whether the server has more pages of results to return. 
+            If the server doesn't have more results, wait for at least five minutes (preferably longer) and poll again.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetMetadataAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously retrieves file or folder metadata.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetMetadataAsync(System.String,Spring.Social.Dropbox.Api.MetadataParameters,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously retrieves file or folder metadata. 
+            May return <see langword="null"/> if an hash is provided through parameters.
+            </summary>
+            <param name="path">The Dropbox path to the file or folder, relative to root.</param>
+            <param name="parameters">The parameters for retrieving file and folder metadata.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetRevisionsAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetRevisionsAsync(System.String,System.Int32,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously obtains metadata for the previous revisions of a file.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revLimit">
+            The maximum numbers of revisions to retrieve. Default is 10, Max is 1,000.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see>.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.RestoreAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.Entry}})">
+            <summary>
+            Asynchronously restores a file path to a previous revision.
+            </summary>
+            <param name="path">The Dropbox path to the file, relative to root.</param>
+            <param name="revision">The revision of the file to restore.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a metadata <see cref="T:Spring.Social.Dropbox.Api.Entry"/> for the restored file. 
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.SearchAsync(System.String,System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.SearchAsync(System.String,System.String,System.Int32,System.Boolean,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{System.Collections.Generic.IList{Spring.Social.Dropbox.Api.Entry}}})">
+            <summary>
+            Asynchronously searches for all files and folders that match the search query.
+            </summary>
+            <param name="path">The Dropbox path to the folder you want to search from, relative to root.</param>
+            <param name="query">The search string. Must be at least three characters long.</param>
+            <param name="fileLimit">
+            The maximum numbers of file entries to retrieve. The maximum and default value is 1000.
+            </param>
+            <param name="includeDeleted">
+            If <see langword="true"/>, then files and folders that have been deleted will also be included in the search.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a list of metadata <see cref="T:Spring.Social.Dropbox.Api.Entry">entries</see> for any matching files and folders.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetShareableLinkAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxLink}})">
+            <summary>
+            Asynchronously creates and returns a shareable link to files or folders.
+            </summary>
+            <param name="path">
+            The Dropbox path to the file or folder you want a sharable link to, relative to root.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a shareable link to the file or folder.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetMediaLinkAsync(System.String,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxLink}})">
+            <summary>
+            Asynchronously returns a link for streaming media files.
+            </summary>
+            <param name="path">
+            The Dropbox path to the media file you want a direct link to, relative to root.
+            </param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a direct link to the media file.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.DownloadThumbnailAsync(System.String,Spring.Social.Dropbox.Api.ThumbnailFormat,Spring.Social.Dropbox.Api.ThumbnailSize,System.Action{Spring.Rest.Client.RestOperationCompletedEventArgs{Spring.Social.Dropbox.Api.DropboxFile}})">
+            <summary>
+            Asynchronously downloads a thumbnail for an image and its metadata.
+            </summary>
+            <param name="path">
+            The Dropbox path to the image file you want to thumbnail, relative to root.
+            </param>
+            <param name="format">The image format of the thumbnail to download.</param>
+            <param name="size">The size of the thumbnail to download.</param>
+            <param name="operationCompleted">
+            The 'Action&lt;&gt;' to perform when the asynchronous request completes. 
+            Provides a <see cref="T:Spring.Social.Dropbox.Api.DropboxFile"/> object containing the thumbnail's content and metadata.
+            </param>
+            <returns>
+            A <see cref="T:Spring.Rest.Client.RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+            </returns>
+            <exception cref="T:Spring.Social.Dropbox.Api.DropboxApiException">If there is an error while communicating with Dropbox.</exception>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.ConfigureRestTemplate(Spring.Rest.Client.RestTemplate)">
+            <summary>
+            Enables customization of the <see cref="T:Spring.Rest.Client.RestTemplate"/> used to consume provider API resources.
+            </summary>
+            <remarks>
+            An example use case might be to configure a custom error handler. 
+            Note that this method is called after the RestTemplate has been configured with the message converters returned from GetMessageConverters().
+            </remarks>
+            <param name="restTemplate">The RestTemplate to configure.</param>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.GetMessageConverters">
+            <summary>
+            Returns a list of <see cref="T:Spring.Http.Converters.IHttpMessageConverter"/>s to be used by the internal <see cref="T:Spring.Rest.Client.RestTemplate"/>.
+            </summary>
+            <remarks>
+            This implementation adds <see cref="T:Spring.Http.Converters.Json.SpringJsonHttpMessageConverter"/> and <see cref="T:Spring.Http.Converters.ByteArrayHttpMessageConverter"/> to the default list.
+            </remarks>
+            <returns>
+            The list of <see cref="T:Spring.Http.Converters.IHttpMessageConverter"/>s to be used by the internal <see cref="T:Spring.Rest.Client.RestTemplate"/>.
+            </returns>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.AccessLevel">
+            <summary>
+            Gets the application access level. 
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.Locale">
+            <summary>
+            Gets or sets the locale parameter to specify language settings of content responses. 
+            <para/>
+            Uses IETF language tag (ex: "pt-BR" for Brazilian Portuguese).
+            <para/>
+            Default is <see langword="null"/> for Dropbox server's locale.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.Impl.DropboxTemplate.RestOperations">
+            <summary>
+            Gets the underlying <see cref="T:Spring.Rest.Client.IRestOperations"/> object allowing for consumption of Dropbox endpoints 
+            that may not be otherwise covered by the API binding. 
+            </summary>
+            <remarks>
+            The <see cref="T:Spring.Rest.Client.IRestOperations"/> object returned is configured to include an OAuth "Authorization" header on all requests.
+            </remarks>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.Json.DeltaPageDeserializer">
+            <summary>
+            JSON deserializer for delta pages.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.Json.DropboxLinkDeserializer">
+            <summary>
+            JSON deserializer for Dropbox shareable link.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.Json.DropboxProfileDeserializer">
+            <summary>
+            JSON deserializer for Dropbox user's profile.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.Json.EntryDeserializer">
+            <summary>
+            JSON deserializer for Dropbox metadata entry.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.Json.EntryListDeserializer">
+            <summary>
+            JSON deserializer for list of entries.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.Json.FileRefDeserializer">
+            <summary>
+            JSON deserializer for Dropbox shareable link.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.Impl.Json.JsonUtils">
+            <summary>
+            Utility methods for generating and parsing JSON strings.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.MetadataParameters">
+            <summary>
+            Defines parameters for retrieving file or folder metadata.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Api.MetadataParameters.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:Spring.Social.Dropbox.Api.MetadataParameters"/> class.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.MetadataParameters.FileLimit">
+            <summary>
+            Gets or sets the maximum numbers of childrens to retrieve when listing a folder. Default is 10,000 if set to 0.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.MetadataParameters.Hash">
+            <summary>
+            Gets or sets the metadata hash from a previous folder listing,
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.MetadataParameters.IncludeContents">
+            <summary>
+            Gets or sets a value indicating whether or not the list of metadata entries for the contents of the folder is retrieved. 
+            Default is <see langword="true"/>.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.MetadataParameters.IncludeDeleted">
+            <summary>
+            Gets or sets a value indicating whether or not deleted files and folders are retrieved.
+            </summary>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Api.MetadataParameters.Revision">
+            <summary>
+            Gets or sets the revision of the file metadata to retrieve.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.ThumbnailFormat">
+            <summary>
+            Defines the Dropbox image format of thumbnails.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.ThumbnailFormat.Jpeg">
+            <summary>
+            JPEG prefered format for images that are photos.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.ThumbnailFormat.Png">
+            <summary>
+            PNG prefered format for images that are screenshots and digital art.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Api.ThumbnailSize">
+            <summary>
+            Defines the Dropbox image sizes of thumbnails.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.ThumbnailSize.Mini">
+            <summary>
+            Fits within 32x32.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.ThumbnailSize.Small">
+            <summary>
+            Fits within 64x64.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.ThumbnailSize.Medium">
+            <summary>
+            Fits within 128x128.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.ThumbnailSize.Large">
+            <summary>
+            Fits within 640x480.
+            </summary>
+        </member>
+        <member name="F:Spring.Social.Dropbox.Api.ThumbnailSize.ExtraLarge">
+            <summary>
+            Fits within 1024x768.
+            </summary>
+        </member>
+        <member name="T:Spring.Social.Dropbox.Connect.DropboxServiceProvider">
+            <summary>
+            Dropbox <see cref="T:System.IServiceProvider"/> implementation.
+            </summary>
+            <author>Bruno Baia</author>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Connect.DropboxServiceProvider.#ctor(System.String,System.String,Spring.Social.Dropbox.Api.AccessLevel)">
+            <summary>
+            Creates a new instance of <see cref="T:Spring.Social.Dropbox.Connect.DropboxServiceProvider"/>.
+            </summary>
+            <param name="consumerKey">The application's API key.</param>
+            <param name="consumerSecret">The application's API secret.</param>
+            <param name="accessLevel">The application access level.</param>
+        </member>
+        <member name="M:Spring.Social.Dropbox.Connect.DropboxServiceProvider.GetApi(System.String,System.String)">
+            <summary>
+            Returns an API interface allowing the client application to access protected resources on behalf of a user.
+            </summary>
+            <param name="accessToken">The API access token.</param>
+            <param name="secret">The access token secret.</param>
+            <returns>A binding to the service provider's API.</returns>
+        </member>
+        <member name="P:Spring.Social.Dropbox.Connect.DropboxServiceProvider.AccessLevel">
+            <summary>
+            Gets the application access level. 
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2 @@
+﻿<%@ ServiceHost language="C#" Debug="true" 
+    Service="StringInAnotherApperancesService.StringInAnotherApperancesService" %>

@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. DayOfWeekInBulgarianService", "DayOfWeekInBulgarianService\1. DayOfWeekInBulgarianService.csproj", "{8A6071AC-60B5-448F-91EE-7F47C21233E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks 1-2", "Tasks 1-2", "{C03D9AF9-029C-4DFC-858C-B0F3A2E90D03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. DayOfWeekInBulgarianConsoleClient", "DayOfWeekInBulgarianConsoleClient\2. DayOfWeekInBulgarianConsoleClient.csproj", "{844D4660-9918-4B4E-BE92-D045637B9EB5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8A6071AC-60B5-448F-91EE-7F47C21233E6} = {8A6071AC-60B5-448F-91EE-7F47C21233E6}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks 3-5", "Tasks 3-5", "{AFC4B9D9-3790-4479-AADB-FE550814E77C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. StringInAnotherApperancesService.Library", "StringInAnotherApperancesService\3. StringInAnotherApperancesService.Library.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. StringInAnotherApperancesService.App", "StringInAnotherApperancesService.App\4. StringInAnotherApperancesService.App.csproj", "{C80066AA-C03C-4A40-9618-4A4ED2C152A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5. StringInAnotherApperancesService.Client", "StringInAnotherApperancesService.Client\5. StringInAnotherApperancesService.Client.csproj", "{AEBDDD3E-DF38-4359-BBC8-60E353193E25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A6071AC-60B5-448F-91EE-7F47C21233E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6071AC-60B5-448F-91EE-7F47C21233E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6071AC-60B5-448F-91EE-7F47C21233E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6071AC-60B5-448F-91EE-7F47C21233E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{844D4660-9918-4B4E-BE92-D045637B9EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{844D4660-9918-4B4E-BE92-D045637B9EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{844D4660-9918-4B4E-BE92-D045637B9EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{844D4660-9918-4B4E-BE92-D045637B9EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80066AA-C03C-4A40-9618-4A4ED2C152A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80066AA-C03C-4A40-9618-4A4ED2C152A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80066AA-C03C-4A40-9618-4A4ED2C152A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80066AA-C03C-4A40-9618-4A4ED2C152A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEBDDD3E-DF38-4359-BBC8-60E353193E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEBDDD3E-DF38-4359-BBC8-60E353193E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEBDDD3E-DF38-4359-BBC8-60E353193E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEBDDD3E-DF38-4359-BBC8-60E353193E25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A6071AC-60B5-448F-91EE-7F47C21233E6} = {C03D9AF9-029C-4DFC-858C-B0F3A2E90D03}
+		{844D4660-9918-4B4E-BE92-D045637B9EB5} = {C03D9AF9-029C-4DFC-858C-B0F3A2E90D03}
+		{15B3E0D2-6217-493A-A690-158C497F5318} = {AFC4B9D9-3790-4479-AADB-FE550814E77C}
+		{C80066AA-C03C-4A40-9618-4A4ED2C152A1} = {AFC4B9D9-3790-4479-AADB-FE550814E77C}
+		{AEBDDD3E-DF38-4359-BBC8-60E353193E25} = {AFC4B9D9-3790-4479-AADB-FE550814E77C}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Spring.Social.Core</id>
+    <version>1.0.1</version>
+    <title>Spring.Social.Core</title>
+    <authors>SpringSource</authors>
+    <owners>SpringSource</owners>
+    <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
+    <projectUrl>http://www.springframework.net/social/</projectUrl>
+    <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Spring.NET Social Framework</description>
+    <summary>Allows you to connect your applications with SaaS providers such as Facebook and Twitter.</summary>
+    <language>en-US</language>
+    <tags>Spring Social REST HTTP OAuth</tags>
+    <dependencies>
+      <dependency id="Spring.Rest" version="[1.1.1]" />
+    </dependencies>
+    <references>
+      <reference file="Spring.Social.Core.dll" />
+    </references>
+  </metadata>
+</package>

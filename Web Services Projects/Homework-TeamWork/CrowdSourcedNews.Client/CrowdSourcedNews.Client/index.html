@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Styles/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+    </div>
+
+    <script src="Scripts/class.js"></script>
+    <script src="Scripts/jquery-2.0.2.js"></script>
+    <script src="Scripts/q.js"></script>
+    <script src="Scripts/cryptojs-sha1.js"></script>
+    <script src="Scripts/http-requester.js"></script>
+    <script src="Scripts/controllers.js"></script>
+    <script src="Scripts/persister.js"></script>    
+    
+     <div 
+        pub-key="pub-c-1e071e25-f030-4efe-82e4-19bb24939b3b" 
+        sub-key="sub-c-4bd5dcc4-04e5-11e3-991c-02ee2ddab7fe" 
+        ssl="off" origin="pubsub.pubnub.com" id="pubnub">
+        
+    </div>
+
+    <script src='http://cdn.pubnub.com/pubnub-3.5.3.min.js'></script>
+    
+    <script>
+       
+    </script>
+
+    <script>
+        (function () {
+            var persister = persisters.getPersister("http://megasxlr-new.apphb.com/api/");
+            var controller = controllers.getController(persister);
+            controller.loadUI(".container");
+            
+
+            (function () {
+                PUBNUB.subscribe({
+                    channel: "articles-channel",
+                    callback: function (message) {
+                        console.log(message);
+                        if (persister.isLoggedIn()) {
+                            controller.loadArticlesUI(message);
+                        }
+                    }
+                });
+            })();
+
+
+        })();
+        
+        
+    </script>
+</body>
+</html>

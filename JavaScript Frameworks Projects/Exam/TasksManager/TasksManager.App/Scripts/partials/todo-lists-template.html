@@ -1,0 +1,9 @@
+﻿<button id="btn-back" class="btn" onclick="history.back();">Back</button>
+<ul data-template="todo-lists-template" data-bind="source: todoLists"></ul>
+<a class="btn" href="#/logout">Logout</a>
+
+<script type="text/x-kendo-template" id="todo-lists-template">
+    <li>
+        <a class="todo-list" href="\#/todo-list/#= id #" data-bind="text: title"></a>
+    </li>
+</script>
