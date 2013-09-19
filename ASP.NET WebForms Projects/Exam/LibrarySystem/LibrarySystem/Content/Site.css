@@ -1,0 +1,114 @@
+﻿body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* styles for removing the background from form */
+.no-color {
+    background-color: white;
+    border-style: none;
+}
+
+.search-button {
+    padding-top: 15px;
+    float: right;
+}
+
+ul li {
+    padding-bottom: 5px;
+}
+
+.book-title {
+    padding: 10px;
+    font-size: 16pt;
+    background: #EEEEEE;
+}
+
+.book-author {
+    font-size: 12pt;
+    font-style: italic;
+}
+
+.book-isbn {
+    font-size: 10pt;
+    font-style: italic;
+}
+
+.book-description {
+    font-size: 10pt;
+}
+
+.search-results ul li {
+    margin: 5px;
+}
+
+.back-link {
+    padding-top: 10px;
+}
+
+.create-link {
+    padding-top: 10px;
+}
+
+.gridview td, th {
+    padding: 5px 7px 5px 7px;
+    border-style: dotted;
+    border-color: #BBB;
+}
+
+.gridview th {
+    background: #eee;
+}
+
+.gridview table td {
+    padding: 0px 5px 0px 0px;
+    border-style: none;
+}
+
+.panel {
+    display: inline-block;
+    padding: 5px 15px 10px 15px;
+    margin-top: 20px;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: #BBB;
+    border-radius: 6px;
+}
+
+    .panel h2 {
+        background: #EEE;
+        font-size: 20px;
+        padding-left: 10px;
+        border-radius: 4px;
+    }
+
+    .panel label {
+        display: inline-block;
+    }
+
+        .panel label span {
+            display: inline-block;
+            width: 85px;
+        }
+
+        .panel label * {
+            margin-top: 8px;
+            width: 300px;
+        }
+
+.link-button {
+    background: #E0E0E0;
+    padding: 3px 8px 3px 8px;
+    border-radius: 2px;
+    margin: 0px 2px 0px 2px;
+}
+
+    .link-button:hover {
+        background: #AAA;
+        color: #EEF;
+        text-decoration: none;
+    }
