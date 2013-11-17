@@ -1,0 +1,114 @@
+﻿<div id="news-details-view"
+     data-role="view"
+     data-id="news-details-view"
+     data-layout="news-details-layout"
+     data-title="News details"
+     data-model="app.news"
+     data-show="initialize"
+     data-transition="slide">
+    <h1 data-bind="text: title"></h1>
+    <div data-bind="text: author"></div>
+    <div data-bind="text: content"></div>
+    <div data-bind="text: date"></div>
+    <div data-bind="text: categoryName"></div>
+    <img id="news-image" />
+    <div style="width: 200px; height: 200px; position: relative;" id="map-canvas"></div>
+    <div>Votes: <span data-bind="text: votes"></span></div>
+
+    <a id="vote-btn" data-role="button" data-bind="click: vote">
+        <img src="styles/images/like.png" alt="Like" width="30" height="25" />
+    </a>
+
+    <div>
+        <a id="comments-btn" onclick="loadComments()">View comments</a>
+        <a data-role="button" href="#modalview-comment" data-rel="modalview" id="comment-modalview-open-btn">Comment</a>
+
+        <div data-role="modalview" id="modalview-comment" style="width: 95%; height: 16em;">
+            <div data-role="header">
+                <div data-role="navbar">
+                    <span>Comment</span>
+                    <a data-click="closeModalViewComment" data-role="button" data-align="left">Cancel</a>
+                </div>
+            </div>
+
+            <textarea style="height: 100px; width: 250px;" id="comment-tb" placeholder="Enter comment..."></textarea>
+            <a onclick="comment()" id="modalview-comment-btn" data-role="button">Comment</a>
+        </div>
+    </div>
+
+    <ul id="comments-listview" style="display: none" data-role="listview" data-style="inset"></ul>
+</div>
+
+<script type="text/x-kendo-template" id="commentTemplate">
+    <div>
+        <div>${content}</div>
+        <div>by ${author} on ${date}</div>
+    </div>
+</script>
+
+<script>
+    function initialize() {
+        var imageContainer = $("#news-image");
+        if (app.news.imageUrl) {
+            imageContainer.attr("src", app.news.imageUrl);
+            imageContainer.attr("alt", app.news.title);
+            imageContainer.show();
+        } else {
+            imageContainer.hide();
+        }
+
+        if (app.news.latitude !== null && app.news.longitude !== null) {
+            $("#map-canvas").show();
+            initializeLocation();
+        } else {
+            $("#map-canvas").hide();
+        }
+    }
+
+    function initializeLocation() {
+        var position = new google.maps.LatLng(app.news.latitude, app.news.longitude);
+        var mapOptions = {
+            sensor: true,
+            center: position,
+            panControl: false,
+            zoom: 12,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: true,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
+            },
+
+            mapTypeControl: true,
+            streetViewControl: false
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        var marker = new google.maps.Marker({ position: position, map: map });
+    }
+
+    function loadComments() {
+        app.news.getComments().then(function (comments) {
+            var commentsContainer = $("#comments-listview");
+            commentsContainer.kendoMobileListView({
+                dataSource: comments,
+                template: $("#commentTemplate").html()
+            });
+
+            commentsContainer.toggle();
+        });
+    }
+
+    function comment() {
+        var commentContent = $("#comment-tb").val().trim();
+        app.news.comment(commentContent).then(function (errorData) {
+            if (!errorData) {
+                loadComments();
+                $("#comments-listview").toggle();
+                closeModalViewComment();
+            }
+        });
+    }
+
+    function closeModalViewComment() {
+        $("#modalview-comment").kendoMobileModalView("close");
+    }
+</script>

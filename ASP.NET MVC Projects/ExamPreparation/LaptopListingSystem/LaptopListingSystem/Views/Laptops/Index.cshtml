@@ -1,0 +1,96 @@
+﻿@model LaptopListingSystem.ViewModels.LaptopViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Laptops</h1>
+
+@* Search laptops section *@
+<section id="search-laptops">
+    <strong>Search</strong><br />
+
+    @using (Html.BeginForm("Search", "Laptops", new { area = "" }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="search-section">
+            <label for="modelSearch">By model</label>
+            @(Html.Kendo().AutoComplete()
+                .Name("modelSearch")
+                .Filter("startswith")
+                .Placeholder("Select model...")
+                .DataTextField("Model")
+                .MinLength(3)
+                .DataSource(dataSource =>
+                {
+                    dataSource
+                        .Read(read => read.Action("ReadLaptopModels", "Laptops", new { area = "" })
+                        .Data("onAdditionalData"));
+                    dataSource.ServerFiltering(true);
+                }))
+        </div>
+
+        <div class="search-section">
+            <label for="manufacturerSearch">By manufacturer</label>
+            @(Html.Kendo().DropDownList()
+            .Name("manufacturerSearch")
+            .DataTextField("Name")
+            .DataValueField("Id")
+            .OptionLabel("Select manufacturer...")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read("ReadLaptopManufacturers", "Laptops", new { area = "" });
+                dataSource.ServerFiltering(true);
+            }))
+        </div>
+
+        <div class="search-section">
+            <label for="priceSearch">By price</label>
+            @(Html.Kendo().NumericTextBox()
+                .Name("priceSearch")
+                .Placeholder("Enter max price...")
+                .Min(300)
+                .Max(10000)
+                .Decimals(2))
+        </div>
+
+        <div>
+            <input type="submit" value="Search" id="search-btn" class="btn" />
+        </div>
+    }
+</section>
+
+@* Laptops list-view *@
+@(Html.Kendo().ListView<LaptopListingSystem.ViewModels.LaptopViewModel>()
+    .Name("LaptopsListView")
+    .TagName("div")
+    .ClientTemplateId("laptops-listview-template")
+    .Pageable()
+    .DataSource(dataSource =>
+    {
+        dataSource.Read("ReadLaptops", "Laptops", new { area = "" });
+        dataSource.ServerOperation(true);
+        dataSource.PageSize(5);
+    }))
+
+<script type="text/x-kendo-template" id="laptops-listview-template">
+    <div class="row-fluid">
+        <div class="span4">
+            <img class="img-laptop" src="#: ImageUrl #" alt="#: Manufacturer # #: Model #" />
+        </div>
+        <div class="span4 black-text">
+            <h4>#: Manufacturer # #: Model #</h4>
+        </div>
+        <div class="span4">
+            <a class="btn" href="/Laptops/Details/#= Id #">Price: $#= Price #</a>
+        </div>
+    </div>
+</script>
+
+<script>
+    function onAdditionalData() {
+        return {
+            text: $('#modelSearch').val()
+        };
+    }
+</script>

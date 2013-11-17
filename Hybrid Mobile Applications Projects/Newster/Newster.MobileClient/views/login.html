@@ -1,0 +1,30 @@
+<div id="login-view"
+     data-id="login-view"
+     data-role="view"
+     data-title="Login"
+     data-model="app.loginService.viewModel"
+     data-layout="default-layout"
+     data-transition="slide">
+    <div class="view-content">
+        <div class="logo"></div>
+        <ul data-role="listview" data-style="inset">
+            <li>
+                <label>
+                    Username
+                    <input type="text" data-bind="value: username" />
+                </label>
+            </li>
+            <li>
+                <label>
+                    Password
+                    <input type="password" data-bind="value: password" />
+                </label>
+            </li>
+        </ul>
+
+        <div class="buttonArea">
+            <a id="login" data-role="button" data-bind="click: login" class="login-button">Login</a>
+            <a id="signup" data-role="button" data-bind="click: toRegister" class="login-button">Register</a>
+        </div>
+    </div>
+</div>

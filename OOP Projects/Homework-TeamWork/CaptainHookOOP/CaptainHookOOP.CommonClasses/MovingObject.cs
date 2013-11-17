@@ -2,7 +2,7 @@
 
 namespace CaptainHookOOP.CommonClasses
 {
-    internal abstract class MovingObject : GameObjects, IMovable
+    internal abstract class MovingObject : GameObject, IMovable
     {
         private MatrixCoordinates speed;
 

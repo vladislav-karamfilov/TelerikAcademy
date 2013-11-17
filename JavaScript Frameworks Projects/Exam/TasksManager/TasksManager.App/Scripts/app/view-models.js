@@ -19,7 +19,6 @@ window.viewModels = (function () {
                     .then(successCallback, function (errorData) {
                         window.errorMessage = errorData.responseJSON.Message;
                         if (errorCallback) {
-                            debugger;
                             errorCallback();
                         }
                     });

@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="search-by-category">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="search-section">
+            <label for="modelSearch">Search by category</label>
+            @(Html.Kendo().DropDownList()
+            .Name("category-search")
+            .DataTextField("Name")
+            .DataValueField("Id")
+            .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+            .Events(ev => ev.Change("onCategoryChange")))
+        </div>
+    }
+</div>
+
+<div class="row-fluid">
+    <div class="span3">
+        <h3>Title</h3>
+    </div>
+    <div class="span3">
+        <h3>Category</h3>
+    </div>
+    <div class="span2">
+        <h3>Author</h3>
+    </div>
+    <div class="span2">
+        <h3>Priority</h3>
+    </div>
+    <div class="span2">
+        <h3>Commands</h3>
+    </div>
+</div>
+
+@(Html.Kendo().ListView<Exam.ViewModels.TicketForListViewModel>()
+    .Name("TicketsListView")
+    .TagName("div")
+    .ClientTemplateId("tickets-listview-template")
+    .Pageable()
+    .DataSource(dataSource =>
+    {
+        dataSource.Read("Read", "Tickets", new { area = "" });
+        dataSource.ServerOperation(true);
+        dataSource.PageSize(5);
+    }))
+
+<script type="text/x-kendo-template" id="tickets-listview-template">
+    <div class="row-fluid">
+        <div class="span3 black-text">
+            <h4>#: Title #</h4>
+        </div>
+        <div class="span3 black-text">
+            <h4>#: Category #</h4>
+        </div>
+        <div class="span2 black-text">
+            <h4>#: Author #</h4>
+        </div>
+        <div class="span2 black-text">
+            <h4>#: Priority #</h4>
+        </div>
+        <div class="span2">
+            <a class="btn" href="/Tickets/Details/#= Id #">Details...</a>
+        </div>
+    </div>
+</script>
+
+<script>
+    function onCategoryChange(ev) {
+        var tickets = $("#TicketsListView").data("kendoListView");
+        var val = ev.sender.selectedIndex;
+        if (tickets) {
+            var filter = { field: "CategoryId", operator: "eq", value: val };
+            tickets.dataSource.filter(filter);
+        }
+    }
+</script>

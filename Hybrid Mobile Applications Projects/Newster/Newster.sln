@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DD4F164A-854D-4EAB-AAF0-26A8151F4FE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newster.Data", "Newster.Data\Newster.Data.csproj", "{05E34DBD-89A8-42AE-BF04-B28A6CE4C0EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newster.Models", "Newster.Models\Newster.Models.csproj", "{0D661E0F-1051-44C7-8AA6-480AF6DF4F30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{DA04D731-2497-4DF1-A7FA-3A0F485A32EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newster.Services", "Newster.Services\Newster.Services.csproj", "{DD7322A7-C1F3-48E2-9EF4-69E2D3056B10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newster.DataTransferObjects", "Newster.DataTransferObjects\Newster.DataTransferObjects.csproj", "{65D981D7-C3F4-44B9-A855-7B3D2FB25C4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{C203AE63-6B5E-4548-8464-B808BB115638}"
+EndProject
+Project("{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}") = "Newster.MobileClient", "Newster.MobileClient\Newster.MobileClient.iceproj", "{42BC205F-4561-4EBA-B0A0-2F668BE537BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05E34DBD-89A8-42AE-BF04-B28A6CE4C0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E34DBD-89A8-42AE-BF04-B28A6CE4C0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E34DBD-89A8-42AE-BF04-B28A6CE4C0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E34DBD-89A8-42AE-BF04-B28A6CE4C0EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D661E0F-1051-44C7-8AA6-480AF6DF4F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D661E0F-1051-44C7-8AA6-480AF6DF4F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D661E0F-1051-44C7-8AA6-480AF6DF4F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D661E0F-1051-44C7-8AA6-480AF6DF4F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD7322A7-C1F3-48E2-9EF4-69E2D3056B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD7322A7-C1F3-48E2-9EF4-69E2D3056B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD7322A7-C1F3-48E2-9EF4-69E2D3056B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD7322A7-C1F3-48E2-9EF4-69E2D3056B10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D981D7-C3F4-44B9-A855-7B3D2FB25C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D981D7-C3F4-44B9-A855-7B3D2FB25C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D981D7-C3F4-44B9-A855-7B3D2FB25C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D981D7-C3F4-44B9-A855-7B3D2FB25C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42BC205F-4561-4EBA-B0A0-2F668BE537BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42BC205F-4561-4EBA-B0A0-2F668BE537BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42BC205F-4561-4EBA-B0A0-2F668BE537BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42BC205F-4561-4EBA-B0A0-2F668BE537BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{05E34DBD-89A8-42AE-BF04-B28A6CE4C0EA} = {DD4F164A-854D-4EAB-AAF0-26A8151F4FE4}
+		{0D661E0F-1051-44C7-8AA6-480AF6DF4F30} = {DD4F164A-854D-4EAB-AAF0-26A8151F4FE4}
+		{65D981D7-C3F4-44B9-A855-7B3D2FB25C4B} = {DD4F164A-854D-4EAB-AAF0-26A8151F4FE4}
+		{DD7322A7-C1F3-48E2-9EF4-69E2D3056B10} = {DA04D731-2497-4DF1-A7FA-3A0F485A32EC}
+		{42BC205F-4561-4EBA-B0A0-2F668BE537BB} = {C203AE63-6B5E-4548-8464-B808BB115638}
+	EndGlobalSection
+EndGlobal

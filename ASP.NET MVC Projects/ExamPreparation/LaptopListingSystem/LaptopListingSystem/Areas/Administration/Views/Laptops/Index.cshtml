@@ -1,0 +1,63 @@
+﻿@using LaptopListingSystem.Areas.Administration.ViewModels
+
+@{
+    ViewBag.Title = "Laptops";
+}
+
+<h2>Laptops</h2>
+
+<div class="kendo-style-default">
+    @(Html.Kendo().Grid<LaptopViewModel>()
+        .Name("LaptopsGrid")
+        .ColumnMenu()
+        .Pageable(x => x.Refresh(true))
+        .Sortable(x => x.Enabled(true).AllowUnsort(false))
+        .Filterable(x => x.Enabled(true))
+        .Groupable(x => x.Enabled(true))
+        .Reorderable(x => x.Columns(true))
+        .Resizable(x => x.Columns(true))
+        .Editable(editable =>
+        {
+            editable.Mode(GridEditMode.PopUp).TemplateName("/Administration/Laptop");
+            editable.Window(w => w.Title("Laptop"));
+            editable.DisplayDeleteConfirmation("Are you sure you want to delete the laptop? "
+                + "(All votes and comments for it will be deleted too!)");
+        })
+        .Columns(columns =>
+        {
+            columns.Bound(m => m.Model);
+            columns.ForeignKey(m => m.ManufacturerId, (System.Collections.IEnumerable)ViewBag.Manufacturers, "Id", "Name");
+            columns.Bound(m => m.MonitorSize);
+            columns.Bound(m => m.HardDiskCapacity);
+            columns.Bound(m => m.RamCapacity);
+            columns.Bound(m => m.ImageUrl).ClientTemplate("<img class='laptop-img' src='#: ImageUrl #' alt='#: Model #' />");
+            columns.Bound(m => m.Price);
+            columns.Command(command =>
+            {
+                command.Edit();
+                command.Destroy();
+            }).Title("Commands");
+        })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Events(ev => ev.Error("displayAllValidationMessagesForGrid"))
+            .PageSize(10)
+            .Model(model => model.Id(m => m.Id))
+            .ServerOperation(true)
+            .Batch(false)
+            .Create(create => create.Type(HttpVerbs.Post).Action("Create", "Laptops", new { area = "Administration" }))
+            .Read(read => read.Type(HttpVerbs.Post).Action("Read", "Laptops", new { area = "Administration" }))
+            .Update(update => update.Type(HttpVerbs.Post).Action("Update", "Laptops", new { area = "Administration" }))
+            .Destroy(destroy => destroy.Type(HttpVerbs.Post).Action("Destroy", "Laptops", new { area = "Administration" }))
+        )
+        .ToolBar(toolbar =>
+        {
+            toolbar.Create().Text("New laptop");
+            toolbar.Custom().Action("Index", "Home", new { area = "" }).Name("custom-toolbar-button").Text("Back to home page");
+        })
+    )
+</div>
+
+@section scripts {
+    <script src="~/Scripts/grid-errors.js"></script>
+}

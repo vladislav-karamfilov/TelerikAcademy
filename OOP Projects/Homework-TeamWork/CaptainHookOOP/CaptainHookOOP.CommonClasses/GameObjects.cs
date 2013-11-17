@@ -2,7 +2,7 @@
 
 namespace CaptainHookOOP.CommonClasses
 {
-    internal abstract class GameObjects : IConsolePrintable
+    internal abstract class GameObject : IConsolePrintable
     {
         private char[,] image;
         private MatrixCoordinates topLeft;
@@ -24,7 +24,7 @@ namespace CaptainHookOOP.CommonClasses
             protected set { color = value; }
         }
 
-        protected GameObjects(MatrixCoordinates topLeft)
+        protected GameObject(MatrixCoordinates topLeft)
         {
             this.TopLeft = topLeft;
             this.Image = image;

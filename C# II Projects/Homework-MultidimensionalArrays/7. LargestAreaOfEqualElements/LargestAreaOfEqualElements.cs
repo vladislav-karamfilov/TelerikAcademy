@@ -40,9 +40,7 @@ class LargestAreaOfEqualElements
         Console.WriteLine("\nThe largest area is from elements '{0}' and its size is {1} cells.", element, largestAreaSize);
     }
 
-    // An implementation of the Breadth First Search Algorithm ->
-    // - Traversing through the matrix until all neighbour elements are different from the current element
-    // - or the boundaries of the matrix are reached
+    // An implementation of the Depth First Search Algorithm -> http://en.wikipedia.org/wiki/Depth-first_search
     static void CalculateArea(int row, int col)
     {
         visitedCells[row, col] = true; // Current cell is now visited

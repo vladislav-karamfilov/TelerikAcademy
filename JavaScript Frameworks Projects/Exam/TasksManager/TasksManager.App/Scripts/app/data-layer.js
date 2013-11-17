@@ -29,19 +29,18 @@ window.dataPersisters = (function () {
             };
 
             if (!username) {
-                throw new Error("Username not provided!");
+                throw "Username not provided!";
             }
 
             if (username.length < 6) {
-                throw new Error("Username must be at least 6 symbols!");
+                throw "Username must be at least 6 symbols!";
             }
 
             if (!email) {
-                throw new Error("Email not provided!");
+                throw "Email not provided!";
             }
 
             if (!password) {
-                //throw new Error("Password not provided!");
                 throw "Password not provided";
             }
 
@@ -57,15 +56,15 @@ window.dataPersisters = (function () {
             };
 
             if (!username) {
-                throw new Error("Username not provided!");
+                throw "Username not provided!";
             }
 
             if (username.length < 6) {
-                throw new Error("Username must be at least 6 symbols!");
+                throw "Username must be at least 6 symbols!";
             }
 
             if (!password) {
-                throw new Error("Password not provided!");
+                throw "Password not provided!";
             }
 
             return httpRequester.postJson(url, userData).then(
@@ -140,19 +139,19 @@ window.dataPersisters = (function () {
 
         create: function (subject, description, appointmentDate, duration) {
             if (!subject) {
-                throw new Error("Subject not provided!");
+                throw "Subject not provided!";
             }
 
             if (!description) {
-                throw new Error("Subject not provided!");
+                throw "Subject not provided!";
             }
 
             if (!appointmentDate) {
-                throw new Error("Subject not provided!");
+                throw "Subject not provided!";
             }
 
             if (!duration) {
-                throw new Error("Subject not provided!");
+                throw "Subject not provided!";
             }
 
             var url = this.apiUrl + "new";
@@ -188,7 +187,7 @@ window.dataPersisters = (function () {
 
         getByDate: function (date) {
             if (!date) {
-                throw new Error("Date not provided!");
+                throw "Date not provided!";
             }
 
             var url = this.apiUrl + "?date=" + date;
@@ -235,7 +234,7 @@ window.dataPersisters = (function () {
 
         create: function (title, todos) {
             if (!title) {
-                throw new Error("Title not provided!");
+                throw "Title not provided!";
             }
 
             var url = this.apiUrl;
@@ -261,7 +260,7 @@ window.dataPersisters = (function () {
 
         addTodo: function (listId, todoText) {
             if (!todoText) {
-                throw new Error("Todo text not provided!");
+                throw "Todo text not provided!";
             }
 
             var url = this.apiUrl + listId + "/todos";

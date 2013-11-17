@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                @Html.ActionLink("Ticketing System", "Index", "Home", null, new { @class = "brand" })
+
+                <div class="kendo-menu-container">
+                    @(Html.Kendo().Menu()
+                    .Name("MainNavigationMenu")
+                    .Direction(MenuDirection.Bottom)
+                    .Items(items =>
+                    {
+                        items.Add().Text("Home").Action("Index", "Home", new { area = "" });
+                        if (this.User.Identity.IsAuthenticated)
+                        {
+                            items.Add().Text("Add ticket").Action("Create", "Tickets", new { area = "" });
+                            items.Add().Text("View all tickets").Action("List", "Tickets", new { area = "" });
+
+                            // if (this.User.IsInRole("Admin") || this.User.IsInRole("Administrator"))
+                            {
+                                items.Add().Text("Administration").Items(nested =>
+                                {
+                                    nested.Add().Text("Categories administration").Action("Index", "CategoriesAdministration", new { area = "" });
+                                    nested.Add().Text("Comments administration").Action("Index", "CommentsAdministration", new { area = "" });
+                                });
+                            }
+                        }
+                    }))
+                </div>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Ticketing System</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/kendo")
+    @Scripts.Render("~/bundles/kendo")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

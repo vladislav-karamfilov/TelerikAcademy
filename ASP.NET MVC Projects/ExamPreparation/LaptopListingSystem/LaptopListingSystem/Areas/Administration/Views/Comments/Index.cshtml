@@ -1,0 +1,56 @@
+﻿@using LaptopListingSystem.Areas.Administration.ViewModels
+
+@{
+    ViewBag.Title = "Comments";
+}
+
+<h2>Comments</h2>
+
+<div class="kendo-style-default">
+    @(Html.Kendo().Grid<CommentViewModel>()
+        .Name("CommentsGrid")
+        .ColumnMenu()
+        .Pageable(x => x.Refresh(true))
+        .Sortable(x => x.Enabled(true).AllowUnsort(false))
+        .Filterable(x => x.Enabled(true))
+        .Groupable(x => x.Enabled(true))
+        .Reorderable(x => x.Columns(true))
+        .Resizable(x => x.Columns(true))
+        .Editable(editable =>
+        {
+            editable.Mode(GridEditMode.PopUp).TemplateName("/Administration/Comment");
+            editable.Window(w => w.Title("Comment"));
+            editable.DisplayDeleteConfirmation("Are you sure you want to delete the comment?");
+        })
+        .Columns(columns =>
+        {
+            columns.Bound(m => m.Content);
+            columns.Bound(m => m.Author);
+            columns.Bound(m => m.Laptop).ClientTemplate("<a href='/Laptops/Details/#: LaptopId #'>#: Laptop #</a>");
+            columns.Command(command =>
+            {
+                command.Edit();
+                command.Destroy();
+            }).Title("Commands");
+        })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Events(ev => ev.Error("displayAllValidationMessagesForGrid"))
+            .PageSize(10)
+            .Model(model => model.Id(m => m.Id))
+            .ServerOperation(true)
+            .Batch(false)
+            .Read(read => read.Type(HttpVerbs.Post).Action("Read", "Comments", new { area = "Administration" }))
+            .Update(update => update.Type(HttpVerbs.Post).Action("Update", "Comments", new { area = "Administration" }))
+            .Destroy(destroy => destroy.Type(HttpVerbs.Post).Action("Destroy", "Comments", new { area = "Administration" }))
+        )
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Index", "Home", new { area = "" }).Name("custom-toolbar-button").Text("Back to home page");
+        })
+    )
+</div>
+
+@section scripts {
+    <script src="~/Scripts/grid-errors.js"></script>
+}

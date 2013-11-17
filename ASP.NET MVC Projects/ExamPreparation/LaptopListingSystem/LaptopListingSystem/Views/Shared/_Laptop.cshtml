@@ -1,0 +1,13 @@
+﻿@model LaptopListingSystem.ViewModels.LaptopViewModel
+
+<div class="span4">
+    <h4>@Model.Manufacturer @Model.Model</h4>
+    <div>
+        <a href="../Laptops/Details/@Model.Id">
+            <img class="img-laptop" src="@Model.ImageUrl" alt="@Model.Manufacturer @Model.Model" />
+        </a>
+    </div>
+    <div>
+        <a class="btn" href="/Laptops/Details/@Model.Id">Price: $@Model.Price</a>
+    </div>
+</div>

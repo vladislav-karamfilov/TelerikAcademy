@@ -1,0 +1,13 @@
+<div id="all-news-view"
+     data-role="view"
+     data-id="all-news-view"
+     data-layout="news-layout"
+     data-title="All news"
+     data-show="app.news.getAll"
+     data-transition="slide">
+    <ul id="all-news" data-role="listview" data-style="inset"></ul>
+</div>
+
+<script type="text/x-kendo-template" id="newsTemplate">
+    <a href="">${title} ${category}</a>
+</script>

@@ -43,7 +43,7 @@
             }
             else
             {
-                this.Add(item);
+                this.entitiesSet.Add(item);
             }
 
             this.context.SaveChanges();

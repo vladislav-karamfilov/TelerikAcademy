@@ -1,0 +1,29 @@
+<div id="register-view" data-id="register-view" data-role="view" data-title="Register" data-model="app.registerService.viewModel" data-layout="default-layout" data-transition="slide">
+    <div class="view-content">
+        <div class="logo"></div>
+        <ul id="register-listview" data-role="listview" data-style="inset">
+            <li>
+                <label>
+                    Username
+                    <input type="text" data-bind="value: username" />
+                </label>
+            </li>
+            <li id="nickname-list-item">
+                <label>
+                    Nickname
+                    <input type="text" data-bind="value: nickname" />
+                </label>
+            </li>
+            <li>
+                <label>
+                    Password
+                    <input type="password" data-bind="value: password" />
+                </label>
+            </li>
+        </ul>
+        <div class="buttonArea">
+            <a id="signup" data-role="button" data-bind="click: register" class="login-button">Register</a>
+            <a id="signup" data-role="button" data-bind="click: toLogin" class="login-button">Back</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,128 @@
+<div id="create-news-view"
+     data-role="view"
+     data-id="create-news-view"
+     data-layout="news-layout"
+     data-title="Create news"
+     data-model="app.news"
+     data-show="initialize"
+     data-transition="slide">
+    <div>
+        <label for="tb-title">Title:</label>
+        <input type="text" id="tb-title" placeholder="Enter title..." data-bind="value: title" />
+    </div>
+
+    <div>
+        <label for="tb-content">Content:</label>
+        <textarea id="tb-content" placeholder="Enter content..." data-bind="value: content"></textarea>
+    </div>
+
+    <div>
+        <label for="categories-dropdownlist">Category:</label>
+        <input id="categories-dropdownlist" data-bind="value: categoryId" />
+    </div>
+
+    <div>
+        <button data-role="button" id="capturePhotoButton" onclick="saveImageUrl()">Take Photo</button>
+        <button data-role="button" id="getPhotoFromLibraryButton" data-source="PHOTOLIBRARY" onclick="saveImageUrl()">Select from Photo Library</button>
+        <button data-role="button" id="getPhotoFromAlbumButton" data-source="SAVEDPHOTOALBUM" onclick="saveImageUrl()">Select from Photo Album</button>
+    </div>
+
+    <div>
+        <label for="coordinates-switch">Current coordinates?</label>
+        <input id="coordinates-switch" data-bind="checked: currentCoordinates" />
+    </div>
+
+    <input type="submit" data-bind="click: create" value="Create" />
+</div>
+
+<script>
+    function initialize() {
+        app.news.set("title", "");
+        app.news.set("content", "");
+        app.news.set("categoryId", 0);
+        app.news.set("latitude", null);
+        app.news.set("longitude", null);
+        app.news.set("imageUrl", "");
+
+        initializeWidgets();
+    }
+
+    function initializeWidgets() {
+        initializeCategoriesDropDownList();
+        initializeTakeCurrentCoordinatesSwitch();
+    }
+
+    function initializeTakeCurrentCoordinatesSwitch() {
+        $("#coordinates-switch").kendoMobileSwitch({
+            checked: true,
+            onLabel: "YES",
+            offLabel: "NO"
+        });
+    }
+
+    function initializeCategoriesDropDownList() {
+        var data = dataPersisters.get();
+        data.categories.getAllCategories().then(function (categories) {
+            var body = $(".km-pane");
+            $("#categories-dropdownlist").kendoDropDownList({
+                dataValueField: "id",
+                dataTextField: "category",
+                dataSource: new kendo.data.DataSource({ data: categories }),
+                popup: { appendTo: body },
+                animation: {
+                    open: {
+                        effects: body.hasClass("km-android") ? "fadeIn" : body.hasClass("km-ios") || body.hasClass("km-wp") ? "slideIn:up" : "slideIn:down"
+                    }
+                },
+                optionLabel: "Select category"
+            });
+        }, function (errorData) {
+            navigator.notification.vibrate(100);
+            navigator.notification.alert(errorData.responseText, function () { }, "Getting all categories", 'OK');
+        });
+    }
+
+    function saveImageUrl() {
+        var pictureSource = $(event.currentTarget).data("source");
+        if (pictureSource) {
+            if (pictureSource === "PHOTOLIBRARY") {
+                navigator.camera.getPicture(function (url) {
+                    app.news.imageUrl = url;
+                }, function () {
+                    navigator.notification.vibrate(100);
+                    navigator.notification.alert("Taking picture from the photo library failed...", function () { }, "Taking picture failed", 'OK');
+                }, {
+                    quality: 75,
+                    destinationType: Camera.DestinationType.FILE_URI,
+                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                    saveToPhotoAlbum: true
+                });
+            } else { // if (pictureSource == "SAVEDPHOTOALBUM")
+                navigator.camera.getPicture(function (url) {
+                    app.news.imageUrl = url;
+                }, function () {
+                    navigator.notification.vibrate(100);
+                    navigator.notification.alert("Taking picture from the photo album failed...", function () { }, "Taking picture failed", 'OK');
+                }, {
+                    quality: 75,
+                    destinationType: Camera.DestinationType.FILE_URI,
+                    sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                    saveToPhotoAlbum: true
+                });
+            }
+        } else {
+            navigator.camera.getPicture(function (url) {
+                app.news.imageUrl = url;
+            }, function () {
+                navigator.notification.vibrate(100);
+                navigator.notification.alert("Taking picture with the camera failed...", function () { }, "Taking picture failed", 'OK');
+            }, {
+                quality: 75,
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                encodingType: Camera.EncodingType.JPEG,
+                saveToPhotoAlbum: true
+            });
+        }
+    }
+</script>

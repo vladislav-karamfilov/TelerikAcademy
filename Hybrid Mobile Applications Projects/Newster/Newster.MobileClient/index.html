@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Newster</title>
+    <meta charset="utf-8" />
+
+    <link href="styles/kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="styles/kendo/kendo.silver.min.css" rel="stylesheet" />
+    <link href="styles/kendo/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="scripts/libs/kendo/jquery.min.js"></script>
+    <script src="scripts/libs/kendo/kendo.all.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    <script src="scripts/location.js"></script>
+    <script src="scripts/libs/class.js"></script>
+    <script src="scripts/libs/cryptojs-sha1.js"></script>
+    <script src="scripts/libs/rsvp.min.js"></script>
+    <script src="scripts/app/httpRequester.js"></script>
+    <script src="scripts/app/data-layer.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/register.js"></script>
+    <script src="scripts/news.js"></script>
+    <script src="scripts/categories.js"></script>
+    <script src="scripts/app.js"></script>
+</head>
+
+<body>
+    <div data-role="view"></div>
+
+    <div data-role="layout" id="default-layout" data-id="default-layout">
+        <header data-role="header" id="header" data-id="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+            </div>
+            <h1 class="app-title">Newster</h1>
+        </header>
+    </div>
+
+    <div data-role="layout" id="main-layout" data-id="main-layout">
+        <header data-role="header" id="header" data-id="header">
+            <div data-role="navbar">
+                <button id="back-btn" data-id="back-btn" data-role="backbutton" data-align="left">Back</button>
+                <span data-role="view-title"></span>
+            </div>
+            <h1>Newster</h1>
+        </header>
+        <footer data-role="footer">
+            <div data-role="tabstrip">
+                <a href="views/latest-news.html#home-view" data-icon="home">Home</a>
+                <a href="views/all-news.html#all-news-view" data-icon="globe">News</a>
+                <a href="views/categories.html#categories-view" data-icon="bookmarks">Categories</a>
+            </div>
+        </footer>
+    </div>
+
+    <div data-role="layout" id="news-layout" data-id="news-layout">
+        <header data-role="header" id="header" data-id="header">
+            <div data-role="navbar">
+                <button id="back-btn" data-id="back-btn" data-role="backbutton" data-align="left">Back</button>
+                <span data-role="view-title"></span>
+            </div>
+            <h1>Newster</h1>
+        </header>
+        <footer data-role="footer">
+            <div data-role="tabstrip">
+                <a href="views/latest-news.html#home-view" data-icon="home">Home</a>
+                <a href="views/all-news.html#all-news-view" data-icon="globe">All</a>
+                <a href="views/create-news.html#create-news-view" data-icon="add">Create</a>
+                <a href="views/top-voted-news.html#top-voted-news-view" data-icon="toprated">Top voted</a>
+            </div>
+        </footer>
+    </div>
+
+    <div data-role="layout" id="categories-layout" data-id="categories-layout">
+        <header data-role="header" id="header" data-id="header">
+            <div data-role="navbar">
+                <button id="back-btn" data-id="back-btn" data-role="backbutton" data-align="left">Back</button>
+                <span data-role="view-title"></span>
+            </div>
+            <h1>Newster</h1>
+        </header>
+        <footer data-role="footer">
+            <div data-role="tabstrip">
+                <a href="views/latest-news.html#home-view" data-icon="home">Home</a>
+                <a href="views/categories.html#categories-view" data-icon="globe">All categories</a>
+                <a href="views/create-category.html#create-category-view" data-icon="add">Create category</a>
+            </div>
+        </footer>
+    </div>
+
+    <div data-role="layout" id="news-details-layout" data-id="news-details-layout">
+        <header data-role="header" id="header" data-id="header">
+            <div data-role="navbar">
+                <button id="back-btn" data-id="back-btn" data-role="backbutton" data-align="left">Back</button>
+                <span data-role="view-title"></span>
+            </div>
+            <h1>Newster</h1>
+        </header>
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿@model LaptopListingSystem.Areas.Administration.ViewModels.LaptopViewModel
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Model)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Model)
+    @Html.ValidationMessageFor(model => model.Model)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ManufacturerId)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().DropDownList()
+        .Name("ManufacturerId")
+        .DataValueField("Id")
+        .DataTextField("Name")
+        .OptionLabel("Select manufacturer...")
+        .SelectedIndex(Model.ManufacturerId)
+        .BindTo((System.Collections.IEnumerable)ViewBag.Manufacturers))
+    @Html.ValidationMessageFor(model => model.ManufacturerId)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.MonitorSize)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().NumericTextBoxFor(model => model.MonitorSize)
+        .Min(10))
+    @Html.ValidationMessageFor(model => model.MonitorSize)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.HardDiskCapacity)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().NumericTextBoxFor(model => model.HardDiskCapacity)
+        .Min(1)
+        .Step(1))
+    @Html.ValidationMessageFor(model => model.HardDiskCapacity)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.RamCapacity)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().NumericTextBoxFor(model => model.RamCapacity)
+        .Min(0.5)
+        .Step(0.5))
+    @Html.ValidationMessageFor(model => model.RamCapacity)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Price)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Price)
+    @Html.ValidationMessageFor(model => model.Price)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ImageUrl)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ImageUrl)
+    @Html.ValidationMessageFor(model => model.ImageUrl)
+</div>

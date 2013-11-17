@@ -1,0 +1,92 @@
+﻿body {
+    padding-top: 0;
+    padding-bottom: 40px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* styles for removing the background from form */
+.no-color {
+    background-color: white;
+    border-style: none;
+}
+
+.container {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.navbar-inner {
+    background-color: #fff;
+}
+
+.comment-container {
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.img-laptop {
+    width: 200px;
+    height: 150px;
+}
+
+#LaptopsListView {
+    background-color: #fff;
+    border: none;
+}
+
+.black-text {
+    color: #000;
+}
+
+#new-comment-section {
+    margin-top: 10px;
+}
+
+#errors-container {
+    margin: 10px 0;
+    padding: 5px;
+    border: 1px solid #ff0000;
+}
+
+#search-laptops {
+    margin: 10px 0;
+}
+
+#search-btn {
+    margin-top: 10px;
+}
+
+.search-section {
+    margin-top: 10px;
+}
+
+.laptop-img {
+    width: 100px;
+    height: 70px;
+}

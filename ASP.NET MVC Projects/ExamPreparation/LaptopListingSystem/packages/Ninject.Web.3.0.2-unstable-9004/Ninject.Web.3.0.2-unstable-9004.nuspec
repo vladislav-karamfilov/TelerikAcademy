@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Ninject.Web</id>
+    <version>3.0.2-unstable-9004</version>
+    <title>Ninject.Web</title>
+    <authors>Ninject Project Contributors</authors>
+    <owners>Ninject Project Contributors</owners>
+    <licenseUrl>https://github.com/ninject/ninject.extensions.logging/raw/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://www.ninject.org/</projectUrl>
+    <iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>ASP.NET application bootstrapper for Ninject</description>
+    <releaseNotes />
+    <copyright />
+    <language>en-US</language>
+    <tags>Ninject ioc di logging</tags>
+    <dependencies>
+      <dependency id="Ninject" version="3.0.0-unstable" />
+      <dependency id="Ninject.Web.Common.WebHost" version="3.0.0.0" />
+    </dependencies>
+  </metadata>
+</package>

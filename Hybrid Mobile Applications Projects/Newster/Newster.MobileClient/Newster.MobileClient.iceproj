@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>42bc205f-4561-4eba-b0a0-2f668be537bb</ProjectGuid>
+    <ProjectTypeGuids>{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}</ProjectTypeGuids>
+    <AppIdentifier>com.telerik.NewsterMobileClient</AppIdentifier>
+    <ProjectName>Newster.MobileClient</ProjectName>
+    <IsRunnable>true</IsRunnable>
+    <FrameworkVersion>3.0.0</FrameworkVersion>
+    <AndroidPermissions>android.permission.CAMERA;android.permission.VIBRATE;android.permission.ACCESS_COARSE_LOCATION;android.permission.ACCESS_FINE_LOCATION;android.permission.ACCESS_LOCATION_EXTRA_COMMANDS;android.permission.READ_PHONE_STATE;android.permission.INTERNET;android.permission.RECEIVE_SMS;android.permission.RECORD_AUDIO;android.permission.MODIFY_AUDIO_SETTINGS;android.permission.READ_CONTACTS;android.permission.WRITE_CONTACTS;android.permission.WRITE_EXTERNAL_STORAGE;android.permission.ACCESS_NETWORK_STATE;android.permission.ACCOUNT_MANAGER;android.permission.GET_ACCOUNTS;android.permission.MANAGE_ACCOUNTS;android.permission.BROADCAST_STICKY</AndroidPermissions>
+    <CorePlugins>org.apache.cordova.AudioHandler;org.apache.cordova.battery-status;org.apache.cordova.camera;org.apache.cordova.console;org.apache.cordova.contacts;org.apache.cordova.device;org.apache.cordova.device-motion;org.apache.cordova.device-orientation;org.apache.cordova.dialogs;org.apache.cordova.file;org.apache.cordova.file-transfer;org.apache.cordova.geolocation;org.apache.cordova.globalization;org.apache.cordova.inappbrowser;org.apache.cordova.media-capture;org.apache.cordova.network-information;org.apache.cordova.splashscreen;org.apache.cordova.vibration</CorePlugins>
+    <DeviceOrientations>Portrait;Landscape</DeviceOrientations>
+    <iOSStatusBarStyle>Default</iOSStatusBarStyle>
+    <AndroidHardwareAcceleration>false</AndroidHardwareAcceleration>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="App_Resources\Android\drawable-hdpi\icon.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\Android\drawable-ldpi\icon.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\Android\drawable-mdpi\icon.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\Android\drawable-nodpi\splashscreen.9.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Default%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Default-568h%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Default-Landscape%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Default-Landscape.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Default-Portrait%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Default-Portrait.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Default.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-40%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-40.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-60%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-60.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-72%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-72.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-76%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon-76.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Icon-Small%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Icon-Small-50%402x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Icon-Small-50.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\Icon-Small.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="App_Resources\iOS\icon.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="index.html" />
+    <Content Include="cordova.ios.js">
+      <Platform>iOS</Platform>
+      <TargetName>cordova.js</TargetName>
+    </Content>
+    <Content Include="cordova.android.js">
+      <Platform>Android</Platform>
+      <TargetName>cordova.js</TargetName>
+    </Content>
+    <Content Include="scripts\app.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\app\data-layer.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\app\httpRequester.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\categories.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\libs\class.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\libs\cryptojs-sha1.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\libs\kendo\jquery.min.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\libs\kendo\jquery.min.map">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\libs\kendo\kendo.all.min.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\libs\kendo\kendo.mobile.min.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\libs\rsvp.min.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\location.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\login.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\news.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="scripts\register.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\icenium.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\icenium2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\like.png" />
+    <Content Include="styles\images\location.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\location2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\location_active.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\location_active2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\logo.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\logo2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\search.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\search2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\search_active.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\search_active2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\sprite-weather.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\images\sprite-weather2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\images\back.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\images\KendoUI.ttf">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\images\KendoUI.woff">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\images\wp8_icons.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\images\wp8_inverseicons.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\kendo.common.min.css">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\kendo.mobile.all.min.css">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\kendo.silver.min.css">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\editor.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\imagebrowser.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\loading-image.gif">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\loading.gif">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\loading_2x.gif">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\slider-h.gif">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\slider-v.gif">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\sprite.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\Silver\sprite_2x.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\brushed-metal.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots1.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots10.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots11.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots12.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots13.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots3.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots4.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots5.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots6.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots7.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots8.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\dots9.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\glass-lighter.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\glass.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\highlight.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\hsv-gradient.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\hue.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\leather1.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\leather2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\noise.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\stripe1.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\stripe2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\stripe3.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\stripe4.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\stripe5.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\stripe6.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\transparency.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\kendo\textures\transtexture.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="styles\main.css">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\all-news.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\all-news.html" />
+    <Content Include="views\categories.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\categories.html" />
+    <Content Include="views\category-news.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\category-news.html" />
+    <Content Include="views\create-category.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\create-category.html" />
+    <Content Include="views\create-news.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\create-news.html" />
+    <Content Include="views\latest-news.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\latest-news.html" />
+    <Content Include="views\login.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\login.html" />
+    <Content Include="views\news-details.html" />
+    <Content Include="views\register.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\register.html" />
+    <Content Include="views\top-voted-news.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="views\top-voted-news.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Resources\" />
+    <Folder Include="App_Resources\Android\" />
+    <Folder Include="App_Resources\Android\drawable-hdpi\" />
+    <Folder Include="App_Resources\Android\drawable-ldpi\" />
+    <Folder Include="App_Resources\Android\drawable-mdpi\" />
+    <Folder Include="App_Resources\Android\drawable-nodpi\" />
+    <Folder Include="App_Resources\iOS\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="scripts\" />
+    <Folder Include="scripts\app\" />
+    <Folder Include="scripts\libs\" />
+    <Folder Include="scripts\libs\kendo\" />
+    <Folder Include="styles\" />
+    <Folder Include="styles\images\" />
+    <Folder Include="styles\kendo\" />
+    <Folder Include="styles\kendo\images\" />
+    <Folder Include="styles\kendo\Silver\" />
+    <Folder Include="styles\kendo\textures\" />
+    <Folder Include="views\" />
+  </ItemGroup>
+  <Import Project="$(IceniumTargets)Build.targets" />
+  <!--
+	TODO: Uncomment this code if you need to customize the build process.
+	<Target Name="BeforeBuild">
+		<Message Text="TODO: Implement BeforeBuild" Importance="high" />
+	</Target>
+
+	<Target Name="AfterBuild">
+		<Message Text="TODO: Implement AfterBuild" Importance="high" />
+	</Target>
+	-->
+</Project>

@@ -14,7 +14,7 @@ namespace CaptainHookOOP.CommonClasses
             this.MovingObjects = new List<MovingObject>();
         }
 
-        public void AddObject(GameObjects newObject)
+        public void AddObject(GameObject newObject)
         {
             if (newObject is StaticObject)
             {

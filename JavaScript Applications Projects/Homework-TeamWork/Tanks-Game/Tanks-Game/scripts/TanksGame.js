@@ -338,8 +338,6 @@ $(function () {
         else {
             for (var i = 0; i < tanks.length; i++) {
                 if (engine.objectCollide(tanks[i], bullet)) {
-                    //update Score
-                    console.log(tanks[i].points + " aded.");
                     playerPoints += tanks[i].points;
 
                     removeGameObject(tanks[i]);

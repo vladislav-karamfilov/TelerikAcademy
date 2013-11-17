@@ -1,0 +1,22 @@
+<div id="top-voted-news-view"
+     data-role="view"
+     data-id="top-voted-news-view"
+     data-layout="news-layout"
+     data-title="Top voted news"
+     data-show="app.news.getTopVoted"
+     data-transition="slide">
+    <ul id="top-voted-news" data-role="listview" data-style="inset"></ul>
+</div>
+
+<script type="text/x-kendo-template" id="votedNewsTemplate">
+    <a data-id="${id}" data-click="getDetails" data-role="button">${title} ${category} ${date} ${votes}</a>
+</script>
+
+<script>
+    function getDetails(ev) {
+        ev.preventDefault();
+
+        var id = this.element.data("id");
+        app.news.details(id);
+    }
+</script>

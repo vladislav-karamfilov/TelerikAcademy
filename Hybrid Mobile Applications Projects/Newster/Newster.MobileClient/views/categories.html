@@ -1,0 +1,22 @@
+<div id="categories-view"
+     data-role="view"
+     data-id="categories-view"
+     data-layout="categories-layout"
+     data-title="Categories"
+     data-transition="slide"
+     data-show="app.categories.getAll">
+    <ul id="all-categories" data-role="listview" data-style="inset"></ul>
+</div>
+
+<script type="text/x-kendo-template" id="categoriesTemplate">
+    <a data-id="${id}" data-role="button" data-click="getNewsByCategory">${category}</a>
+</script>
+
+<script>
+    function getNewsByCategory() {
+        var categoryId = this.element.data("id");
+        var categoryName = this.element.find(".km-text").html();
+
+        app.categories.getNews(categoryId, categoryName);
+    }
+</script>

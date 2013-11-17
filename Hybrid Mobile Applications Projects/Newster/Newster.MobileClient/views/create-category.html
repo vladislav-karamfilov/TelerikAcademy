@@ -1,0 +1,12 @@
+<div id="create-category-view"
+     data-role="view"
+     data-id="create-category-view"
+     data-layout="categories-layout"
+     data-tittle="Create category"
+     data-model="app.categories"
+     data-transition="slide">
+    <h1>Create category</h1>
+    <label for="tb-category">Category name: </label>
+    <input type="text" placeholder="Enter category name" data-bind="value: name" />
+    <input type="submit" id="create-category" data-role="button" value="Create" data-bind="click: create" />
+</div>

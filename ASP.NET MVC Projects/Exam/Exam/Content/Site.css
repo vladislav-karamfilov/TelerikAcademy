@@ -1,0 +1,76 @@
+﻿body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+ }
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* styles for removing the background from form */
+.no-color {
+  background-color: white;
+  border-style:none;
+}
+
+.kendo-menu-container {
+    display: inline-block;
+}
+
+.comment-container {
+    margin: 10px;
+}
+
+#comments-container {
+    margin-top: 10px;
+}
+
+#TicketsListView {
+    background-color: #fff;
+    border: none;
+}
+
+.black-text {
+    color: #000;
+}
+
+.screenshot {
+    width: 300px;
+    height: 300px;
+}
+
+#errors-container {
+    width: 200px;
+    margin: 10px 0;
+    padding: 5px;
+    border: 1px solid #ff0000;
+}
+
+#creation-message-container {
+    border: 1px solid #4cff00;
+    border-radius: 10px;
+    color: #000;
+    padding: 20px;
+    margin: 10px;
+}

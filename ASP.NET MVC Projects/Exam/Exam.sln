@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{D9539A14-9AFA-425B-84C9-E581E6DC19C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{745590ED-EECE-4353-A15B-B96E28ACA3DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exam.Data", "Data\Exam.Data\Exam.Data.csproj", "{01C81A21-CFEC-4A8E-A281-7221F99D5455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exam.Models", "Data\Exam.Models\Exam.Models.csproj", "{12D77D3B-EFB1-4052-B1CA-E138C8012F39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libraries", "External Libraries", "{F55F448E-A673-4CD3-9E0C-DF11D8EC40D1}"
+	ProjectSection(SolutionItems) = preProject
+		External Libraries\Kendo.Mvc.dll = External Libraries\Kendo.Mvc.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exam", "Exam\Exam.csproj", "{A3B8F703-E76B-4E48-A1F3-09F866E9958B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01C81A21-CFEC-4A8E-A281-7221F99D5455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C81A21-CFEC-4A8E-A281-7221F99D5455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C81A21-CFEC-4A8E-A281-7221F99D5455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C81A21-CFEC-4A8E-A281-7221F99D5455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D77D3B-EFB1-4052-B1CA-E138C8012F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D77D3B-EFB1-4052-B1CA-E138C8012F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D77D3B-EFB1-4052-B1CA-E138C8012F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D77D3B-EFB1-4052-B1CA-E138C8012F39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B8F703-E76B-4E48-A1F3-09F866E9958B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B8F703-E76B-4E48-A1F3-09F866E9958B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B8F703-E76B-4E48-A1F3-09F866E9958B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B8F703-E76B-4E48-A1F3-09F866E9958B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{01C81A21-CFEC-4A8E-A281-7221F99D5455} = {D9539A14-9AFA-425B-84C9-E581E6DC19C9}
+		{12D77D3B-EFB1-4052-B1CA-E138C8012F39} = {D9539A14-9AFA-425B-84C9-E581E6DC19C9}
+		{A3B8F703-E76B-4E48-A1F3-09F866E9958B} = {745590ED-EECE-4353-A15B-B96E28ACA3DD}
+	EndGlobalSection
+EndGlobal

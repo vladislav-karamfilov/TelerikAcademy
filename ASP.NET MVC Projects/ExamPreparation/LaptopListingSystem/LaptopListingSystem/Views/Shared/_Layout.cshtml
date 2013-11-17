@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+</head>
+<body>
+    <div class="container">
+        @(Html.Kendo().Menu()
+            .Name("MainNavigationMenu")
+            .Direction(MenuDirection.Bottom)
+            .Items(items =>
+            {
+                items.Add().Text("Home").Action("Index", "Home", new { area = "" });
+                if (this.User.Identity.IsAuthenticated)
+                {
+                    items.Add().Text("Laptops").Action("Index", "Laptops", new { area = "" });
+
+                    // if (this.User.IsInRole("Administrator"))
+                    {
+                        items.Add().Text("Administrations").Items(nestedItems =>
+                        {
+                            nestedItems.Add().Text("Laptops administration").Action("Index", "Laptops", new { area = "Administration" });
+                            nestedItems.Add().Text("Manufacturers administration").Action("Index", "Manufacturers", new { area = "Administration" });
+                            nestedItems.Add().Text("Comments administration").Action("Index", "Comments", new { area = "Administration" });
+                        });
+                    }
+                }
+            }))
+
+        <div class="navbar">
+            <div class="container">
+                <div class="nav-collapse collapse">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Laptop System</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/kendo")
+    @Scripts.Render("~/bundles/kendo")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

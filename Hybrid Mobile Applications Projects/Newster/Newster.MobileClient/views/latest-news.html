@@ -1,0 +1,24 @@
+<div id="home-view"
+     data-role="view"
+     data-id="home-view"
+     data-layout="main-layout"
+     data-title="Home"
+     data-show="app.news.getLatest"
+     data-transition="slide">
+    <h1>Latest news</h1>
+    <ul id="latest-news" data-role="listview" data-style="inset"></ul>
+</div>
+
+<script type="text/x-kendo-template" id="newsTemplate">
+    <a data-id="${id}" data-click="getDetails" data-role="button">${title} ${category} ${date}</a>
+</script>
+
+
+<script>
+    function getDetails(ev) {
+        ev.preventDefault();
+
+        var id = this.element.data("id");
+        app.news.details(id);
+    }
+</script>

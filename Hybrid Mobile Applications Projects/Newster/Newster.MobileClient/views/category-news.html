@@ -1,0 +1,32 @@
+<div id="category-news-view"
+     data-id="category-news-view"
+     data-role="view"
+     data-transition="slide"
+     data-title="News in category"
+     data-layout="categories-layout"
+     data-show="initializeCategoryNews">
+    <h1 id="category-news-heading"></h1>
+    <ul id="category-news" data-role="listview" data-style="inset"></ul>
+    <div id="no-news-message">No news for this category!</div>
+</div>
+
+<script type="text/x-kendo-template" id="categoryNewsTemplate" data-model="app.categories.currentCategory.news">
+    <a data-id="${id}" data-click="getDetails" data-role="button">${title} ${date}</a>
+</script>
+
+<script>
+    function initializeCategoryNews() {
+        var selectedCategory = app.categories.selectedCategory;
+        $("#category-news-heading").html("News in category: " + selectedCategory.name);
+        if (selectedCategory.news.length > 0) {
+            $("#no-news-message").hide();
+        } else {
+            $("#no-news-message").show();
+        }
+
+        $("#category-news").kendoMobileListView({
+            dataSource: selectedCategory.news,
+            template: $("#categoryNewsTemplate").html()
+        });
+    }
+</script>
