@@ -153,7 +153,7 @@ window.dataPersisters = (function () {
                 throw "Category name cannot be null or empty!";
             }
 
-            if (categoryName.length() > 200) {
+            if (categoryName.length > 200) {
                 throw "Category name cannot be more than 200 characters long!";
             }
 
@@ -207,7 +207,7 @@ window.dataPersisters = (function () {
                 throw "News title cannot be null or empty!";
             }
 
-            if (title.length() > 100) {
+            if (title.length > 100) {
                 throw "News title cannot be more than 100 characters long!";
             }
 

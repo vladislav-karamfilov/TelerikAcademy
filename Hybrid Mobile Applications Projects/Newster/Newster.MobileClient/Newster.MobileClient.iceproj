@@ -147,9 +147,6 @@
     <Content Include="scripts\libs\rsvp.min.js">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="scripts\location.js">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="scripts\login.js">
       <SubType>Content</SubType>
     </Content>

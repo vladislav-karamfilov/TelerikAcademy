@@ -18,22 +18,27 @@
         votes: 0,
 
         _createNews: function () {
-            var self = this;
-            data.news.create(
-                self.get("title"),
-                self.get("content"),
-                self.get("imageUrl"),
-                self.get("categoryId"),
-                self.get("latitude"),
-                self.get("longitude"))
-            .then(function () {
-                navigator.notification.alert("A news created successfully!", function () {
-                    navigator.application.navigate("all-news.html#all-news-view");
-                }, "Successfully created news", "OK");
-            }, function (errorData) {
+            try {
+                var self = this;
+                data.news.create(
+                    self.get("title"),
+                    self.get("content"),
+                    self.get("imageUrl"),
+                    self.get("categoryId"),
+                    self.get("latitude"),
+                    self.get("longitude"))
+                .then(function () {
+                    navigator.notification.alert("A news created successfully!", function () {
+                        app.application.navigate("views/all-news.html#all-news-view");
+                    }, "Successfully created news", "OK");
+                }, function (errorData) {
+                    navigator.notification.vibrate(100);
+                    navigator.notification.alert(errorData.responseText, function () { }, "Creating a news failed", 'OK');
+                });
+            } catch (ex) {
                 navigator.notification.vibrate(100);
-                navigator.notification.alert(errorData.responseText, function () { }, "Creating a news failed", 'OK');
-            });
+                navigator.notification.alert(ex, function () { }, "Creating a news failed", 'OK');
+            }
         },
 
         create: function () {
