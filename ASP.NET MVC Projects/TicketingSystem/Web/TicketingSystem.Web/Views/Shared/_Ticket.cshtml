@@ -1,0 +1,17 @@
+﻿@model TicketingSystem.Web.ViewModels.Home.DisplayTicketViewModel
+
+<div class="col-md-4">
+    <h2>@Model.Title</h2>
+    <div>
+        <strong>Category:</strong> @Model.Category
+    </div>
+    <div>
+        <strong>Author:</strong> @Model.Author
+    </div>
+    <div>
+        @Model.CommentsCount comment(s)
+    </div>
+    <div>
+        @Html.ActionLink("More details...", "Details", "Tickets", new { id = Model.Id, area = string.Empty }, new { @class = "btn btn-default" })
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@using TicketingSystem.Common
+
+@model HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+    var exception = Model.Exception.InnerException;
+}
+
+<div class="container">
+    <hgroup>
+        <h1 class="text-error">An error occurred while processing your request...</h1>
+
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <h2 class="text-error">@Model.Exception.Message</h2>
+        }
+    </hgroup>
+
+    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+        <pre>@Model.Exception.ToString()</pre>
+
+        while (exception != null)
+        {
+            <h3>@exception.Message</h3>
+            <pre>@exception.ToString()</pre>
+            exception = exception.InnerException;
+        }
+
+        <p>Controller name: @Model.ControllerName</p>
+        <p>Action name: @Model.ActionName</p>
+    }
+    
+    @Html.ActionLink("Back to home", "Index", new { controller = "Home", area = string.Empty })
+</div>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="56daa7d6-83e5-4f01-854a-c7492daf4f4d" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>Required introduction</para>
+    </introduction>
+    <section address="Section1">
+      <title>Optional section title</title>
+      <content>
+        <para>Add one or more sections with content.</para>
+      </content>
+      <sections>
+        <section address="SubSection1">
+          <title>Sub-section 1</title>
+          <content>
+            <para>Sub-section content.</para>
+          </content>
+        </section>
+        <section address="SubSection2">
+          <title>Sub-section 2</title>
+          <content>
+            <para>Sub-section content.</para>
+            <list class="bullet">
+              <listItem>
+                <para>Item 1</para>
+              </listItem>
+              <listItem>
+                <para>Item 2</para>
+              </listItem>
+              <listItem>
+                <para>Item 3</para>
+              </listItem>
+            </list >
+          </content>
+        </section>
+      </sections>
+    </section>
+    <relatedTopics>
+      <externalLink>
+        <linkText> Sandcastle Styles</linkText>
+        <linkAlternateText> Visit Sandcastle Styles</linkAlternateText>
+        <linkUri>http://www.codeplex.com/SandcastleStyles</linkUri>
+        <linkTarget>_blank</linkTarget>
+      </externalLink>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

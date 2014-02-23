@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Comments";
+}
+
+<h2>@ViewBag.Title administration</h2>
+
+@(Html.Kendo().Grid<TicketingSystem.Web.Areas.Administration.ViewModels.Comments.GridCommentViewModel>()
+    .Name("DataGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(col => col.Id);
+        columns.Bound(col => col.Author);
+        columns.Bound(col => col.Ticket);
+        columns.Bound(col => col.Content);
+        columns.Command(command => command.Edit().Text(" ").UpdateText("Update").CancelText("Cancel")).Width(80);
+        columns.Command(command => command.Destroy().Text(" ")).Width(80);
+    })
+    .Editable(editable =>
+    {
+        editable.Mode(GridEditMode.PopUp);
+        editable.Window(w =>
+        {
+            w.Title(ViewBag.Title);
+            w.Width(450);
+        });
+        editable.DisplayDeleteConfirmation("Do you really want to delete the item?");
+    })
+    .ColumnMenu()
+    .Pageable(x => x.Refresh(true))
+    .Sortable(x => x.Enabled(true).AllowUnsort(false))
+    .Filterable(x => x.Enabled(true))
+    .Groupable(x => x.Enabled(true))
+    .Reorderable(x => x.Columns(true))
+    .Resizable(x => x.Columns(true))
+    .DataSource(datasource => datasource
+        .Ajax()
+        .ServerOperation(true)
+        .Model(model => model.Id(m => m.Id))
+        .Sort(sort => sort.Add(x => x.Id).Descending())
+        .Read(read => read.Action("Read", "Comments", new { area = "Administration" }))
+        .Update(update => update.Action("Update", "Comments", new { area = "Administration" }))
+        .Destroy(destroy => destroy.Action("Destroy", "Comments", new { area = "Administration" }))
+    )
+)

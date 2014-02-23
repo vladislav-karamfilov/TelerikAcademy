@@ -1,0 +1,72 @@
+﻿@model TicketingSystem.Web.ViewModels.Tickets.TicketInputViewModel
+
+@{
+    ViewBag.Title = "Add ticket";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<h1>Ticketing System</h1>
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "Tickets", new { area = string.Empty }, FormMethod.Post, new { role = "form", id = "create-ticket-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.CategoryId)
+                @Html.ValidationMessageFor(model => model.CategoryId, null, new { @class = "block-validation-message" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriorityId, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.PriorityId)
+                @Html.ValidationMessageFor(model => model.PriorityId, null, new { @class = "block-validation-message" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ScreenshotUrl, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ScreenshotUrl)
+                @Html.ValidationMessageFor(model => model.ScreenshotUrl)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Description)
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-2">
+                <input id="submit-create-ticket-btn" type="submit" value="Add ticket" class="btn btn-default" />
+            </div>
+        </div>
+    </fieldset>
+}
+
+<script>
+    $(function () {
+        $.validator.setDefaults({ ignore: '' });
+    })
+</script>

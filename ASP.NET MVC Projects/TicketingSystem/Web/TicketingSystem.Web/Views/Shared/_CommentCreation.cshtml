@@ -1,0 +1,28 @@
+﻿@model TicketingSystem.Web.ViewModels.Tickets.TicketCommentInputViewModel
+
+@using (Ajax.BeginForm(
+        "Comment",
+        "Tickets",
+        new { area = string.Empty },
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.InsertAfter,
+            UpdateTargetId = "ticket-comments-container",
+            OnComplete = "onCommentComplete"
+        },
+        new { id = "new-ticket-comment-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.TicketId)
+
+    <div class="form-group">
+        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = 5, placeholder = "Comment..." })
+        @Html.ValidationMessageFor(model => model.Content)
+        
+        <span id="ticket-comment-errors" class="field-validation-error"></span>
+    </div>
+
+    <input type="submit" class="btn btn-default" value="Comment" />
+}

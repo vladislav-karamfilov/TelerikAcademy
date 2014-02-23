@@ -1,0 +1,70 @@
+﻿@using TicketingSystem.Web.ViewModels.Tickets
+
+@model TicketDetailsViewModel
+
+@{
+    ViewBag.Title = "Ticket details";
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<h1>Ticketing System</h1>
+
+<h2>@Model.Title</h2>
+
+<h3>@Model.Category</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <strong>Author:</strong> @Model.Author
+        </div>
+        <div>
+            <strong>Priority:</strong> @Model.Priority
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ScreenshotUrl))
+    {
+        <div class="col-md-4">
+            <img class="ticket-screenshot" src="@Model.ScreenshotUrl" alt="@Model.Title" />
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.Description))
+    {
+        <div class="col-md-4">
+            <strong>Description:</strong> @Model.Description
+        </div>
+    }
+</div>
+
+<div id="ticket-comments-container">
+    @Html.DisplayFor(model => model.Comments)
+</div>
+
+@if (this.User.Identity.IsAuthenticated)
+{
+    Html.RenderPartial("_CommentCreation", new TicketCommentInputViewModel { TicketId = Model.Id });
+}
+
+<script>
+    function onCommentComplete(data) {
+        var ticketCommentErrorsContainer = $('#ticket-comment-errors');
+        var errorMessage = null;
+        if (data.responseJSON) {
+            errorMessage = data.responseJSON.errorMessage;
+        }
+
+        if (errorMessage) {
+            ticketCommentErrorsContainer.html(errorMessage);
+            ticketCommentErrorsContainer.show();
+        } else {
+            $('#new-ticket-comment-form textarea#Content').val('');
+            ticketCommentErrorsContainer.hide();
+        }
+    }
+</script>

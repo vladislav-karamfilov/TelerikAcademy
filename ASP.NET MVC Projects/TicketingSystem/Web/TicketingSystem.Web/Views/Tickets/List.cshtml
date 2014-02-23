@@ -1,0 +1,91 @@
+﻿@using System.Collections
+@{
+    ViewBag.Title = "All tickets";
+}
+
+<h1>Ticketing System</h1>
+
+<h2>@ViewBag.Title</h2>
+
+<div id="tickets-search-by-category-container">
+    <div>
+        <label for="categories-dropdownlist">Search by category</label>
+    </div>
+
+    @(Html.Kendo().DropDownList()
+          .Name("categories-dropdownlist")
+          .DataValueField("Id")
+          .DataTextField("Name")
+          .OptionLabel("Select category")
+          .Events(ev => ev.Change("onCategoryChange"))
+          .BindTo((IEnumerable)this.ViewBag.CategoriesData))
+</div>
+
+<div id="tickets-listview-container">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Title</h3>
+        </div>
+        <div class="col-md-3">
+            <h3>Category</h3>
+        </div>
+        <div class="col-md-2">
+            <h3>Author</h3>
+        </div>
+        <div class="col-md-2">
+            <h3>Priority</h3>
+        </div>
+        <div class="col-md-2">
+            <h3>Commands</h3>
+        </div>
+    </div>
+
+    @(Html.Kendo().ListView<TicketingSystem.Web.ViewModels.Tickets.TicketListItemViewModel>()
+          .Name("tickets-listview")
+          .TagName("div")
+          .ClientTemplateId("tickets-listview-template")
+          .Pageable()
+          .DataSource(dataSource =>
+          {
+              dataSource.Read(r => r.Action("Read", "Tickets", new { area = string.Empty }).Type(HttpVerbs.Get));
+              dataSource.ServerOperation(true);
+              dataSource.PageSize(5);
+          }))
+</div>
+
+<script type="text/x-kendo-template" id="tickets-listview-template">
+    <div class="row">
+        <div class="col-md-3 black-text">
+            <h4>#: Title #</h4>
+        </div>
+        <div class="col-md-3 black-text">
+            <h4>#: Category #</h4>
+        </div>
+        <div class="col-md-2 black-text">
+            <h4>#: Author #</h4>
+        </div>
+        <div class="col-md-2 black-text">
+            <h4>#: Priority #</h4>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-default" href="/Tickets/Details/#= Id #">Details...</a>
+        </div>
+    </div>
+</script>
+
+<script>
+    function onCategoryChange() {
+        var ticketsListView = $('#tickets-listview').data('kendoListView');
+        var selectedCategoryId = this.dataItem().get('Id');
+        var categoryFilter = {};
+        if (selectedCategoryId) {
+            categoryFilter = {
+                field: 'CategoryId',
+                operator: 'eq',
+                value: selectedCategoryId
+            };
+        }
+
+        ticketsListView.dataSource.filter(categoryFilter);
+    }
+</script>

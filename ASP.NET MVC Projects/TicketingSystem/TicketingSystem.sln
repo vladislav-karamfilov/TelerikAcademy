@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{2348FB80-37B8-420F-9880-C355FA1F5AC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{799267FA-D552-4445-A874-68262EA866C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libraries", "External Libraries", "{7F97D276-864E-4364-B43C-4D6CE0B784C1}"
+	ProjectSection(SolutionItems) = preProject
+		External Libraries\Kendo.Mvc.dll = External Libraries\Kendo.Mvc.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.Data", "Data\TicketingSystem.Data\TicketingSystem.Data.csproj", "{20222211-BDA2-499C-AE9F-D5857EBE70F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.Data.Models", "Data\TicketingSystem.Data.Models\TicketingSystem.Data.Models.csproj", "{73DC232D-1DDB-4DE3-B41D-2626A9136286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.Web", "Web\TicketingSystem.Web\TicketingSystem.Web.csproj", "{8D5A428C-2C14-4CBA-B4DD-670C92598052}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.Common", "TicketingSystem.Common\TicketingSystem.Common.csproj", "{765D8508-C63A-4238-8367-1CDDE6EB09A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4817902F-F421-4C3E-8E28-3C590F5FD923}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20222211-BDA2-499C-AE9F-D5857EBE70F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20222211-BDA2-499C-AE9F-D5857EBE70F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20222211-BDA2-499C-AE9F-D5857EBE70F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20222211-BDA2-499C-AE9F-D5857EBE70F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73DC232D-1DDB-4DE3-B41D-2626A9136286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73DC232D-1DDB-4DE3-B41D-2626A9136286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73DC232D-1DDB-4DE3-B41D-2626A9136286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73DC232D-1DDB-4DE3-B41D-2626A9136286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D5A428C-2C14-4CBA-B4DD-670C92598052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5A428C-2C14-4CBA-B4DD-670C92598052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D5A428C-2C14-4CBA-B4DD-670C92598052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D5A428C-2C14-4CBA-B4DD-670C92598052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{765D8508-C63A-4238-8367-1CDDE6EB09A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{765D8508-C63A-4238-8367-1CDDE6EB09A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{765D8508-C63A-4238-8367-1CDDE6EB09A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{765D8508-C63A-4238-8367-1CDDE6EB09A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{20222211-BDA2-499C-AE9F-D5857EBE70F3} = {2348FB80-37B8-420F-9880-C355FA1F5AC1}
+		{73DC232D-1DDB-4DE3-B41D-2626A9136286} = {2348FB80-37B8-420F-9880-C355FA1F5AC1}
+		{8D5A428C-2C14-4CBA-B4DD-670C92598052} = {799267FA-D552-4445-A874-68262EA866C2}
+	EndGlobalSection
+EndGlobal

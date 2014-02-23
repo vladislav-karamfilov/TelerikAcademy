@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="143d9590-0dcf-46a1-a710-d8c1558903b1" Title="Conceptual" Url="html/48b3b8a3-fd64-4607-b3ca-4dd108532d63.htm">
+    <HelpTOCNode Title="FirstChild" Url="html/e388e281-5690-4c17-80b4-c4c633d201fb.htm" />
+    <HelpTOCNode Title="SecondChild" Url="html/56daa7d6-83e5-4f01-854a-c7492daf4f4d.htm" />
+    <HelpTOCNode Title="ThirdChildTopic" Url="html/c537ab62-ed3d-4827-a77e-0a495902a1a8.htm" />
+  </HelpTOCNode>
+  <HelpTOCNode Id="6449d00d-0547-41ed-acc5-6d0661ad8f6e" Title="GenericList.Data Namespace" Url="html/ba664f42-a796-ba96-43d0-e5e8b4bb8de0.htm">
+    <HelpTOCNode Id="acd6ad51-aaba-4b54-beae-7bf8a4723d23" Title="GenericList(T) Class" Url="html/74205cfa-81d1-71c9-f152-116ea07a6979.htm">
+      <HelpTOCNode Title="GenericList(T) Members" Url="html/3b8d00e4-7bce-64be-f84c-00adf44ad5b6.htm" />
+      <HelpTOCNode Id="4b1adbb9-2c73-4bea-8091-ed90f1094d77" Title="GenericList(T) Constructor " Url="html/d4841a4e-d2cc-9ca7-9f8d-8b89ff706d14.htm">
+        <HelpTOCNode Title="GenericList(T) Constructor " Url="html/fd6ed887-5a00-8fcc-f179-5f06421e46aa.htm" />
+        <HelpTOCNode Title="GenericList(T) Constructor (Int32)" Url="html/31a68a5f-2d1c-7116-2b0f-97533a30b1db.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="12c5f576-ef77-4923-b5cc-913f7beaa4c6" Title="GenericList(T) Methods" Url="html/0d01df00-afc8-f898-5cd0-6757345f2621.htm">
+        <HelpTOCNode Title="Add Method " Url="html/773cf872-7ffa-179c-d934-409e56384f0f.htm" />
+        <HelpTOCNode Title="Clear Method " Url="html/e9aa52b5-fedb-db01-9331-f3e47407d586.htm" />
+        <HelpTOCNode Title="IndexOf Method " Url="html/4e80259f-56a3-6183-0bb5-1fd75d664751.htm" />
+        <HelpTOCNode Title="InsertAt Method " Url="html/e014790d-3c59-f021-a5e1-7c1ed05d7581.htm" />
+        <HelpTOCNode Title="RemoveAt Method " Url="html/ee04643a-f0c3-f74f-69d9-ef0432cdafa0.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/73cd647e-b3e5-350a-df1f-7505bd9588fa.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="42c8f585-57ea-42e9-a584-0c211c954e9b" Title="GenericList(T) Properties" Url="html/7467c069-3696-d55c-62d0-6d89e1a891d3.htm">
+        <HelpTOCNode Title="Capacity Property " Url="html/af3f75fc-8e8a-83ec-d0e7-a175dd6dd969.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/7d0e099c-bc6d-5b84-e7be-12c27e51bb2c.htm" />
+        <HelpTOCNode Title="Item Property " Url="html/2b9dbc20-8d05-1a8b-d71e-a525cea8f9e1.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>

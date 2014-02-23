@@ -1,0 +1,17 @@
+﻿@model string
+           
+@{
+    var placeholder = string.Empty;
+    if (this.ViewData.ModelMetadata.AdditionalValues.ContainsKey("placeholder"))
+    {
+        placeholder = this.ViewData.ModelMetadata.AdditionalValues["placeholder"] as string;
+    }
+
+    var htmlAttributes = new
+    {
+        placeholder = placeholder,
+        @class = "form-control",
+    };
+}
+
+@Html.TextBoxFor(model => model, htmlAttributes)
