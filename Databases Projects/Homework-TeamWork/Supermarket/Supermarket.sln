@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Client", "Supermarket.UI\Supermarket.Client.csproj", "{C8BEEC16-C458-4BF4-9636-BE8FE44BD07C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Model.MySQL", "Supermarket.Model.MySQL\Supermarket.Model.MySQL.csproj", "{C50145E6-A244-4F1F-B41F-90D1925B4A00}"
@@ -13,31 +15,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Model.Mongo", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.Model.SQLite", "Supermarket.Model.SQLite\Supermarket.Model.SQLite.csproj", "{6159CB12-E960-4FCB-B7DD-8729CAFF50FF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0E752D88-0203-4EBA-939D-1E817C2E80D6}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://vladislav-karamfilov.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Supermarket.Model.MySQL\\Supermarket.Model.MySQL.csproj
-		SccProjectName1 = Supermarket.Model.MySQL
-		SccLocalPath1 = Supermarket.Model.MySQL
-		SccProjectUniqueName2 = Supermarket.Models\\Supermarket.Models.csproj
-		SccProjectName2 = Supermarket.Models
-		SccLocalPath2 = Supermarket.Models
-		SccProjectUniqueName3 = Supermarket.Data\\Supermarket.Data.csproj
-		SccProjectName3 = Supermarket.Data
-		SccLocalPath3 = Supermarket.Data
-		SccProjectUniqueName4 = Supermarket.UI\\Supermarket.Client.csproj
-		SccProjectName4 = Supermarket.UI
-		SccLocalPath4 = Supermarket.UI
-		SccProjectUniqueName5 = Supermarket.Model.MongoDB\\Supermarket.Model.Mongo.csproj
-		SccProjectName5 = Supermarket.Model.MongoDB
-		SccLocalPath5 = Supermarket.Model.MongoDB
-		SccProjectUniqueName6 = Supermarket.Model.SQLite\\Supermarket.Model.SQLite.csproj
-		SccProjectName6 = Supermarket.Model.SQLite
-		SccLocalPath6 = Supermarket.Model.SQLite
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

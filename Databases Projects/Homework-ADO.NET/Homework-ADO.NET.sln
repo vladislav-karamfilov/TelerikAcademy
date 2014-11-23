@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. NumberOfRowsInCategoriesTable", "NumberOfRowsInCategoriesTable\01. NumberOfRowsInCategoriesTable.csproj", "{7C368D80-23AF-4851-AECF-7F041213A756}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. CategoriesNamesAndDescriptions", "CategoriesNamesAndDescriptions\02. CategoriesNamesAndDescriptions.csproj", "{9B65E6C6-1BC7-4A28-8244-CEBECC76BCD4}"
@@ -20,6 +22,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09. MySQLBooksDBManipulation", "MySQLBooksDBManipulation\09. MySQLBooksDBManipulation.csproj", "{1AB8CD3A-B166-4DF5-B766-CFC94AF3CA95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10. SQLiteBooksDBManipulation", "SQLiteBooksDBManipulation\10. SQLiteBooksDBManipulation.csproj", "{5883D7F4-615B-442D-B376-3937690440FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{57B0AB24-FA0B-4A00-AD1E-606E541EE8AC}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

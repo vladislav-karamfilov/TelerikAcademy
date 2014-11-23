@@ -1,13 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20617.1 PREVIEW
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. MoneyRetrievalFromATM", "MoneyRetrievalFromATMMachine\2. MoneyRetrievalFromATM.csproj", "{0D37DEC5-0077-4F28-B6B5-8ADCFE4ED0EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATMMachine.Data", "ATMMachine.Data\ATMMachine.Data.csproj", "{B9A7A770-CF20-47AC-AF22-AF61A3B83F87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. MoneyRetrievalFromATMKeepingLog", "MoneyRetrievalFromATMKeepingLog\3. MoneyRetrievalFromATMKeepingLog.csproj", "{5BCC5216-D186-4B34-8E14-A4796871830A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E2ABAB32-0EE0-43C0-8E6F-8440CDD8C606}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

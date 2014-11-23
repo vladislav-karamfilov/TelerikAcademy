@@ -8,7 +8,7 @@
     class CreatePeopleXMLFileUI
     {
         const string PeopleInfoTextFilePath = "../../people-info.txt";
-        const string PeopleInfoXmlFIlePaht = "../../people.xml";
+        const string PeopleInfoXmlFilePath = "../../people.xml";
 
         static void Main()
         {
@@ -23,7 +23,7 @@
 
         static void CreatePeopleXMLFile()
         {
-            using (XmlTextWriter writer = new XmlTextWriter(PeopleInfoXmlFIlePaht, Encoding.UTF8))
+            using (XmlTextWriter writer = new XmlTextWriter(PeopleInfoXmlFilePath, Encoding.UTF8))
             {
                 writer.Formatting = Formatting.Indented;
                 writer.IndentChar = '\t';

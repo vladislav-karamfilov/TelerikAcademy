@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20617.1 PREVIEW
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. Northwind.Data", "Northwind.Data\01. Northwind.Data.csproj", "{033F5692-74D0-46C5-83C6-00CDE1039A18}"
 EndProject
@@ -20,6 +20,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10. GetTotalIncomesBySupplierNameAndPeriod", "GetTotalIncomesBySupplierNameAndPeriod\10. GetTotalIncomesBySupplierNameAndPeriod.csproj", "{604F9723-A6B2-433E-98A3-499200FFD080}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11. AddingNewUserWithTransaction", "AddingNewUserWithTransaction\11. AddingNewUserWithTransaction.csproj", "{655366D9-BA7B-491B-8638-FF3925867874}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0F501FEF-D747-470A-8CEB-15B00270FF3C}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
