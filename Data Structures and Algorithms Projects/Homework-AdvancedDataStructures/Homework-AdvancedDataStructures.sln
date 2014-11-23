@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. ProductsInRangeFinder", "2. ProductsInRangeFinder\2. ProductsInRangeFinder.csproj", "{437DB984-A1E2-4341-AE1B-E30B89E58E11}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. PriorityQueueImplementation", "1. PriorityQueueImplementation", "{A0416463-1B45-4150-9217-38EB26D32C4F}"
@@ -12,6 +14,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriorityQueue.Tests", "1. PriorityQueueImplementation\PriorityQueue.Tests\PriorityQueue.Tests.csproj", "{05AAEE0B-9F93-4FD8-8CA2-D7FA8B75E42B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. WordsOccurrencesFinder", "3. WordsOccurrencesFinder\3. WordsOccurrencesFinder.csproj", "{8338B60B-E0F4-4C44-B2AE-572D7353A367}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E5070101-213F-4CDE-AF01-CC46120BA806}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
