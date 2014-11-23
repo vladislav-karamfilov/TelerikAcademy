@@ -1,17 +1,17 @@
 ﻿namespace CarRentalSystem.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Linq;
     using System.Web.Http;
+    using System.Web.Http.ValueProviders;
+
     using CarRentalSystem.Data;
     using CarRentalSystem.DataMappers;
     using CarRentalSystem.DataTransferObjects;
-    using CarRentalSystem.Models;
-    using System.Web.Http.ValueProviders;
     using CarRentalSystem.Headers;
+    using CarRentalSystem.Models;
     using CarRentalSystem.Validators;
 
     public class CarStoresController : BaseApiController
@@ -25,25 +25,24 @@
         { }
 
         [HttpGet, ActionName("all")]
-        public IQueryable<CarStoreModel> All([FromUri]double latitude, [FromUri]double longitude,
+        public IQueryable<CarStoreModel> All(
+            [FromUri]double latitude, 
+            [FromUri]double longitude,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
-            var allCarStores = this.PerformOperation<IQueryable<CarStoreModel>>(() =>
+            var allCarStores = this.PerformOperation(() =>
             {
                 UserValidator.ValidateSessionKey(sessionKey);
 
                 using (var context = this.ContextFactory.Create())
                 {
-                    var carStoresModels = new List<CarStoreModel>();
                     var carEntities = context.Set<CarStore>()
                         .OrderBy(cst => cst.Latitude - latitude)
-                        .ThenBy(cst => cst.Longitude - longitude);
-                    foreach (var carStoreEntity in carEntities)
-                    {
-                        carStoresModels.Add(CarStoresMapper.ToModel(carStoreEntity));
-                    }
+                        .ThenBy(cst => cst.Longitude - longitude)
+                        .ToList();
+                    var carStoresModels = carEntities.Select(CarStoresMapper.ToModel).AsQueryable();
 
-                    return carStoresModels.AsQueryable<CarStoreModel>();
+                    return carStoresModels;
                 }
             });
 
@@ -51,10 +50,11 @@
         }
 
         [HttpGet, ActionName("all")]
-        public CarStoreModel GetByID(int carStoreId,
+        public CarStoreModel GetByID(
+            int carStoreId,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
-            var carStore = this.PerformOperation<CarStoreModel>(() =>
+            var carStore = this.PerformOperation(() =>
             {
                 UserValidator.ValidateSessionKey(sessionKey);
 
@@ -75,10 +75,11 @@
         }
 
         [HttpGet, ActionName("cars")]
-        public IQueryable<CarModel> GetCars(int carStoreId,
+        public IQueryable<CarModel> GetCars(
+            int carStoreId,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
-            var carsModels = this.PerformOperation<IQueryable<CarModel>>(() =>
+            var carsModels = this.PerformOperation(() =>
             {
                 UserValidator.ValidateSessionKey(sessionKey);
 
@@ -90,14 +91,9 @@
                         throw new InvalidOperationException("Car store with provided ID does not exist!");
                     }
 
-                    var carModels = new List<CarModel>();
-                    var carEntities = carStore.Cars;
-                    foreach (var carEntity in carEntities)
-                    {
-                        carModels.Add(CarsMapper.ToModel(carEntity));
-                    }
+                    var carModels = carStore.Cars.Select(CarsMapper.ToModel).AsQueryable();
 
-                    return carModels.AsQueryable<CarModel>();
+                    return carModels;
                 }
             });
 

@@ -1,7 +1,6 @@
 ﻿namespace CarRentalSystem.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Linq;
@@ -9,6 +8,7 @@
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.ValueProviders;
+
     using CarRentalSystem.Data;
     using CarRentalSystem.DataMappers;
     using CarRentalSystem.DataTransferObjects;
@@ -29,18 +29,14 @@
         [HttpGet, ActionName("all")]
         public IQueryable<CarModel> GetAll()
         {
-            var allCars = this.PerformOperation<IQueryable<CarModel>>(() =>
+            var allCars = this.PerformOperation(() =>
             {
                 using (var context = this.ContextFactory.Create())
                 {
-                    var carModels = new List<CarModel>();
-                    var carEntities = context.Set<Car>().Include("Renter").OrderBy(c => c.Make).ThenBy(c => c.Model);
-                    foreach (var carEntity in carEntities)
-                    {
-                        carModels.Add(CarsMapper.ToModel(carEntity));
-                    }
+                    var carEntities = context.Set<Car>().Include("Renter").OrderBy(c => c.Make).ThenBy(c => c.Model).ToList();
+                    var carModels = carEntities.Select(CarsMapper.ToModel).AsQueryable();
 
-                    return carModels.AsQueryable<CarModel>();
+                    return carModels;
                 }
             });
 
@@ -50,19 +46,23 @@
         [HttpGet, ActionName("all")]
         public CarModel GetByID(int carId)
         {
-            var carModel = this.GetAll().FirstOrDefault(c => c.ID == carId);
-            if (carModel == null)
+            using (var context = this.ContextFactory.Create())
             {
-                var errorResponse = this.Request.CreateErrorResponse(
-                    HttpStatusCode.NotFound, "Car with provided ID does not exist!");
-                throw new HttpResponseException(errorResponse);
-            }
+                var carEntity = context.Set<Car>().Find(carId);
+                if (carEntity == null)
+                {
+                    var errorResponse = this.Request.CreateErrorResponse(
+                        HttpStatusCode.NotFound, "Car with provided ID does not exist!");
+                    throw new HttpResponseException(errorResponse);
+                }
 
-            return carModel;
+                return CarsMapper.ToModel(carEntity);
+            }
         }
 
         [HttpPut, ActionName("rent")]
-        public HttpResponseMessage RentCar(int carId,
+        public HttpResponseMessage RentCar(
+            int carId,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
             var responseMessage = this.PerformOperation(() =>
@@ -95,7 +95,8 @@
         }
 
         [HttpPut, ActionName("return")]
-        public HttpResponseMessage ReturnCar(int carId,
+        public HttpResponseMessage ReturnCar(
+            int carId,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
             var responseMessage = this.PerformOperation(() =>
@@ -128,19 +129,31 @@
         }
 
         [HttpGet]
-        public IQueryable<CarModel> GetCarsPage([FromUri]int page, [FromUri]int count,
+        public IQueryable<CarModel> GetCarsPage(
+            [FromUri]int page,
+            [FromUri]int count,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
-            UserValidator.ValidateSessionKey(sessionKey);
+            var cars = this.PerformOperation(() =>
+            {
+                UserValidator.ValidateSessionKey(sessionKey);
 
-            return this.GetAll().Skip(page * count).Take(count);
+                using (var context = this.ContextFactory.Create())
+                {
+                    var carEntities = context.Set<Car>().OrderBy(x => x.Make).Skip(page * count).Take(count).ToList();
+                    var carModels = carEntities.Select(CarsMapper.ToModel).AsQueryable();
+                    return carModels;
+                }
+            });
+
+            return cars;
         }
 
         [HttpGet, ActionName("rented")]
         public IQueryable<CarModel> GetMyRentedCars(
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
-            var rentedCars = this.PerformOperation<IQueryable<CarModel>>(() =>
+            var rentedCars = this.PerformOperation(() =>
             {
                 UserValidator.ValidateSessionKey(sessionKey);
 
@@ -152,14 +165,10 @@
                         throw new InvalidOperationException("Invalid username or password!");
                     }
 
-                    var rentedCarModels = new List<CarModel>();
-                    var rentedCarEntities = context.Set<Car>().Where(c => c.Renter.DisplayName == user.DisplayName);
-                    foreach (var carEntity in rentedCarEntities)
-                    {
-                        rentedCarModels.Add(CarsMapper.ToModel(carEntity));
-                    }
+                    var rentedCarEntities = context.Set<Car>().Where(c => c.Renter.DisplayName == user.DisplayName).ToList();
+                    var rentedCarModels = rentedCarEntities.Select(CarsMapper.ToModel).AsQueryable();
 
-                    return rentedCarModels.AsQueryable<CarModel>();
+                    return rentedCarModels;
                 }
             });
 

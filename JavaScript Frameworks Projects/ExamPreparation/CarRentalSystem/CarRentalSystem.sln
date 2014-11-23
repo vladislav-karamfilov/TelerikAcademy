@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.Models", "CarRentalSystem.Models\CarRentalSystem.Models.csproj", "{FFAA28B6-AD16-489D-B8B7-301BB4C5964E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.Data", "CarRentalSystem.Data\CarRentalSystem.Data.csproj", "{CA981FD5-8C07-49D6-B997-A7FF0CFB4570}"
@@ -8,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem", "CarRentalSystem\CarRentalSystem.csproj", "{75F5B2EE-93D0-45E8-89EF-DAED0A73611B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.DataTransferObjects", "CarRentalSystem.DataTransferObjects\CarRentalSystem.DataTransferObjects.csproj", "{BB9610DD-FC70-4110-A34C-4E0E69B45A16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B3E7DDDB-86DD-4FF9-AE23-C710EE593164}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

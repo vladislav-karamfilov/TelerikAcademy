@@ -8,6 +8,7 @@
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.ValueProviders;
+
     using CarRentalSystem.Data;
     using CarRentalSystem.DataMappers;
     using CarRentalSystem.DataTransferObjects;
@@ -28,7 +29,7 @@
         [HttpPost, ActionName("register")]
         public HttpResponseMessage RegisterUser([FromBody]UserRegisterModel user)
         {
-            HttpResponseMessage responseMessage = this.PerformOperation(() =>
+            var responseMessage = this.PerformOperation(() =>
             {
                 UserValidator.ValidateUsername(user.Username);
                 UserValidator.ValidateDisplayName(user.DisplayName);
@@ -36,21 +37,21 @@
 
                 using (var context = this.ContextFactory.Create())
                 {
-                    User exstingUserEntity = context.Set<User>().FirstOrDefault(
-                        u => u.Username == user.Username.ToLower() || u.DisplayName.ToLower() == user.DisplayName.ToLower());
-                    if (exstingUserEntity != null)
+                    var existingUserEntity = context.Set<User>().FirstOrDefault(
+                        u => u.Username.ToLower() == user.Username.ToLower() || u.DisplayName.ToLower() == user.DisplayName.ToLower());
+                    if (existingUserEntity != null)
                     {
                         throw new InvalidOperationException("User already exists!");
                     }
 
-                    User newUserEntity = UsersMapper.ToEntity(user);
+                    var newUserEntity = UsersMapper.ToEntity(user);
                     context.Set<User>().Add(newUserEntity);
                     context.SaveChanges();
 
                     newUserEntity.SessionKey = UserValidator.GenerateSessionKey(newUserEntity.ID);
                     context.SaveChanges();
 
-                    UserLoggedModel loggedUser = UsersMapper.ToModel(newUserEntity);
+                    var loggedUser = UsersMapper.ToModel(newUserEntity);
                     return this.Request.CreateResponse(HttpStatusCode.Created, loggedUser);
                 }
             });
@@ -61,7 +62,7 @@
         [HttpPost, ActionName("login")]
         public HttpResponseMessage LoginUser([FromBody]UserLoginModel user)
         {
-            HttpResponseMessage responseMessage = this.PerformOperation(() =>
+            var responseMessage = this.PerformOperation(() =>
             {
                 UserValidator.ValidateUsername(user.Username);
                 UserValidator.ValidateAuthenticationCode(user.AuthCode);
@@ -78,7 +79,7 @@
                     userEntity.SessionKey = UserValidator.GenerateSessionKey(userEntity.ID);
                     context.SaveChanges();
 
-                    UserLoggedModel loggedUser = UsersMapper.ToModel(userEntity);
+                    var loggedUser = UsersMapper.ToModel(userEntity);
                     return this.Request.CreateResponse(HttpStatusCode.Created, loggedUser);
                 }
             });
@@ -90,7 +91,7 @@
         public HttpResponseMessage LogoutUser(
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))]string sessionKey)
         {
-            HttpResponseMessage responseMessage = this.PerformOperation(() =>
+            var responseMessage = this.PerformOperation(() =>
             {
                 UserValidator.ValidateSessionKey(sessionKey);
 

@@ -104,7 +104,7 @@
 
         public static string GenerateSessionKey(int userID)
         {
-            StringBuilder sessionKey = new StringBuilder(SessionKeyLength);
+            var sessionKey = new StringBuilder(SessionKeyLength);
             sessionKey.Append(userID);
             while (sessionKey.Length < SessionKeyLength)
             {

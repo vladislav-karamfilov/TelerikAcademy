@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Data
 {
     using System.Data.Entity;
+
     using CarRentalSystem.Models;
 
     public class CarRentalSystemContext : DbContext
