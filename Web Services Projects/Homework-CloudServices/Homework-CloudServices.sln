@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.IronMQApp", "01.IronMQApp\01.IronMQApp.csproj", "{B2F258DD-4EF1-4830-8603-924158516827}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.IronMQReciever", "01.IronMQReciever\01.IronMQReciever.csproj", "{6CB6A3C0-9FAD-458E-BB5A-B7A1A78AFD0F}"
@@ -8,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.PubNub", "02.PubNub\02.PubNub.csproj", "{44B34179-D071-4449-A41C-AFDB7D609F42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.SharePhotoAlbum", "03.SharePhotoAlbum\03.SharePhotoAlbum.csproj", "{6EF2DD59-F385-4F2C-AF54-44EE0188D8D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A87BCD00-8BFF-4273-AA0E-DAAE3CFB3243}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

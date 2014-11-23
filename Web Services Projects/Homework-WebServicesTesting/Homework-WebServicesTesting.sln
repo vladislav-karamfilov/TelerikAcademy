@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolsSystem.Models", "SchoolsSystem.Models\SchoolsSystem.Models.csproj", "{2A04D44F-BD1D-4E1C-9E4F-E4626887B58B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolsSystem.Data", "SchoolsSystem.Data\SchoolsSystem.Data.csproj", "{FE0A95EA-4FD7-453C-AB00-BA8F5A7036CE}"
@@ -16,6 +18,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolsSystem.Repositories.Tests", "SchoolsSystem.Repositories.Tests\SchoolsSystem.Repositories.Tests.csproj", "{56BB589F-EC16-4B45-92A6-43D34C3B08F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolsSystem.Services.IntegrationTests", "SchoolsSystem.Services.IntegrationTests\SchoolsSystem.Services.IntegrationTests.csproj", "{F35C15C5-CBB3-49D9-BF7D-973C85126538}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C2A5A429-1405-4D61-A1F5-3D1592200D3A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

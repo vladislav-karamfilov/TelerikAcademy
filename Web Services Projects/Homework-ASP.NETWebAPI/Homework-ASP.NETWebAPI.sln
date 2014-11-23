@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Models", "MusicCatalogue.Models\MusicCatalogue.Models.csproj", "{A3C3F586-1006-4C60-8DF1-4B48E479C617}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Data", "MusicCatalogue.Data\MusicCatalogue.Data.csproj", "{1E4D1581-8072-4342-B30F-41DC8AE96553}"
@@ -14,6 +16,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.Repositories", "MusicCatalogue.Repositories\MusicCatalogue.Repositories.csproj", "{FE74A24C-0E16-4130-88E5-2E1EAECA8BDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalogue.DataMappers", "MusicCatalogue.DataMappers\MusicCatalogue.DataMappers.csproj", "{F1AA6F79-3578-4AEE-BD7F-AF1A5643A24E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FCE289D6-B0E0-45B0-83BB-94846B1C6E0A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

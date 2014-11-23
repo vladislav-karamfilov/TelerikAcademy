@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.Models", "TelerikAcademyForum.Models\TelerikAcademyForum.Models.csproj", "{21CABBC6-5A9B-405D-A649-E9F745327141}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.Data", "TelerikAcademyForum.Data\TelerikAcademyForum.Data.csproj", "{DAED4089-BAA1-4B84-A26F-39070C34A7F9}"
@@ -8,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.DataTransferObjects", "TelerikAcademyForum.DataTransferObjects\TelerikAcademyForum.DataTransferObjects.csproj", "{62A73D44-929C-4901-8A2E-DF84013E9386}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAcademyForum.Services", "TelerikAcademyForum.Services\TelerikAcademyForum.Services.csproj", "{D22632D6-1B1A-4CEA-91AA-441E07659F6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0F50CD51-5313-440C-8566-62FABE955889}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
